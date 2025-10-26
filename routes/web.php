@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -19,4 +20,9 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+Route::middleware(['auth'])->group(function () {
+    Route::resource('tickets', TicketController::class);
+});
+
 require __DIR__.'/auth.php';
+

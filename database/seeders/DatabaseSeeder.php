@@ -15,9 +15,43 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        $user = User::create([
+            'name' => 'Orland Benniedict',
+            'role' => 'admin',
+            'email' => 'orlandsayson30@gmail.com',
+            'password' => bcrypt('orlandsayson30'),
+            'profile_photo_path' => 'images/user/orland.jpg',
+            // 'cover_path' => 'images/cover/1745508709861.png',
         ]);
+
+        $this->command->info("Account {$user->email} created successfully.");
+
+        $user2 = User::create([
+            'name' => 'Cmark Aquino',
+            'role' => 'head',
+            'email' => 'cmark@gmail.com',
+            'password' => bcrypt('orlandsayson30'),
+            'profile_photo_path' => 'images/user/cmark.jpg',
+            // 'cover_path' => 'images/cover/1745508709861.png',
+        ]);
+
+        $this->command->info("Account {$user2->email} created successfully.");
+
+        $user3 = User::create([
+            'student_id' => '21-SC-2147',
+            'name' => 'Levi D. Marbella',
+            'role' => 'student',
+            'email' => 'levi@gmail.com',
+            'password' => bcrypt('orlandsayson30'),
+            'profile_photo_path' => 'images/user/levi.jpg',
+            // 'cover_path' => 'images/cover/1745508709861.png',
+        ]);
+
+        $this->command->info("Account {$user3->email} created successfully.");
     }
 }

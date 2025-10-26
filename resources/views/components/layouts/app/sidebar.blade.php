@@ -11,11 +11,28 @@
                 <x-app-logo />
             </a>
 
-            <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                </flux:navlist.group>
-            </flux:navlist>
+            @if (Auth::user()->role == 'admin')
+                <flux:navlist variant="outline">
+                    <flux:navlist.group :heading="__('Platform')" class="grid">
+                        <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Admin Dashboard') }}</flux:navlist.item>
+                    </flux:navlist.group>
+                </flux:navlist>
+
+            @elseif (Auth::user()->role == 'head')
+                <flux:navlist variant="outline">
+                    <flux:navlist.group :heading="__('Platform')" class="grid">
+                        <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Office Dashboard') }}</flux:navlist.item>
+                    </flux:navlist.group>
+                </flux:navlist>
+
+            @elseif (Auth::user()->role == 'student')
+                <flux:navlist variant="outline">
+                    <flux:navlist.group :heading="__('Platform')" class="grid">
+                        <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
+                        <flux:navlist.item icon="ticket" :href="route('tickets.create')" :current="request()->routeIs('tickets.create')" wire:navigate>{{ __('Create a ticket') }}</flux:navlist.item>
+                    </flux:navlist.group>
+                </flux:navlist>
+            @endif
 
             <flux:spacer />
 
