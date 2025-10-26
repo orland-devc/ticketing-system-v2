@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('student_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('role');
+            $table->string('role')->nullable();
             $table->string('profile_photo_path')->nullable();
             $table->dateTime('last_activity')->nullable();
             $table->timestamp('email_verified_at')->nullable();
