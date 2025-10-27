@@ -13,13 +13,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all()->sortByDesc('last_name');
+        $users = User::all()->sortBy('last_name');
 
-        $admins = User::where('role', 'admin')->get()->sortByDesc('last_name');
-        $heads = User::where('role', 'head')->get()->sortByDesc('last_name');
-        $staffs = User::where('role', 'staff')->get()->sortByDesc('last_name');
-        $students = User::where('role', 'student')->get()->sortByDesc('last_name');
-        $alumni = User::where('role', 'alumni')->get()->sortByDesc('last_name');
+        $admins = User::where('role', 'admin')->get()->sortBy('last_name');
+        $heads = User::where('role', 'head')->get()->sortBy('last_name');
+        $staffs = User::where('role', 'staff')->get()->sortBy('last_name');
+        $students = User::where('role', 'student')->get()->sortBy('last_name');
+        $alumni = User::where('role', 'alumni')->get()->sortBy('last_name');
 
         $offices = Office::all();
 

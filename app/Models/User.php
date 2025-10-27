@@ -20,7 +20,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'student_id',
-        'name',
+        'first_name',
+        'middle_name',
+        'last_name',
+        'name_suffix',
         'email',
         'role',
         'last_activity',
@@ -55,9 +58,29 @@ class User extends Authenticatable
      */
     public function initials(): string
     {
-        return Str::of($this->first_name.' '.$this->last_name)
-            ->explode(' ')
-            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+        $parts = array_filter([
+            $this->first_name,
+            $this->middle_name,
+            $this->last_name,
+        ]);
+
+        // Get the first letter of each part
+        $initials = collect($parts)
+            ->map(fn ($part) => Str::of($part)->substr(0, 1)->upper())
             ->implode('');
+
+        return $initials;
+    }
+
+    public function getNameAttribute()
+    {
+        $parts = array_filter([
+            $this->first_name,
+            $this->middle_name,
+            $this->last_name,
+            $this->name_suffix,
+        ]);
+
+        return implode(' ', $parts);
     }
 }

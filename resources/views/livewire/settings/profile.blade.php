@@ -19,9 +19,9 @@ new class extends Component {
     public function mount(): void
     {
         $this->first_name = Auth::user()->first_name;
-        $this->middle_name = Auth::user()->middle_name;
+        $this->middle_name = Auth::user()->middle_name ?: '';
         $this->last_name = Auth::user()->last_name;
-        $this->name_suffix = Auth::user()->name_suffix ? null : '';
+        $this->name_suffix = Auth::user()->name_suffix ?: '';
         $this->email = Auth::user()->email;
     }
 

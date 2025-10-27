@@ -20,7 +20,11 @@ new #[Layout('components.layouts.auth')] class extends Component {
     public function register(): void
     {
         $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'middle_name' => ['string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'name_suffix' => ['string', 'max:255'],
+            'role' => ['string', 'in:admin,head,staff,student,alumni'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -44,13 +48,35 @@ new #[Layout('components.layouts.auth')] class extends Component {
     <form wire:submit="register" class="flex flex-col gap-6">
         <!-- Name -->
         <flux:input
-            wire:model="name"
-            :label="__('Name')"
+            wire:model="first_name"
+            :label="__('First Name')"
             type="text"
             required
             autofocus
             autocomplete="name"
-            :placeholder="__('Full name')"
+            :placeholder="__('First name')"
+        />
+        <flux:input
+            wire:model="middle_name"
+            :label="__('Middle Name')"
+            type="text"
+            autocomplete="name"
+            :placeholder="__('Middle name')"
+        />
+        <flux:input
+            wire:model="last_name"
+            :label="__('Last Name')"
+            type="text"
+            required
+            autocomplete="name"
+            :placeholder="__('Last name')"
+        />
+        <flux:input
+            wire:model="name_suffix"
+            :label="__('Name Suffix')"
+            type="text"
+            autocomplete="name"
+            :placeholder="__('Suffix (e.g., Jr., Sr.)')"
         />
 
         <!-- Email Address -->

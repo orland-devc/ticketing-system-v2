@@ -15,7 +15,7 @@ new class extends Component {
     @elseif ($user->role == 'student') border-green-500
     @elseif ($user->role == 'alumni') border-purple-500
     @endif
-    hover:bg-indigo-500/10 transition-all duration-200 cursor-pointer">
+    hover:bg-indigo-500/10 transition-all duration-200 cursor-pointer shadow-sm mb-2">
     <div class="flex items-center gap-4 p-3">
         <!-- Avatar -->
         <div class="relative flex-shrink-0">
