@@ -25,7 +25,7 @@ class ProfileUpdateTest extends TestCase
         $this->actingAs($user);
 
         $response = Volt::test('settings.profile')
-            ->set('name', 'Test User')
+            ->set('first_name', 'Test User')
             ->set('email', 'test@example.com')
             ->call('updateProfileInformation');
 
@@ -33,7 +33,7 @@ class ProfileUpdateTest extends TestCase
 
         $user->refresh();
 
-        $this->assertEquals('Test User', $user->name);
+        $this->assertEquals('Test User', $user->first_name);
         $this->assertEquals('test@example.com', $user->email);
         $this->assertNull($user->email_verified_at);
     }
@@ -45,7 +45,7 @@ class ProfileUpdateTest extends TestCase
         $this->actingAs($user);
 
         $response = Volt::test('settings.profile')
-            ->set('name', 'Test User')
+            ->set('first_name', 'Test User')
             ->set('email', $user->email)
             ->call('updateProfileInformation');
 

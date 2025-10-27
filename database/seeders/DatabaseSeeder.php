@@ -21,7 +21,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $user = User::create([
-            'name' => 'Orland Benniedict',
+            'last_name' => 'Sayson',
+            'first_name' => 'Orland',
+            'middle_name' => 'Dela Cruz',
             'role' => 'admin',
             'email' => 'orlandsayson30@gmail.com',
             'password' => bcrypt('orlandsayson30'),
@@ -32,7 +34,9 @@ class DatabaseSeeder extends Seeder
         $this->command->info("Account {$user->email} created successfully.");
 
         $user2 = User::create([
-            'name' => 'Cmark Aquino',
+            'last_name' => 'Aquino',
+            'first_name' => 'Cmark',
+            'middle_name' => 'Concha',
             'role' => 'head',
             'email' => 'cmark@gmail.com',
             'password' => bcrypt('orlandsayson30'),
@@ -44,7 +48,9 @@ class DatabaseSeeder extends Seeder
 
         $user3 = User::create([
             'student_id' => '21-SC-2147',
-            'name' => 'Levi D. Marbella',
+            'last_name' => 'Marbella',
+            'first_name' => 'Levi',
+            'middle_name' => 'Dela Cruz',
             'role' => 'student',
             'email' => 'levi@gmail.com',
             'password' => bcrypt('orlandsayson30'),
