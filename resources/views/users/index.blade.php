@@ -6,26 +6,19 @@
                     <flux:heading size="xl" level="1">{{ __('Manage Users') }}</flux:heading>
                     <flux:subheading size="lg" class="mb-6">{{ __('View and manage users (Administrators, Head and Staffs, and Students).') }}</flux:subheading>
                 </div>
-                <div class=" flex items-center">
-                    <a href="" wire:navigate class="font-semibold dark:bg-white text-white dark:text-black dark:hover:bg-zinc-300 bg-zinc-700 hover:bg-zinc-600/75 transition-all px-2 py-3 rounded-lg">
-                        <div class="hidden md:flex items-center gap-2">
-                            <i class="fas fa-plus ml-1"></i>
-                            <span class="mr-2">New User</span>
-                        </div>
-                        <div class="md:hidden flex items-center gap-2">
-                            <ion-icon name="add" class="text-xl "></ion-icon>
-                            <p class="mr-2">New</p>
-                        </div>
-                    </a>
-                </div>
+                <livewire:users.create :offices="$offices" />
             </div>
 
             <flux:separator variant="subtle" />
             
         </div>
 
+        <div class="lg:hidden">
+            <livewire:users.create :offices="$offices" />
+        </div>
+
         <div class="-mx-4 md:mx-0">
-            <div class="flex sm:w-full md:w-3/4 lg:w-200 flex-1 flex-col m-auto md:border md:rounded-lg overflow-x-hidden"  x-data="{ activeTab: 'admin' }">
+            <div class="flex sm:w-full md:w-3/4 lg:w-200 flex-1 flex-col m-auto md:border md:rounded-lg overflow-x-hidden"  x-data="{ activeTab: 'all' }">
                 <!-- Tabs Navigation -->
                 <div class="sticky top-0 bg-white dark:bg-zinc-900 z-10 border-b border-zinc-200 dark:border-zinc-800">
                     <div class="flex items-center overflow-x-auto scrollbar-hide">

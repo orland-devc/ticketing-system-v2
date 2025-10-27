@@ -12,7 +12,9 @@ class OfficeController extends Controller
      */
     public function index()
     {
-        //
+        $offices = Office::all();
+
+        return view('offices.index', compact('offices'));
     }
 
     /**

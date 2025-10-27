@@ -35,8 +35,8 @@ new class extends Component {
         $validated = $this->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'middle_name' => ['required', 'string', 'max:255'],
-            'name_suffix' => ['required', 'string', 'max:255'],
+            'middle_name' => ['string', 'max:255'],
+            'name_suffix' => ['string', 'max:255'],
 
             'email' => [
                 'required',

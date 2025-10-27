@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Office;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,50 +15,66 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::factory(10)->create();
+        $this->command->info('Added 10 users.');
 
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
 
-        // $user = User::create([
-        //     'last_name' => 'Sayson',
-        //     'first_name' => 'Orland',
-        //     'middle_name' => 'Dela Cruz',
-        //     'role' => 'admin',
-        //     'email' => 'orlandsayson30@gmail.com',
-        //     'password' => bcrypt('orlandsayson30'),
-        //     'profile_photo_path' => 'images/user/orland.jpg',
-        //     // 'cover_path' => 'images/cover/1745508709861.png',
-        // ]);
+        $user = User::create([
+            'last_name' => 'Sayson',
+            'first_name' => 'Orland',
+            'middle_name' => 'Dela Cruz',
+            'role' => 'admin',
+            'email' => 'orlandsayson30@gmail.com',
+            'password' => bcrypt('orlandsayson30'),
+            'profile_photo_path' => 'images/user/orland.jpg',
+            // 'cover_path' => 'images/cover/1745508709861.png',
+        ]);
 
-        // $this->command->info("Account {$user->email} created successfully.");
+        $this->command->info("Account {$user->email} created successfully.");
 
-        // $user2 = User::create([
-        //     'last_name' => 'Aquino',
-        //     'first_name' => 'Cmark',
-        //     'middle_name' => 'Concha',
-        //     'role' => 'head',
-        //     'email' => 'cmark@gmail.com',
-        //     'password' => bcrypt('orlandsayson30'),
-        //     'profile_photo_path' => 'images/user/cmark.jpg',
-        //     // 'cover_path' => 'images/cover/1745508709861.png',
-        // ]);
+        $user2 = User::create([
+            'last_name' => 'Aquino',
+            'first_name' => 'Cmark',
+            'middle_name' => 'Concha',
+            'role' => 'head',
+            'email' => 'cmark@gmail.com',
+            'password' => bcrypt('orlandsayson30'),
+            'profile_photo_path' => 'images/user/cmark.jpg',
+            // 'cover_path' => 'images/cover/1745508709861.png',
+        ]);
 
-        // $this->command->info("Account {$user2->email} created successfully.");
+        $this->command->info("Account {$user2->email} created successfully.");
 
-        // $user3 = User::create([
-        //     'student_id' => '21-SC-2147',
-        //     'last_name' => 'Marbella',
-        //     'first_name' => 'Levi',
-        //     'middle_name' => 'Dela Cruz',
-        //     'role' => 'student',
-        //     'email' => 'levi@gmail.com',
-        //     'password' => bcrypt('orlandsayson30'),
-        //     'profile_photo_path' => 'images/user/levi.jpg',
-        //     // 'cover_path' => 'images/cover/1745508709861.png',
-        // ]);
+        $user3 = User::create([
+            'student_id' => '21-SC-2147',
+            'last_name' => 'Marbella',
+            'first_name' => 'Levi',
+            'middle_name' => 'Dela Cruz',
+            'role' => 'student',
+            'email' => 'levi@gmail.com',
+            'password' => bcrypt('orlandsayson30'),
+            'profile_photo_path' => 'images/user/levi.jpg',
+            // 'cover_path' => 'images/cover/1745508709861.png',
+        ]);
 
-        // $this->command->info("Account {$user3->email} created successfully.");
+        $this->command->info("Account {$user3->email} created successfully.");
+
+        $office1 = Office::create(['name' => 'Campus Executive Director']);
+        $this->command->info("{$office1->name} has been created");
+
+        $office2 = Office::create(['name' => 'Guidance and Admission Services']);
+        $this->command->info("{$office2->name} has been created");
+
+        $office3 = Office::create(['name' => 'Library Services']);
+        $this->command->info("{$office3->name} has been created");
+
+        $office4 = Office::create(['name' => 'Registrar']);
+        $this->command->info("{$office4->name} has been created");
+
+        $office5 = Office::create(['name' => 'Cashier']);
+        $this->command->info("{$office5->name} has been created");
     }
 }

@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'student_id',
+        'office_id',
         'first_name',
         'middle_name',
         'last_name',
@@ -82,5 +83,10 @@ class User extends Authenticatable
         ]);
 
         return implode(' ', $parts);
+    }
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class, 'office_id');
     }
 }

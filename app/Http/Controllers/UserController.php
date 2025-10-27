@@ -21,7 +21,7 @@ class UserController extends Controller
         $students = User::where('role', 'student')->get()->sortBy('last_name');
         $alumni = User::where('role', 'alumni')->get()->sortBy('last_name');
 
-        $offices = Office::all();
+        $offices = Office::all()->sortBy('name');
 
         return view('users.index', compact('users', 'offices', 'admins', 'heads', 'staffs', 'students', 'alumni'));
     }
