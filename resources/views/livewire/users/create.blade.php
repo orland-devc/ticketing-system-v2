@@ -15,7 +15,7 @@ new class extends Component {
     public $last_name = '';
     public $name_suffix = '';
     public $email = '';
-    public $password = '';
+    public $password = 'DefaultPassword123';
 
     public $offices;
 
@@ -26,25 +26,39 @@ new class extends Component {
 
     public function createUser(): void
     {
-        $this->validate([
+        $rules = [
             'role' => 'required|string|in:admin,head,staff,student,alumni',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
-        ]);
+        ];
 
-        User::create([
+        if (in_array($this->role, ['head', 'staff'])) {
+            $rules['office_id'] = 'required|exists:offices,id';
+        } elseif (in_array($this->role, ['student', 'alumni'])) {
+            $rules['student_id'] = 'required|string|max:255';
+        }
+
+        $this->validate($rules);
+
+        $data = [
             'role' => $this->role,
-            'student_id' => $this->student_id ?: null,
-            'office_id' => $this->office_id ?: null,
             'first_name' => $this->first_name,
             'middle_name' => $this->middle_name ?: null,
             'name_suffix' => $this->name_suffix ?: null,
             'last_name' => $this->last_name,
             'email' => $this->email,
             'password' => bcrypt($this->password),
-        ]);
+        ];
+
+        if (in_array($this->role, ['head', 'staff'])) {
+            $data['office_id'] = $this->office_id;
+        } elseif (in_array($this->role, ['student', 'alumni'])) {
+            $data['student_id'] = $this->student_id;
+        }
+
+        User::create($data);
 
         $this->reset([
             'role',
@@ -63,19 +77,19 @@ new class extends Component {
 };
 ?>
 
-<div class=" flex items-center" x-data="{ createModal: false }">
-    <button @click="createModal = true" class="hidden lg:block font-semibold dark:bg-white text-white dark:text-black dark:hover:bg-zinc-300 bg-zinc-700 hover:bg-zinc-600/75 transition-all px-2 py-3 rounded-lg">
-        <div class="hidden md:flex items-center gap-2">
+<div class=" flex items-center" x-data="{ createModal: false, role: @entangle('role') }" x-cloak>
+    <button @click="createModal = true" class="hidden md:flex font-semibold dark:bg-white text-white dark:text-black dark:hover:bg-zinc-300 bg-zinc-700 hover:bg-zinc-600/75 transition-all px-2 py-3 rounded-lg">
+        <div class="items-center gap-2">
             <i class="fas fa-plus ml-1"></i>
             <span class="mr-2">New User</span>
         </div>
-        <div class="md:hidden flex items-center gap-2">
+        {{-- <div class="md:hidden flex items-center gap-2">
             <ion-icon name="add" class="text-xl "></ion-icon>
             <p class="mr-2">New</p>
-        </div>
+        </div> --}}
     </button>
 
-    <button @click="createModal = true" class="fixed bottom-5 right-5 flex items-center justify-center h-15 w-15 rounded-full bg-blue-500 z-30 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
+    <button @click="createModal = true" class="md:hidden fixed bottom-5 right-5 flex items-center justify-center h-15 w-15 rounded-full bg-blue-500 z-30 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
         <i class="fas fa-plus text-white"></i>
     </button>
 
@@ -120,7 +134,7 @@ new class extends Component {
                     </flux:select>
 
                     {{-- when selected role is student or alumni --}}
-                    <div id="student-id-field" style="display: none;">
+                    <div x-show="role === 'student' || role === 'alumni'" x-cloak>
                         <flux:input 
                             wire:model.defer="student_id"
                             type="text"
@@ -130,7 +144,7 @@ new class extends Component {
                     </div>
 
                     {{-- when selected role is head or staff --}}
-                    <div id="office-field" style="display: none;">
+                    <div x-show="role === 'head' || role === 'staff'" x-cloak>
                         <flux:select
                             wire:model.defer="office_id"
                             :label="__('Office')">
@@ -186,11 +200,9 @@ new class extends Component {
 
                     <flux:input
                         wire:model.defer="password" 
-                        type="password" 
+                        type="text" 
                         :label="__('Password')" 
-                        :placeholder="__('********')" 
                         required
-                        viewable
                     />
                 </div>
 
@@ -201,34 +213,4 @@ new class extends Component {
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const roleSelect = document.getElementById('role-select');
-            const studentIdField = document.getElementById('student-id-field');
-            const officeField = document.getElementById('office-field');
-
-            if (roleSelect) {
-                // Get the actual select element (Flux might wrap it)
-                const selectElement = roleSelect.tagName === 'SELECT' ? roleSelect : roleSelect.querySelector('select');
-                
-                if (selectElement) {
-                    selectElement.addEventListener('change', function() {
-                        const role = this.value;
-                        
-                        // Hide all fields first
-                        studentIdField.style.display = 'none';
-                        officeField.style.display = 'none';
-                        
-                        // Show relevant field based on role
-                        if (role === 'student' || role === 'alumni') {
-                            studentIdField.style.display = 'block';
-                        } else if (role === 'head' || role === 'staff') {
-                            officeField.style.display = 'block';
-                        }
-                    });
-                }
-            }
-        });
-    </script>
 </div>

@@ -2,4 +2,6 @@
     <flux:main>
         {{ $slot }}
     </flux:main>
+
+    @include('components.layouts.toast')
 </x-layouts.app.sidebar>
