@@ -26,6 +26,7 @@ new class extends Component {
         $this->offices = Office::orderBy('name')->get();
 
         // Prefill fields with existing user data
+        $this->id = $this->user->id;
         $this->role = $this->user->role;
         $this->student_id = $this->user->student_id;
         $this->office_id = $this->user->office_id;
@@ -76,6 +77,12 @@ new class extends Component {
         } else {
             $data['student_id'] = null;
             $data['office_id'] = null;
+        }
+
+        if ($this->role == 'head') {
+            Office::find($this->office_id)->update([
+                'head' => $this->user->id,
+            ]);
         }
 
         $this->user->update($data);
@@ -166,7 +173,7 @@ new class extends Component {
                         <flux:select
                             wire:model.defer="office_id"
                             :label="__('Office')">
-                            <option value="" disabled>{{ __('Select Office') }}</option>
+                            <option value="" >{{ __('Select Office') }}</option>
                             @foreach($offices as $office)
                                 <option value="{{ $office->id }}">{{ $office->name }}</option>
                             @endforeach

@@ -15,8 +15,8 @@
                 <flux:navlist variant="outline">
                     <flux:navlist.group :heading="__('Platform')" class="grid">
                         <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Admin Dashboard') }}</flux:navlist.item>
-                        <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>{{ __('Manage Users') }}</flux:navlist.item>
-                        <flux:navlist.item icon="building-2" :href="route('offices.index')" :current="request()->routeIs('offices.index')" wire:navigate>{{ __('Manage Offices') }}</flux:navlist.item>
+                        <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>{{ __('User Management') }}</flux:navlist.item>
+                        <flux:navlist.item icon="building-2" :href="route('offices.index')" :current="request()->routeIs('offices.index')" wire:navigate>{{ __('Offices') }}</flux:navlist.item>
                     </flux:navlist.group>
                 </flux:navlist>
 
@@ -52,21 +52,42 @@
             <flux:dropdown position="bottom" align="start">
                 <flux:profile
                     :name="auth()->user()->first_name . ' ' . auth()->user()->last_name"
-                    :initials="auth()->user()->initials()"
                     icon-trailing="chevrons-up-down"
-                />
+                >
+                    <x-slot:avatar>
+                        <div class="relative flex-shrink-0">
+                            @if(auth()->user()->profile_photo_path)
+                                <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
+                                    alt="{{ auth()->user()->last_name }}" 
+                                    class="w-8 h-8 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
+                            @else
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                    <span class="text-white font-semibold text-lg">
+                                        {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
+                    </x-slot:avatar>
+                </flux:profile>
 
                 <flux:menu class="w-[220px]">
                     <flux:menu.radio.group>
                         <div class="p-0 text-sm font-normal">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                    <span
-                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                    >
-                                        {{ auth()->user()->initials() }}
-                                    </span>
-                                </span>
+                                <div class="relative flex-shrink-0">
+                                    @if(auth()->user()->profile_photo_path)
+                                        <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
+                                            alt="{{ auth()->user()->last_name }}" 
+                                            class="w-8 h-8 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                    @else
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                            <span class="text-white font-semibold text-lg">
+                                                {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
                                     <span class="truncate font-semibold">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
@@ -102,21 +123,42 @@
 
             <flux:dropdown position="top" align="end">
                 <flux:profile
-                    :initials="auth()->user()->initials()"
-                    icon-trailing="chevron-down"
-                />
+                    icon-trailing="chevrons-up-down"
+                >
+                    <x-slot:avatar>
+                        <div class="relative flex-shrink-0">
+                            @if(auth()->user()->profile_photo_path)
+                                <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
+                                    alt="{{ auth()->user()->last_name }}" 
+                                    class="w-8 h-8 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
+                            @else
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                    <span class="text-white font-semibold text-lg">
+                                        {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
+                    </x-slot:avatar>
+                </flux:profile>
 
                 <flux:menu>
                     <flux:menu.radio.group>
                         <div class="p-0 text-sm font-normal">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                                    <span
-                                        class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white"
-                                    >
-                                        {{ auth()->user()->initials() }}
-                                    </span>
-                                </span>
+                                <div class="relative flex-shrink-0">
+                                    @if(auth()->user()->profile_photo_path)
+                                        <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
+                                            alt="{{ auth()->user()->last_name }}" 
+                                            class="w-8 h-8 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                    @else
+                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                            <span class="text-white font-semibold text-lg">
+                                                {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
+                                            </span>
+                                        </div>
+                                    @endif
+                                </div>
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
                                     <span class="truncate font-semibold">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>

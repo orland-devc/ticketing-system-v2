@@ -10,9 +10,14 @@ class Office extends Model
         'name',
     ];
 
-    public function staffs()
+    public function users()
     {
         return $this->hasMany(User::class, 'office_id');
+    }
+
+    public function staffs()
+    {
+        return $this->hasMany(User::class, 'office_id')->where('role', 'staff');
     }
 
     public function head()

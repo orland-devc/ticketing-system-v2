@@ -58,7 +58,13 @@ new class extends Component {
             $data['student_id'] = $this->student_id;
         }
 
-        User::create($data);
+        $user = User::create($data);
+
+        if ($this->role == 'head') {
+            Office::find($this->office_id)->update([
+                'head' => $user->id,
+            ]);
+        }
 
         $this->reset([
             'role',
@@ -73,6 +79,12 @@ new class extends Component {
         ]);
 
         $this->dispatch('user-created');
+
+        $this->dispatch('toast', 
+            message: 'User created successfully!',
+            type: 'success',
+            duration: 5000
+        );
     }
 };
 ?>
