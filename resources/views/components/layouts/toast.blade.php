@@ -17,13 +17,7 @@
 >
     <template x-for="toast in toasts" :key="toast.id">
         <div 
-            x-transition:enter="transition ease-out duration-300"
-            x-transition:enter-start="translate-x-full opacity-0"
-            x-transition:enter-end="translate-x-0 opacity-100"
-            x-transition:leave="transition ease-in duration-200"
-            x-transition:leave-start="translate-x-0 opacity-100"
-            x-transition:leave-end="translate-x-full opacity-0"
-            class="flex items-center justify-between gap-4 rounded-xl shadow-lg p-4 text-white"
+            class="flex items-center justify-between gap-4 rounded-xl shadow-lg p-4 text-white animation"
             :class="{
                 'bg-green-400': toast.type === 'success',
                 'bg-red-400': toast.type === 'error',
@@ -61,3 +55,21 @@
         </div>
     </template>
 </div>
+
+<style>
+    @keyframes bootUp {
+        0% {
+            opacity: 0%;
+            transform: translateY(30%);
+        }
+
+        1000% {
+            opacity: 100%;
+            transform: translateY(0%);
+        }
+    }
+
+    .animation {
+        animation: bootUp ease-out 0.3s;
+    }
+</style>

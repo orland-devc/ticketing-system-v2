@@ -1,18 +1,30 @@
 <div class="flex items-center gap-4 p-3">
     <!-- Avatar -->
     <div class="relative flex-shrink-0">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
-            <span class="text-white font-semibold text-lg">
-                {{ strtoupper(substr($office->name, 0, 1))}}
-            </span>
-        </div>
+        <a href="{{ route('dashboard') }}" wire:navigate @click.stop>
+            @if($office->profile_photo_path)
+                <img src="{{ asset($office->profile_photo_path) }}" 
+                    class="w-10 h-10 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
+            @else
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
+                    <span class="text-white font-semibold text-lg">
+                        {{ strtoupper(substr($office->name, 0, 1))}}
+                    </span>
+                </div>
+            @endif
+        </a>
     </div>
 
     <!-- User Info -->
     <div class="flex-1 min-w-0">
-        <h3 class="font-semibold text-gray-900 dark:text-white text-base truncate">
-            {{ $office->name }}
-        </h3>
+        <a href="{{ route('dashboard') }}" wire:navigate 
+            class="font-semibold text-gray-900 dark:text-white text-base truncate hover:text-blue-500 hover:underline active:text-blue-600 transition-all z-10"
+            @click.stop>
+            <h3 class="">
+                {{ $office->name }}
+            </h3>
+        </a>
+
         <p class="text-sm text-gray-600 dark:text-gray-400 truncate flex items-center gap-1.5 mt-0.5">
             <i class="fas fa-user text-xs"></i>
             {{ $office->head()?->name ?? 'No assigned head' }}

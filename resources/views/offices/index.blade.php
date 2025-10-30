@@ -14,7 +14,7 @@
         </div>
 
         <div class="-mx-4 md:mx-0">
-            <div class="flex sm:w-full md:w-3/4 lg:w-200 flex-1 flex-col m-auto md:border md:rounded-lg overflow-x-hidden" >
+            <div class="flex sm:w-full md:w-3/4 lg:w-200 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden" >
                 <!-- Tabs Navigation -->
                 <div class="sticky top-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
                     <div class="flex items-center overflow-x-auto scrollbar-hide">
