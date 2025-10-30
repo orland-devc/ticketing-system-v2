@@ -1,113 +1,290 @@
+{{-- sidebar.blade.php --}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
+    <body class="min-h-screen bg-white dark:bg-zinc-950">
+        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            {{-- Logo Section --}}
+            <div class="flex items-center justify-between">
+                <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 px-1 rtl:space-x-reverse group" wire:navigate>
+                    <div class="flex h-10 w-10 items-center justify-center shadow-blue-500/30 transition-transform group-hover:scale-105">
+                        <x-app-logo-icon class="h-6 w-6" />
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-md font-bold text-zinc-900 dark:text-white">{{ config('app.name') }}</span>
+                        <span class="text-xs font-medium text-zinc-400 dark:text-zinc-500">{{ ucfirst(Auth::user()->role) }}</span>
+                    </div>
+                </a>
+                <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
+            </div>
 
-            <a href="{{ route('dashboard') }}" class="me-5 flex items-center space-x-2 rtl:space-x-reverse" wire:navigate>
-                <x-app-logo />
-            </a>
+            {{-- Quick Stats Card --}}
+            <div class="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50 p-4 dark:from-blue-950/30 dark:to-blue-900/20 border border-blue-100 dark:border-blue-900/30">
+                <div class="flex items-center gap-3">
+                    <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500">
+                        @if(auth()->user()->profile_photo_path)
+                            <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
+                                alt="{{ auth()->user()->last_name }}" 
+                                class="h-12 w-12 rounded-lg object-cover">
+                        @else
+                            <span class="text-lg font-bold text-white">
+                                {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
+                            </span>
+                        @endif
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-zinc-900 dark:text-white truncate">
+                            {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                        </p>
+                        <p class="text-xs text-zinc-600 dark:text-zinc-400 truncate">
+                            {{ auth()->user()->email }}
+                        </p>
+                    </div>
+                </div>
+            </div>
 
+            {{-- Navigation based on role --}}
             @if (Auth::user()->role == 'admin')
                 <flux:navlist variant="outline">
-                    <flux:navlist.group :heading="__('Platform')" class="grid">
-                        <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Admin Dashboard') }}</flux:navlist.item>
-                        <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>{{ __('User Management') }}</flux:navlist.item>
-                        <flux:navlist.item icon="building-2" :href="route('offices.index')" :current="request()->routeIs('offices.index')" wire:navigate>{{ __('Offices') }}</flux:navlist.item>
+                    <flux:navlist.group :heading="__('Overview')" class="grid">
+                        <flux:navlist.item 
+                            icon="layout-dashboard" 
+                            :href="route('dashboard')" 
+                            :current="request()->routeIs('dashboard')" 
+                            wire:navigate>
+                            {{ __('Dashboard') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="chart-column-big" 
+                            href="#"
+                            count="15"
+                            wire:poll.3s>
+                            {{ __('Analytics') }}
+                        </flux:navlist.item>
+                    </flux:navlist.group>
+
+                    <flux:navlist.group :heading="__('Management')" class="grid">
+                        <flux:navlist.item 
+                            icon="users" 
+                            :href="route('users.index')" 
+                            :current="request()->routeIs('users.index')" 
+                            count="{{ $allUsers->count() }}"
+                            wire:navigate
+                            wire:poll.3s>
+                            {{ __('Users') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="building-2" 
+                            :href="route('offices.index')" 
+                            :current="request()->routeIs('offices.index')" 
+                            count="{{ $allOffices->count() }}"
+                            wire:navigate
+                            wire:poll.3s>
+                            {{ __('Offices') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="tickets" 
+                            href="#"
+                            count="127"
+                            wire:poll.3s>
+                            {{ __('Tickets') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="bot-message-square" 
+                            href="#"
+                            count="127"
+                            wire:poll.3s>
+                            {{ __('Chatbot') }}
+                        </flux:navlist.item>
+                    </flux:navlist.group>
+
+                    <flux:navlist.group :heading="__('System')" class="grid">
+                        <flux:navlist.item 
+                            icon="bell" 
+                            href="#"
+                            count="3"
+                            badge-color="blue"
+                            wire:poll.3s>
+                            {{ __('Notifications') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="settings" 
+                            :href="route('settings.appearance')" 
+                            :current="request()->routeIs('settings*')" 
+                            wire:navigate>
+                            {{ __('Settings') }}
+                        </flux:navlist.item>
                     </flux:navlist.group>
                 </flux:navlist>
 
             @elseif (Auth::user()->role == 'head')
                 <flux:navlist variant="outline">
-                    <flux:navlist.group :heading="__('Platform')" class="grid">
-                        <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Office Dashboard') }}</flux:navlist.item>
+                    <flux:navlist.group :heading="__('Dashboard')" class="grid">
+                        <flux:navlist.item 
+                            icon="layout-dashboard" 
+                            href="#"
+                            wire:navigate>
+                            {{ __('Overview') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="users" 
+                            href="#"
+                            count="24"
+                            wire:poll.3s>
+                            {{ __('My Team') }}
+                        </flux:navlist.item>
+                    </flux:navlist.group>
+
+                    <flux:navlist.group :heading="__('Management')" class="grid">
+                        <flux:navlist.item 
+                            icon="clipboard-list" 
+                            href="#"
+                            count="12"
+                            wire:poll.3s>
+                            {{ __('Tasks') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="calendar" 
+                            href="#">
+                            {{ __('Schedule') }}
+                        </flux:navlist.item>
                     </flux:navlist.group>
                 </flux:navlist>
 
             @elseif (Auth::user()->role == 'student')
                 <flux:navlist variant="outline">
-                    <flux:navlist.group :heading="__('Platform')" class="grid">
-                        <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                        <flux:navlist.item icon="ticket" :href="route('tickets.create')" :current="request()->routeIs('tickets.create')" wire:navigate>{{ __('Create a ticket') }}</flux:navlist.item>
+                    <flux:navlist.group :heading="__('My Space')" class="grid">
+                        <flux:navlist.item 
+                            icon="layout-dashboard" 
+                            href="#"
+                            wire:navigate>
+                            {{ __('Dashboard') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="book-open" 
+                            href="#"
+                            count="5"
+                            wire:poll.3s>
+                            {{ __('Courses') }}
+                        </flux:navlist.item>
+                    </flux:navlist.group>
+
+                    <flux:navlist.group :heading="__('Activity')" class="grid">
+                        <flux:navlist.item 
+                            icon="clipboard-check" 
+                            href="#"
+                            count="3"
+                            wire:poll.3s>
+                            {{ __('Assignments') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="message-circle" 
+                            href="#"
+                            count="8"
+                            wire:poll.3s>
+                            {{ __('Messages') }}
+                        </flux:navlist.item>
                     </flux:navlist.group>
                 </flux:navlist>
             @endif
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
-                </flux:navlist.item>
+            {{-- Help Section --}}
+            <div class="mb-3 rounded-xl border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-800/50">
+                <div class="mb-2 flex items-center gap-2">
+                    <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500">
+                        {{-- <flux:icon.help-circle class="h-4 w-4 text-white" /> --}}
+                        <i class="fas fa-question text-white"></i>
+                    </div>
+                    <span class="text-xs font-semibold text-zinc-900 dark:text-white">Need Help?</span>
+                </div>
+                <p class="mb-3 text-[11px] leading-relaxed text-zinc-600 dark:text-zinc-400">
+                    Check our documentation or reach out to support.
+                </p>
+                <div class="flex gap-2">
+                    <a href="https://laravel.com/docs/starter-kits#livewire" 
+                       target="_blank"
+                       class="flex-1 rounded-lg bg-white px-2 py-1.5 text-center text-[11px] font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600">
+                        Docs
+                    </a>
+                    <a href="https://github.com/laravel/livewire-starter-kit" 
+                       target="_blank"
+                       class="flex-1 rounded-lg bg-white px-2 py-1.5 text-center text-[11px] font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600">
+                        GitHub
+                    </a>
+                </div>
+            </div>
 
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item>
-            </flux:navlist>
+            {{-- User Menu Button --}}
+            <flux:dropdown position="top" align="start" class="w-full">
+                <button class="flex w-full items-center gap-3 rounded-xl border border-zinc-200 bg-white p-3 transition-all hover:border-zinc-300 hover:shadow-sm dark:border-zinc-800 dark:bg-zinc-800/50 dark:hover:border-zinc-700">
+                    <div class="relative flex-shrink-0">
+                        @if(auth()->user()->profile_photo_path)
+                            <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
+                                alt="{{ auth()->user()->last_name }}" 
+                                class="h-10 w-10 rounded-lg object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
+                        @else
+                            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                <span class="text-sm font-bold text-white">
+                                    {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
+                                </span>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="min-w-0 flex-1 text-left">
+                        <div class="truncate text-sm font-semibold text-zinc-900 dark:text-white">
+                            {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+                        </div>
+                        <div class="truncate text-xs text-zinc-500 dark:text-zinc-400">View Profile</div>
+                    </div>
+                    <flux:icon.chevrons-up-down class="h-4 w-4 text-zinc-400" />
+                </button>
 
-            <!-- Desktop User Menu -->
-            <flux:dropdown position="bottom" align="start">
-                <flux:profile
-                    :name="auth()->user()->first_name . ' ' . auth()->user()->last_name"
-                    icon-trailing="chevrons-up-down"
-                >
-                    <x-slot:avatar>
-                        <div class="relative flex-shrink-0">
+                <flux:menu class="w-64">
+                    <div class="px-3 py-2">
+                        <div class="flex items-center gap-3">
                             @if(auth()->user()->profile_photo_path)
                                 <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
                                     alt="{{ auth()->user()->last_name }}" 
-                                    class="w-8 h-8 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                    class="h-10 w-10 rounded-lg object-cover">
                             @else
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
-                                    <span class="text-white font-semibold text-lg">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600">
+                                    <span class="text-sm font-bold text-white">
                                         {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
                                     </span>
                                 </div>
                             @endif
-                        </div>
-                    </x-slot:avatar>
-                </flux:profile>
-
-                <flux:menu class="w-[220px]">
-                    <flux:menu.radio.group>
-                        <div class="p-0 text-sm font-normal">
-                            <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                <div class="relative flex-shrink-0">
-                                    @if(auth()->user()->profile_photo_path)
-                                        <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
-                                            alt="{{ auth()->user()->last_name }}" 
-                                            class="w-8 h-8 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
-                                    @else
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
-                                            <span class="text-white font-semibold text-lg">
-                                                {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
-                                            </span>
-                                        </div>
-                                    @endif
+                            <div class="min-w-0 flex-1">
+                                <div class="truncate text-sm font-semibold text-zinc-900 dark:text-white">
+                                    {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                                 </div>
-
-                                <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                <div class="truncate text-xs text-zinc-500 dark:text-zinc-400">
+                                    {{ auth()->user()->email }}
                                 </div>
                             </div>
                         </div>
-                    </flux:menu.radio.group>
+                    </div>
 
                     <flux:menu.separator />
 
-                    <flux:menu.radio.group>
-                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                    </flux:menu.radio.group>
+                    <flux:menu.item :href="route('settings.profile')" icon="user" wire:navigate>
+                        {{ __('My Profile') }}
+                    </flux:menu.item>
+                    <flux:menu.item icon="cog" href="#">
+                        {{ __('Settings') }}
+                    </flux:menu.item>
+                    <flux:menu.item icon="bell" href="#">
+                        {{ __('Notifications') }}
+                    </flux:menu.item>
 
                     <flux:menu.separator />
 
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-red-600 dark:text-red-400">
                             {{ __('Log Out') }}
                         </flux:menu.item>
                     </form>
@@ -115,70 +292,75 @@
             </flux:dropdown>
         </flux:sidebar>
 
-        <!-- Mobile User Menu -->
-        <flux:header class="lg:hidden">
-            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+        {{-- Mobile Header --}}
+        <flux:header class="lg:hidden border-b border-zinc-100 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+            <div class="flex items-center gap-4">
+                <flux:sidebar.toggle icon="bars-2" class="lg:hidden" inset="left" />
+
+                <div class="flex items-center gap-2">
+                    <div class="flex h-8 w-8 items-center">
+                        <x-app-logo class="h-5 w-5" />
+                    </div>
+                    <span class="text-sm font-bold text-zinc-900 dark:text-white">{{ config('app.name') }}</span>
+                </div>
+            </div>
 
             <flux:spacer />
 
             <flux:dropdown position="top" align="end">
-                <flux:profile
-                    icon-trailing="chevrons-up-down"
-                >
-                    <x-slot:avatar>
-                        <div class="relative flex-shrink-0">
+                <button class="flex items-center gap-2 rounded-lg p-2 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-800">
+                    @if(auth()->user()->profile_photo_path)
+                        <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
+                            alt="{{ auth()->user()->last_name }}" 
+                            class="h-8 w-8 rounded-lg object-cover">
+                    @else
+                        <div class="flex h-8 w-8 items-center">
+                            <span class="text-xs font-bold text-white">
+                                {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
+                            </span>
+                        </div>
+                    @endif
+                </button>
+
+                <flux:menu class="w-64">
+                    <div class="px-3 py-2">
+                        <div class="flex items-center gap-3">
                             @if(auth()->user()->profile_photo_path)
                                 <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
                                     alt="{{ auth()->user()->last_name }}" 
-                                    class="w-8 h-8 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
+                                    class="h-10 w-10 rounded-lg object-cover">
                             @else
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
-                                    <span class="text-white font-semibold text-lg">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-blue-600">
+                                    <span class="text-sm font-bold text-white">
                                         {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
                                     </span>
                                 </div>
                             @endif
-                        </div>
-                    </x-slot:avatar>
-                </flux:profile>
-
-                <flux:menu>
-                    <flux:menu.radio.group>
-                        <div class="p-0 text-sm font-normal">
-                            <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                                <div class="relative flex-shrink-0">
-                                    @if(auth()->user()->profile_photo_path)
-                                        <img src="{{ asset(auth()->user()->profile_photo_path) }}" 
-                                            alt="{{ auth()->user()->last_name }}" 
-                                            class="w-8 h-8 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-700">
-                                    @else
-                                        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-zinc-100 dark:ring-zinc-700">
-                                            <span class="text-white font-semibold text-lg">
-                                                {{ strtoupper(substr(auth()->user()->first_name, 0, 1) . substr(auth()->user()->last_name, 0, 1)) }}
-                                            </span>
-                                        </div>
-                                    @endif
+                            <div class="min-w-0 flex-1">
+                                <div class="truncate text-sm font-semibold text-zinc-900 dark:text-white">
+                                    {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                                 </div>
-
-                                <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</span>
-                                    <span class="truncate text-xs">{{ auth()->user()->email }}</span>
+                                <div class="truncate text-xs text-zinc-500 dark:text-zinc-400">
+                                    {{ auth()->user()->email }}
                                 </div>
                             </div>
                         </div>
-                    </flux:menu.radio.group>
+                    </div>
 
                     <flux:menu.separator />
 
-                    <flux:menu.radio.group>
-                        <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
-                    </flux:menu.radio.group>
+                    <flux:menu.item :href="route('settings.profile')" icon="user" wire:navigate>
+                        {{ __('My Profile') }}
+                    </flux:menu.item>
+                    <flux:menu.item icon="cog" href="#">
+                        {{ __('Settings') }}
+                    </flux:menu.item>
 
                     <flux:menu.separator />
 
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full">
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-red-600 dark:text-red-400">
                             {{ __('Log Out') }}
                         </flux:menu.item>
                     </form>
