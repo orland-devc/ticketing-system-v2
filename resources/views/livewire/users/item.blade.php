@@ -10,7 +10,7 @@ new class extends Component {
 };
 ?>
 
-<div x-data="{ editModal: false, editBgModal: false, deleteModal: false, deleteBgModal: false }">
+<div x-data="{ editModal: false, editBgModal: false, deleteModal: false, deleteBgModal: false }" class="max-w-screen">
     <div @click="editModal = true; editBgModal = true;" class="group relative bg-white dark:bg-zinc-800/50 rounded-l-2xl border-l-8 border-t 
         @if ($user->role == 'admin') border-blue-500
         @elseif ($user->role == 'head') border-red-400
@@ -36,7 +36,7 @@ new class extends Component {
             </div>
 
             <!-- User Info -->
-            <div class="flex-1 min-w-0">
+            <div class="flex-1 min-w-0 truncate">
                 <h3 class="font-semibold text-gray-900 dark:text-white text-base truncate">
                     {{ $user->last_name }}, {{ $user->first_name }} 
                     @if($user->middle_name)
@@ -46,9 +46,9 @@ new class extends Component {
                         {{ $user->name_suffix }}
                     @endif
                 </h3>
-                <p class="text-sm text-gray-600 dark:text-gray-400 truncate flex items-center gap-1.5 mt-0.5">
+                <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1.5 mt-0.5">
                     <i class="fas fa-envelope text-xs"></i>
-                    {{ $user->email }}
+                    <span class="truncate">{{ $user->email }}</span>
                 </p>
             </div>
 

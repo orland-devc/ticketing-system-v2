@@ -5,7 +5,7 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-950">
-        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900">
+        <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 select-none">
             {{-- Logo Section --}}
             <div class="flex items-center justify-between">
                 <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 px-1 rtl:space-x-reverse group" wire:navigate>
@@ -193,7 +193,7 @@
             <flux:spacer />
 
             {{-- Help Section --}}
-            <div class="mb-3 rounded-xl border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-800/50">
+            <div class="hidden mb-3 rounded-xl border border-zinc-200 bg-zinc-50 p-3 dark:border-zinc-800 dark:bg-zinc-800/50">
                 <div class="mb-2 flex items-center gap-2">
                     <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500">
                         {{-- <flux:icon.help-circle class="h-4 w-4 text-white" /> --}}
@@ -243,7 +243,7 @@
                     <flux:icon.chevrons-up-down class="h-4 w-4 text-zinc-400" />
                 </button>
 
-                <flux:menu class="w-64">
+                <flux:menu class="w-64 fast-animation">
                     <div class="px-3 py-2">
                         <div class="flex items-center gap-3">
                             @if(auth()->user()->profile_photo_path)
@@ -322,7 +322,7 @@
                     @endif
                 </button>
 
-                <flux:menu class="w-64">
+                <flux:menu class="w-64 fast-down">
                     <div class="px-3 py-2">
                         <div class="flex items-center gap-3">
                             @if(auth()->user()->profile_photo_path)

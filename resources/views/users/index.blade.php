@@ -6,7 +6,10 @@
                     <flux:heading size="xl" level="1">{{ __('Manage Users') }}</flux:heading>
                     <flux:subheading size="lg" class="mb-6 hidden md:block">{{ __('View and manage users (Administrators, Head and Staffs, and Students).') }}</flux:subheading>
                 </div>
-                <livewire:users.create :offices="$offices" />
+                <div class="flex items-center gap-4">
+                    <livewire:users.request :offices="$offices" />
+                    <livewire:users.create :offices="$offices" />
+                </div>
             </div>
 
             <flux:separator variant="subtle" />

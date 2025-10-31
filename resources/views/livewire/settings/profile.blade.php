@@ -75,6 +75,12 @@ new class extends Component {
         $user->sendEmailVerificationNotification();
 
         Session::flash('status', 'verification-link-sent');
+
+        $this->dispatch('toast', 
+            message: 'Verification link sent!',
+            type: 'success',
+            duration: 5000
+        );
     }
 }; ?>
 
@@ -137,45 +143,42 @@ new class extends Component {
 
                         {{-- Email Field --}}
                         <div>
-                            <flux:input 
-                                wire:model="email" 
-                                :label="__('Email')" 
-                                type="email" 
-                                required 
-                                autocomplete="email" 
-                            />
-
                             @if (! auth()->user()->hasVerifiedEmail())
-                                <div class="mt-4 p-4 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 rounded-lg">
-                                    <div class="flex items-start gap-3">
-                                        <svg class="w-5 h-5 text-amber-600 dark:text-amber-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                                        </svg>
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-amber-900 dark:text-amber-200">
-                                                {{ __('Your email address is unverified.') }}
-                                            </p>
-                                            <flux:link 
-                                                class="text-sm font-medium text-amber-700 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 cursor-pointer inline-flex items-center gap-1 mt-1" 
-                                                wire:click.prevent="resendVerificationNotification"
-                                            >
-                                                {{ __('Click here to re-send the verification email.') }}
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
-                                                </svg>
-                                            </flux:link>
-
-                                            @if (session('status') === 'verification-link-sent')
-                                                <p class="mt-3 text-sm font-medium text-green-700 dark:text-green-400 flex items-center gap-2">
-                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                                    </svg>
-                                                    {{ __('A new verification link has been sent to your email address.') }}
-                                                </p>
-                                            @endif
-                                        </div>
+                                <flux:label>Email</flux:label>
+                                <flux:input.group>
+                                    <flux:input type="email" wire:model="email" placeholder="you@example.com"/>
+                                    <flux:button
+                                        variant="subtle"
+                                        wire:click.prevent="resendVerificationNotification"
+                                        class="bg-zinc-200! dark:bg-zinc-600 text-zinc-800 dark:text-white! rounded-l-none rounded-r-lg"
+                                    >
+                                        @if (session('status') === 'verification-link-sent')
+                                            Re-send
+                                        @else
+                                            Verify
+                                        @endif
+                                    </flux:button>
+                                </flux:input.group>
+                                <flux:error name="email" />
+                                <div class="flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-amber-600 dark:text-amber-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                    </svg>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium text-amber-900 dark:text-amber-200">
+                                            {{ __('Your email address is unverified.') }}
+                                        </p>
                                     </div>
                                 </div>
+                            @else
+                                <flux:input 
+                                    wire:model="email" 
+                                    :label="__('Email')" 
+                                    type="email" 
+                                    required 
+                                    autocomplete="email" 
+                                    :prefix
+                                />
                             @endif
                         </div>
 

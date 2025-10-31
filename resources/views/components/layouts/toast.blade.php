@@ -63,7 +63,19 @@
             transform: translateY(30%);
         }
 
-        1000% {
+        100% {
+            opacity: 100%;
+            transform: translateY(0%);
+        }
+    }
+
+    @keyframes bootDown {
+        0% {
+            opacity: 0%;
+            transform: translateY(-30%);
+        }
+
+        100% {
             opacity: 100%;
             transform: translateY(0%);
         }
@@ -71,5 +83,13 @@
 
     .animation {
         animation: bootUp ease-out 0.3s;
+    }
+
+    .fast-animation {
+        animation: bootUp 0.1s;
+    }
+
+    .fast-down {
+        animation: bootDown 0.1s
     }
 </style>

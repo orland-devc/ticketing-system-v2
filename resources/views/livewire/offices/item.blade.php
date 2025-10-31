@@ -16,7 +16,9 @@
     <!-- User Info -->
     <div class="flex-1 min-w-0">
         <h3 class="font-semibold text-gray-900 dark:text-white text-base truncate">
-            {{ $office->name }}
+            <a wire:navigate @click.stop href="{{ route('dashboard') }} " class="hover:text-blue-500 active:text-blue-500 transition-all">
+                {{ $office->name }}
+            </a>
         </h3>
         <p class="text-sm text-gray-600 dark:text-gray-400 truncate flex items-center gap-1.5 mt-0.5">
             <i class="fas fa-user text-xs"></i>

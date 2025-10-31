@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('name_suffix')->nullable();
             $table->string('email')->unique();
-            $table->string('role')->nullable();
+            $table->enum('role', ['admin', 'head', 'staff', 'student', 'alumni'])->nullable();
             $table->string('profile_photo_path')->nullable();
             $table->dateTime('last_activity')->nullable();
             $table->timestamp('email_verified_at')->nullable();

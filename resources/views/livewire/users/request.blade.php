@@ -91,20 +91,32 @@ new class extends Component {
 
 <div class=" flex items-center" x-data="{ createModal: false, role: @entangle('role') }" x-cloak>
     <div class="hidden md:block">
-        <flux:button variant="primary" @click="createModal = true">
+        <flux:button variant="filled" @click="createModal = true" class="hidden md:flex relative">
             <div class="items-center gap-2 font-semibold text-md py-2">
                 <i class="fas fa-plus"></i>
-                <span class="mr-2">New User</span>
+                <span class="mr-2">Requests</span>
             </div>
             {{-- <div class="md:hidden flex items-center gap-2">
                 <ion-icon name="add" class="text-xl "></ion-icon>
                 <p class="mr-2">New</p>
             </div> --}}
+            <div class="absolute -right-0 -top-0">
+                <span class="relative flex h-3 w-3">
+                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
+                    <span class="relative inline-flex h-3 w-3 rounded-full bg-red-500"></span>
+                </span>
+            </div>
         </flux:button>
     </div>
 
-    <button @click="createModal = true" class="md:hidden fixed bottom-5 right-5 flex items-center justify-center h-13 w-13 rounded-full bg-blue-500 z-30 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
-        <i class="fas fa-plus text-white text-xl"></i>
+    <button @click="createModal = true" class="md:hidden fixed bottom-20 right-5 flex items-center justify-center h-13 w-13 rounded-full bg-blue-500 z-30 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
+            <i class="fas fa-user text-white text-xl"></i>
+            <div class="absolute right-1 top-1">
+                <span class="relative flex h-3 w-3">
+                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
+                    <span class="relative inline-flex h-3 w-3 rounded-full bg-red-500"></span>
+                </span>
+            </div>
     </button>
 
     <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm"
@@ -127,7 +139,7 @@ new class extends Component {
             x-transition:leave-start="opacity-100 transform scale-100"
             x-transition:leave-end="opacity-0 transform scale-95">
             <div class="flex justify-between items-center border-b border-gray-200 dark:border-zinc-700 px-6 py-4">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Create New User</h2>
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Account Requests</h2>
                 <button @click="createModal = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none">
                     <i class="fas fa-times-circle text-xl"></i>
                 </button>

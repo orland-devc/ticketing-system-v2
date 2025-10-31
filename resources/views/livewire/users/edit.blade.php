@@ -123,6 +123,7 @@ new class extends Component {
          x-transition:leave="transition ease-in duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
+         x-effect="document.body.classList.toggle('overflow-hidden', editBgModal)"
          x-cloak>
         
         <div @click.away="editModal = false; editBgModal = false" @keydown.escape.window="editModal = false; editBgModal = false"
@@ -255,7 +256,8 @@ new class extends Component {
             x-transition:enter-end="opacity-100 transform scale-100"
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 transform scale-100"
-            x-transition:leave-end="opacity-0 transform scale-95">
+            x-transition:leave-end="opacity-0 transform scale-95"
+            x-effect="document.body.classList.toggle('overflow-hidden', deleteModal)">
             <div class="flex justify-between items-center border-b border-gray-200 dark:border-zinc-700 px-6 py-4">
                 <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Delete User</h2>
                 <button @click="deleteModal = false; deleteBgModal = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none">
