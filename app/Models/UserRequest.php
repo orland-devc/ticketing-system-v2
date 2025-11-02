@@ -42,10 +42,9 @@ class UserRequest extends Model
 
     public function getNameAttribute(): string
     {
-        $middle = $this->middle_name ? ' ' . strtoupper(substr($this->middle_name, 0, 1)) . '.' : '';
-        $suffix = $this->name_suffix ? ' ' . $this->name_suffix : '';
+        $middle = $this->middle_name ? ' '.strtoupper(substr($this->middle_name, 0, 1)).'.' : '';
+        $suffix = $this->name_suffix ? ' '.$this->name_suffix : '';
 
         return "{$this->first_name}{$middle} {$this->last_name}{$suffix}";
     }
-
 }
