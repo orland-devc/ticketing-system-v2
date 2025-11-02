@@ -115,7 +115,7 @@ new class extends Component {
 
 <div x-data="{ role: @entangle('role') }" x-cloak>
     {{-- edit modal --}}
-    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm"
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center px-2 z-50 backdrop-blur-sm"
          x-show="editBgModal"
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0"
@@ -137,8 +137,8 @@ new class extends Component {
              x-transition:leave-end="opacity-0 transform scale-95">
              
             <div class="flex justify-between items-center border-b border-gray-200 dark:border-zinc-700 px-6 py-4">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Create New User</h2>
-                <flux:button variant="danger" icon="trash" @click="editModal = false; editBgModal = false; deleteBgModal = true; deleteModal = true;">
+                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Edit User</h2>
+                <flux:button variant="danger" icon="trash" @click="deleteBgModal = true; deleteModal = true;">
                     {{__('Delete')}}
                 </flux:button>
             </div>
@@ -238,7 +238,7 @@ new class extends Component {
         </div>
     </div>
 
-    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm"
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center px-4 z-50 backdrop-blur-sm"
         x-show="deleteBgModal"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0"

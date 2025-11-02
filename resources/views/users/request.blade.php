@@ -1,10 +1,10 @@
-<x-layouts.app :title="__('Manage Users')" :breadcrumbs="['users.index']">
+<x-layouts.app :title="__('Manage Requests')">
     <div class="relative flex flex-col gap-3">
         <div class="-mx-4 md:mx-0">
             <section class="w-full">
                 @include('partials.users-heading')
-                <x-users.layout :heading="__('All Users')" :subheading="__('Keep updated on users, staff, and head')">
-                    <livewire:users.index  />
+                <x-users.layout>
+                    <livewire:users.request  />
                 </x-users.layout>
             </section>
         </div>

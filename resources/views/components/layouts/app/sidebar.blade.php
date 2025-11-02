@@ -59,8 +59,7 @@
                         <flux:navlist.item 
                             icon="chart-column-big" 
                             href="#"
-                            count="15"
-                            wire:poll.3s>
+                            count="15">
                             {{ __('Analytics') }}
                         </flux:navlist.item>
                     </flux:navlist.group>
@@ -68,11 +67,10 @@
                     <flux:navlist.group :heading="__('Management')" class="grid">
                         <flux:navlist.item 
                             icon="users" 
-                            :href="route('users.index')" 
-                            :current="request()->routeIs('users.index')" 
-                            count="{{ $allUsers->count() }}"
-                            wire:navigate
-                            wire:poll.3s>
+                            :href="route('users.all')" 
+                            :current="request()->routeIs('users*')" 
+                            count="{{ $allRequests->count() }}"
+                            wire:navigate>
                             {{ __('Users') }}
                         </flux:navlist.item>
                         <flux:navlist.item 
@@ -80,22 +78,19 @@
                             :href="route('offices.index')" 
                             :current="request()->routeIs('offices.index')" 
                             count="{{ $allOffices->count() }}"
-                            wire:navigate
-                            wire:poll.3s>
+                            wire:navigate>
                             {{ __('Offices') }}
                         </flux:navlist.item>
                         <flux:navlist.item 
                             icon="tickets" 
                             href="#"
-                            count="127"
-                            wire:poll.3s>
+                            count="127">
                             {{ __('Tickets') }}
                         </flux:navlist.item>
                         <flux:navlist.item 
                             icon="bot-message-square" 
                             href="#"
-                            count="127"
-                            wire:poll.3s>
+                            count="127">
                             {{ __('Chatbot') }}
                         </flux:navlist.item>
                     </flux:navlist.group>
@@ -105,8 +100,7 @@
                             icon="bell" 
                             href="#"
                             count="3"
-                            badge-color="blue"
-                            wire:poll.3s>
+                            badge-color="blue">
                             {{ __('Notifications') }}
                         </flux:navlist.item>
                         <flux:navlist.item 
@@ -131,8 +125,7 @@
                         <flux:navlist.item 
                             icon="users" 
                             href="#"
-                            count="24"
-                            wire:poll.3s>
+                            count="24">
                             {{ __('My Team') }}
                         </flux:navlist.item>
                     </flux:navlist.group>
@@ -141,8 +134,7 @@
                         <flux:navlist.item 
                             icon="clipboard-list" 
                             href="#"
-                            count="12"
-                            wire:poll.3s>
+                            count="12">
                             {{ __('Tasks') }}
                         </flux:navlist.item>
                         <flux:navlist.item 
@@ -165,8 +157,7 @@
                         <flux:navlist.item 
                             icon="book-open" 
                             href="#"
-                            count="5"
-                            wire:poll.3s>
+                            count="5">
                             {{ __('Courses') }}
                         </flux:navlist.item>
                     </flux:navlist.group>
@@ -175,8 +166,7 @@
                         <flux:navlist.item 
                             icon="clipboard-check" 
                             href="#"
-                            count="3"
-                            wire:poll.3s>
+                            count="3">
                             {{ __('Assignments') }}
                         </flux:navlist.item>
                         <flux:navlist.item 

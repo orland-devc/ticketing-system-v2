@@ -85,8 +85,69 @@ class User extends Authenticatable
         return implode(' ', $parts);
     }
 
+    /**
+     * Relationship: User belongs to an Office.
+     */
     public function office()
     {
         return $this->belongsTo(Office::class, 'office_id');
+    }
+
+    /**
+     * Get all users sorted by last name.
+     */
+    public static function allUsers()
+    {
+        return self::orderBy('last_name')->get();
+    }
+
+    /**
+     * Get all admin users sorted by last name.
+     */
+    public static function admins()
+    {
+        return self::where('role', 'admin')
+            ->orderBy('last_name')
+            ->get();
+    }
+
+    /**
+     * Get all head users sorted by last name.
+     */
+    public static function heads()
+    {
+        return self::where('role', 'head')
+            ->orderBy('last_name')
+            ->get();
+    }
+
+    /**
+     * Get all staff users sorted by last name.
+     */
+    public static function staffs()
+    {
+        return self::where('role', 'staff')
+            ->orderBy('last_name')
+            ->get();
+    }
+
+    /**
+     * Get all student users sorted by last name.
+     */
+    public static function students()
+    {
+        return self::where('role', 'student')
+            ->orderBy('last_name')
+            ->get();
+    }
+
+    /**
+     * Get all alumni users sorted by last name.
+     */
+    public static function alumni()
+    {
+        return self::where('role', 'alumni')
+            ->orderBy('last_name')
+            ->get();
     }
 }

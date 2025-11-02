@@ -108,8 +108,8 @@
 
     {{-- Count Badge with attention-grabbing red design --}}
     @if ($count)
-        <div class="relative flex-shrink-0">
-            <div class="flex h-6 min-w-6 items-center justify-center rounded-lg bg-gradient-to-br from-red-500 to-red-600 px-2 duration-200 group-hover/navitem:scale-105">
+        <div wire:poll.3s class="relative flex-shrink-0">
+            <div class="flex h-6 min-w-6 items-center justify-center rounded-lg bg-red-600 px-2 duration-200 group-hover/navitem:scale-105">
                 <span class="text-[11px] font-bold text-white tabular-nums">
                     {{ $count > 99 ? '99+' : $count }}
                 </span>

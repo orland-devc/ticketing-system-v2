@@ -16,6 +16,7 @@
     'accent' => true,
     'badge' => null,
     'icon' => null,
+    'count' => null,
 ])
 
 @php
@@ -87,6 +88,16 @@
         </div>
     @endif
 
+    @if ($count)
+        <div class="relative flex-shrink-0">
+            <div class="flex h-6 min-w-6 items-center justify-center rounded-lg bg-red-600 px-2 duration-200 group-hover/navitem:scale-105">
+                <span class="text-[11px] font-bold text-white tabular-nums">
+                    {{ $count > 99 ? '99+' : $count }}
+                </span>
+            </div>
+        </div>
+    @endif
+
     {{-- Trailing Icon --}}
     @if (is_string($iconTrailing) && $iconTrailing !== '')
         <x-dynamic-component :component="'lucide-' . Str::kebab($iconTrailing)" class="size-4" />
@@ -95,7 +106,7 @@
     @endif
 
     {{-- Badge --}}
-    @if ($badge)
+    @if ($badge && !$count)
         <flux:navlist.badge :color="$badgeColor">{{ $badge }}</flux:navlist.badge>
     @endif
 </flux:button-or-link>

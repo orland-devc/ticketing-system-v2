@@ -17,7 +17,6 @@ class UserRequest extends Model
         'course',
         'level',
         'role',
-        'role',
         'email',
         'is_approved',
         'is_rejected',
@@ -40,4 +39,13 @@ class UserRequest extends Model
             $request->request_code = $code;
         });
     }
+
+    public function getNameAttribute(): string
+    {
+        $middle = $this->middle_name ? ' ' . strtoupper(substr($this->middle_name, 0, 1)) . '.' : '';
+        $suffix = $this->name_suffix ? ' ' . $this->name_suffix : '';
+
+        return "{$this->first_name}{$middle} {$this->last_name}{$suffix}";
+    }
+
 }

@@ -150,7 +150,7 @@ new class extends Component {
                                     <flux:button
                                         variant="subtle"
                                         wire:click.prevent="resendVerificationNotification"
-                                        class="bg-zinc-200! dark:bg-zinc-600 text-zinc-800 dark:text-white! rounded-l-none rounded-r-lg"
+                                        class="bg-zinc-200! dark:bg-zinc-600! text-zinc-800 dark:text-white! rounded-l-none rounded-r-lg"
                                     >
                                         @if (session('status') === 'verification-link-sent')
                                             Re-send
@@ -177,7 +177,6 @@ new class extends Component {
                                     type="email" 
                                     required 
                                     autocomplete="email" 
-                                    :prefix
                                 />
                             @endif
                         </div>

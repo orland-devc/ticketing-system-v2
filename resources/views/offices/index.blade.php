@@ -25,7 +25,7 @@
                 </div>
 
                 <!-- Tab Content -->
-                <div class="pb-8 px-2 md:px-4 md:py-4">
+                <div class="pb-8 px-2 md:px-2 md:py-2">
                     <div class="gap-2">
                         @forelse ($offices as $office)
                             <livewire:offices.edit :office="$office" />

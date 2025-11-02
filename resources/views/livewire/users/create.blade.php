@@ -103,7 +103,7 @@ new class extends Component {
         </flux:button>
     </div>
 
-    <button @click="createModal = true" class="md:hidden fixed bottom-5 right-5 flex items-center justify-center h-13 w-13 rounded-full bg-blue-500 z-30 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
+    <button @click="createModal = true" class="fixed bottom-5 right-5 flex items-center justify-center h-13 w-13 rounded-full bg-blue-500 z-30 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
         <i class="fas fa-plus text-white text-xl"></i>
     </button>
 
@@ -137,7 +137,6 @@ new class extends Component {
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <flux:select
                         wire:model.defer="role"
-                        id="role-select"
                         :label="__('Role')"
                     >
                         <option value="" disabled>{{ __('Select role') }}</option>

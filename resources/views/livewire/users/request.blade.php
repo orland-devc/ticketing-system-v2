@@ -1,242 +1,122 @@
 <?php
 
-use App\Models\User;
-use App\Models\Office;
+use App\Models\UserRequest;
 use Livewire\Volt\Component;
 
 new class extends Component {
-    public User $user;
+    public $allRequests;
+    public $userRequests;
+    public $approved;
+    public $rejected;
 
-    public $role = '';
-    public $student_id = '';
-    public $office_id = '';
-    public $first_name = '';
-    public $middle_name = '';
-    public $last_name = '';
-    public $name_suffix = '';
-    public $email = '';
-    public $password = 'DefaultPassword123';
-
-    public $offices;
+    public function refreshRequests(): void
+    {
+        $this->allRequests = UserRequest::orderByDesc('created_at')->get();
+        $this->userRequests = UserRequest::where('approved', false)->where('rejected', false)->orderByDesc('created_at')->get();
+        $this->approved = UserRequest::where('approved', true)->where('rejected', false)->orderByDesc('created_at')->get();
+        $this->rejected = UserRequest::where('approved', false)->where('rejected', true)->orderByDesc('created_at')->get();
+    }
 
     public function mount(): void
     {
-        $this->offices = Office::orderBy('name')->get();
-    }
-
-    public function createUser(): void
-    {
-        $rules = [
-            'role' => 'required|string|in:admin,head,staff,student,alumni',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-        ];
-
-        if (in_array($this->role, ['head', 'staff'])) {
-            $rules['office_id'] = 'required|exists:offices,id';
-        } elseif (in_array($this->role, ['student', 'alumni'])) {
-            $rules['student_id'] = 'required|string|max:255';
-        }
-
-        $this->validate($rules);
-
-        $data = [
-            'role' => $this->role,
-            'first_name' => $this->first_name,
-            'middle_name' => $this->middle_name ?: null,
-            'name_suffix' => $this->name_suffix ?: null,
-            'last_name' => $this->last_name,
-            'email' => $this->email,
-            'password' => bcrypt($this->password),
-        ];
-
-        if (in_array($this->role, ['head', 'staff'])) {
-            $data['office_id'] = $this->office_id;
-        } elseif (in_array($this->role, ['student', 'alumni'])) {
-            $data['student_id'] = $this->student_id;
-        }
-
-        $user = User::create($data);
-
-        if ($this->role == 'head') {
-            Office::find($this->office_id)->update([
-                'head' => $user->id,
-            ]);
-        }
-
-        $this->reset([
-            'role',
-            'student_id',
-            'office_id',
-            'first_name',
-            'middle_name',
-            'last_name',
-            'name_suffix',
-            'email',
-            'password',
-        ]);
-
-        $this->dispatch('user-created');
-
-        $this->dispatch('toast', 
-            message: 'User created successfully!',
-            type: 'success',
-            duration: 5000
-        );
+        $this->allRequests = UserRequest::orderByDesc('created_at')->get();
+        $this->userRequests = UserRequest::where('approved', false)->where('rejected', false)->orderByDesc('created_at')->get();
+        $this->approved = UserRequest::where('approved', true)->where('rejected', false)->orderByDesc('created_at')->get();
+        $this->rejected = UserRequest::where('approved', false)->where('rejected', true)->orderByDesc('created_at')->get();
     }
 };
 ?>
 
-<div class=" flex items-center" x-data="{ createModal: false, role: @entangle('role') }" x-cloak>
-    <div class="hidden md:block">
-        <flux:button variant="filled" @click="createModal = true" class="hidden md:flex relative">
-            <div class="items-center gap-2 font-semibold text-md py-2">
-                <i class="fas fa-plus"></i>
-                <span class="mr-2">Requests</span>
-            </div>
-            {{-- <div class="md:hidden flex items-center gap-2">
-                <ion-icon name="add" class="text-xl "></ion-icon>
-                <p class="mr-2">New</p>
-            </div> --}}
-            <div class="absolute -right-0 -top-0">
-                <span class="relative flex h-3 w-3">
-                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
-                    <span class="relative inline-flex h-3 w-3 rounded-full bg-red-500"></span>
-                </span>
-            </div>
-        </flux:button>
+
+<div wire:poll.3s="refreshRequests" class="flex sm:w-full md:w-full lg:w-200 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden"  x-data="{ activeTab: 'requests' }">
+    <!-- Tabs Navigation -->
+    <div class="sticky top-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+        <div class="flex items-center overflow-x-auto scrollbar-hide">
+            <button @click="activeTab = 'requests'" 
+                class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4 transition-all"
+                :class="activeTab === 'requests' ? 'text-blue-700 dark:text-blue-500 border-b-2 border-blue-700 dark:border-blue-500' : 'text-zinc-400 dark:text-zinc-500 hover:text-gray-700 dark:hover:text-gray-300'">
+                <i class="fa-solid fa-users text-lg"></i>
+                <span class="text-sm font-medium hidden lg:block">Requests ({{$userRequests->count()}})</span>
+            </button>
+
+            <button @click="activeTab = 'approved'" 
+                class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4 transition-all"
+                :class="activeTab === 'approved' ? 'text-blue-700 dark:text-blue-500 border-b-2 border-blue-700 dark:border-blue-500' : 'text-zinc-400 dark:text-zinc-500 hover:text-gray-700 dark:hover:text-gray-300'">
+                <i class="fa-solid fa-user-check text-lg"></i>
+                <span class="text-sm font-medium hidden lg:block">Approved ({{$approved->count()}})</span>
+            </button>
+            
+            <button @click="activeTab = 'rejected'" 
+                class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4 transition-all"
+                :class="activeTab === 'rejected' ? 'text-blue-700 dark:text-blue-500 border-b-2 border-blue-700 dark:border-blue-500' : 'text-zinc-400 dark:text-zinc-500 hover:text-gray-700 dark:hover:text-gray-300'">
+                <i class="fa-solid fa-user-xmark text-lg"></i>
+                <span class="text-sm font-medium hidden lg:block">Rejected ({{$rejected->count()}})</span>
+            </button>
+        </div>
     </div>
 
-    <button @click="createModal = true" class="md:hidden fixed bottom-20 right-5 flex items-center justify-center h-13 w-13 rounded-full bg-blue-500 z-30 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
-            <i class="fas fa-user text-white text-xl"></i>
-            <div class="absolute right-1 top-1">
-                <span class="relative flex h-3 w-3">
-                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75"></span>
-                    <span class="relative inline-flex h-3 w-3 rounded-full bg-red-500"></span>
-                </span>
+    <!-- Tab Content -->
+    <div class="pb-8 p-2">
+        <!-- All Tab -->
+        <div x-show="activeTab === 'requests'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="grid auto-rows-min gap-3">
+            <div class="px-4 py-2 -mb-3 text-md font-bold lg:hidden">
+                Requests ({{$userRequests->count()}})
             </div>
-    </button>
-
-    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 backdrop-blur-sm"
-        x-show="createModal"
-        x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        x-effect="document.body.classList.toggle('overflow-hidden', createModal)"
-        x-cloak>
-        
-        <div @click.away="createModal = false" @keydown.escape.window="createModal = false" class="bg-white dark:bg-zinc-800 rounded-lg shadow-lg w-full md:w-3/4 lg:w-200 md:mx-4"
-            x-show="createModal"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 transform scale-95"
-            x-transition:enter-end="opacity-100 transform scale-100"
-            x-transition:leave="transition ease-in duration-200"
-            x-transition:leave-start="opacity-100 transform scale-100"
-            x-transition:leave-end="opacity-0 transform scale-95">
-            <div class="flex justify-between items-center border-b border-gray-200 dark:border-zinc-700 px-6 py-4">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Account Requests</h2>
-                <button @click="createModal = false" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none">
-                    <i class="fas fa-times-circle text-xl"></i>
-                </button>
+            <div class="gap-2">
+                @foreach ($userRequests as $user)
+                    <livewire:users.request-item :userRequest="$user" :wire:key="$user->id" />
+                @endforeach
+                @if ($userRequests->count() == 0)
+                    <div class="px-6 py-16 text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center">
+                            <i class="fas fa-users text-3xl text-gray-400 dark:text-gray-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">No users yet</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">All users will appear here once added.</p>
+                    </div>
+                @endif
             </div>
-            <div class="flex flex-col p-6 gap-4">
+        </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <flux:select
-                        wire:model.defer="role"
-                        id="role-select"
-                        :label="__('Role')"
-                    >
-                        <option value="" disabled>{{ __('Select role') }}</option>
-                        <option value="admin">{{ __('Administrator') }}</option>
-                        <option value="head">{{ __('Office Head') }}</option>
-                        <option value="staff">{{ __('Staff') }}</option>
-                        <option value="student">{{ __('Student') }}</option>
-                        <option value="alumni">{{ __('Alumni') }}</option>
-                    </flux:select>
-
-                    {{-- when selected role is student or alumni --}}
-                    <div x-show="role === 'student' || role === 'alumni'" x-cloak>
-                        <flux:input 
-                            wire:model.defer="student_id"
-                            type="text"
-                            :label="__('Student ID')"
-                            :placeholder="__('XX-XX-XXXX')"
-                        />
+        <!-- Admin Tab -->
+        <div x-show="activeTab === 'approved'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="grid auto-rows-min gap-3">
+            <div class="px-4 py-2 -mb-3 text-md font-bold lg:hidden">
+                Approved ({{$approved->count()}})
+            </div>
+            <div class="gap-2">
+                @foreach ($approved as $user)
+                    <livewire:users.request-item :userRequest="$user" :wire:key="$user->id" />
+                @endforeach
+                @if ($approved->count() == 0)
+                    <div class="px-6 py-16 text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center">
+                            <i class="fas fa-user-check text-3xl text-gray-400 dark:text-gray-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">No approved accounts yet</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Accounts will appear here once added.</p>
                     </div>
+                @endif
+            </div>
+        </div>
 
-                    {{-- when selected role is head or staff --}}
-                    <div x-show="role === 'head' || role === 'staff'" x-cloak>
-                        <flux:select
-                            wire:model.defer="office_id"
-                            :label="__('Office')">
-                            <option value="" disabled>{{ __('Select Office') }}</option>
-                            @foreach($offices as $office)
-                                <option value="{{ $office->id }}">{{ $office->name }}</option>
-                            @endforeach
-                        </flux:select>
+        <!-- Heads Tab -->
+        <div x-show="activeTab === 'rejected'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="grid auto-rows-min gap-3">
+            <div class="px-4 py-2 -mb-3 text-md font-bold lg:hidden">
+                Rejected ({{$rejected->count()}})
+            </div>
+            <div class="gap-2">
+                @foreach ($rejected as $user)
+                    <livewire:users.request-item :userRequest="$user" :wire:key="$user->id" />
+                @endforeach
+                @if ($rejected->count() == 0)
+                    <div class="px-6 py-16 text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center">
+                            <i class="fas fa-user-xmark text-3xl text-gray-400 dark:text-gray-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">No rejected accounts yet</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Accounts will appear here once added.</p>
                     </div>
-
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <flux:input
-                        wire:model.defer="first_name" 
-                        type="text" 
-                        :label="__('First Name')" 
-                        :placeholder="__('Juan')" 
-                        autofocus
-                        required
-                    />
-
-                    <flux:input
-                        wire:model.defer="middle_name" 
-                        type="text" 
-                        :label="__('Middle Name')" 
-                        :placeholder="__('Reyes')" 
-                    />
-
-                    <flux:input
-                        wire:model.defer="last_name" 
-                        type="text" 
-                        :label="__('Last Name')" 
-                        :placeholder="__('Dela Cruz')" 
-                        required
-                    />
-
-                    <flux:input
-                        wire:model.defer="name_suffix" 
-                        type="text" 
-                        :label="__('Suffix')" 
-                        :placeholder="__('e.g., Jr., Sr., etc.')" 
-                    />
-
-                    <flux:input
-                        wire:model.defer="email" 
-                        type="email" 
-                        :label="__('Email Address')" 
-                        :placeholder="__('someone@example.com')" 
-                        required
-                    />
-                    @error('email') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-
-                    <flux:input
-                        wire:model.defer="password" 
-                        type="text" 
-                        :label="__('Password')" 
-                        required
-                    />
-                </div>
-
-                <div class="flex justify-end mt-6 gap-3">
-                    <flux:button variant="filled" @click="createModal = false">{{ __('Cancel') }}</flux:button>
-                    <flux:button variant="primary" wire:click="createUser">{{ __('Create User') }}</flux:button>
-                </div>
+                @endif
             </div>
         </div>
     </div>

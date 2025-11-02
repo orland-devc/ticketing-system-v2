@@ -24,8 +24,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('tickets', TicketController::class);
-    Route::resource('users', UserController::class);
     Route::resource('offices', OfficeController::class);
+    Route::get('users/all-users', [UserController::class, 'index'])->name('users.all');
+    Route::get('users/requests', [UserController::class, 'request'])->name('users.request');
+
 });
 
 require __DIR__.'/auth.php';
