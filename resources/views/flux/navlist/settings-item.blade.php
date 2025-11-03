@@ -89,13 +89,7 @@
     @endif
 
     @if ($count)
-        <div class="relative flex-shrink-0">
-            <div class="flex h-6 min-w-6 items-center justify-center rounded-lg bg-red-600 px-2 duration-200 group-hover/navitem:scale-105">
-                <span class="text-[11px] font-bold text-white tabular-nums">
-                    {{ $count > 99 ? '99+' : $count }}
-                </span>
-            </div>
-        </div>
+        <livewire:navs.nav-count :type="$count" wire:key="nav-count-{{ $count }}" />
     @endif
 
     {{-- Trailing Icon --}}

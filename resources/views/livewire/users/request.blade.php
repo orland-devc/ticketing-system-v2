@@ -8,16 +8,20 @@ new class extends Component {
     public $userRequests;
     public $approved;
     public $rejected;
+    
+    public $activeTab = 'requests'; // Add this property
 
     public function refreshRequests(): void
     {
-        $this->allRequests = UserRequest::orderByDesc('created_at')->get();
-        $this->userRequests = UserRequest::where('approved', false)->where('rejected', false)->orderByDesc('created_at')->get();
-        $this->approved = UserRequest::where('approved', true)->where('rejected', false)->orderByDesc('created_at')->get();
-        $this->rejected = UserRequest::where('approved', false)->where('rejected', true)->orderByDesc('created_at')->get();
+        $this->loadAllRequests();
     }
 
     public function mount(): void
+    {
+        $this->loadAllRequests();
+    }
+
+    private function loadAllRequests(): void
     {
         $this->allRequests = UserRequest::orderByDesc('created_at')->get();
         $this->userRequests = UserRequest::where('approved', false)->where('rejected', false)->orderByDesc('created_at')->get();
@@ -28,7 +32,7 @@ new class extends Component {
 ?>
 
 
-<div wire:poll.3s="refreshRequests" class="flex sm:w-full md:w-full lg:w-200 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden"  x-data="{ activeTab: 'requests' }">
+<div wire:poll.3s="refreshRequests" class="flex sm:w-full md:w-full lg:w-200 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden" x-data="{ activeTab: $wire.entangle('activeTab') }">
     <!-- Tabs Navigation -->
     <div class="sticky top-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
         <div class="flex items-center overflow-x-auto scrollbar-hide">
@@ -57,14 +61,14 @@ new class extends Component {
 
     <!-- Tab Content -->
     <div class="pb-8 p-2">
-        <!-- All Tab -->
+        <!-- Requests Tab -->
         <div x-show="activeTab === 'requests'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="grid auto-rows-min gap-3">
             <div class="px-4 py-2 -mb-3 text-md font-bold lg:hidden">
                 Requests ({{$userRequests->count()}})
             </div>
             <div class="gap-2">
                 @foreach ($userRequests as $user)
-                    <livewire:users.request-item :userRequest="$user" :wire:key="$user->id" />
+                    <livewire:users.request-item :userRequest="$user" :wire:key="'requests-'.$user->id" />
                 @endforeach
                 @if ($userRequests->count() == 0)
                     <div class="px-6 py-16 text-center">
@@ -78,14 +82,14 @@ new class extends Component {
             </div>
         </div>
 
-        <!-- Admin Tab -->
+        <!-- Approved Tab -->
         <div x-show="activeTab === 'approved'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="grid auto-rows-min gap-3">
             <div class="px-4 py-2 -mb-3 text-md font-bold lg:hidden">
                 Approved ({{$approved->count()}})
             </div>
             <div class="gap-2">
                 @foreach ($approved as $user)
-                    <livewire:users.request-item :userRequest="$user" :wire:key="$user->id" />
+                    <livewire:users.request-item :userRequest="$user" :wire:key="'approved-'.$user->id" />
                 @endforeach
                 @if ($approved->count() == 0)
                     <div class="px-6 py-16 text-center">
@@ -99,14 +103,14 @@ new class extends Component {
             </div>
         </div>
 
-        <!-- Heads Tab -->
+        <!-- Rejected Tab -->
         <div x-show="activeTab === 'rejected'" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="grid auto-rows-min gap-3">
             <div class="px-4 py-2 -mb-3 text-md font-bold lg:hidden">
                 Rejected ({{$rejected->count()}})
             </div>
             <div class="gap-2">
                 @foreach ($rejected as $user)
-                    <livewire:users.request-item :userRequest="$user" :wire:key="$user->id" />
+                    <livewire:users.request-item :userRequest="$user" :wire:key="'rejected-'.$user->id" />
                 @endforeach
                 @if ($rejected->count() == 0)
                     <div class="px-6 py-16 text-center">

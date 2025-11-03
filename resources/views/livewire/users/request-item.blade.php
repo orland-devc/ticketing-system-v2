@@ -34,8 +34,6 @@ new class extends Component {
             type: 'success',
             duration: 5000
         );
-
-        $this->redirectIntended(default: route('users.request', absolute: false), navigate: true);
     }
 
     public function reject(): void
@@ -62,8 +60,6 @@ new class extends Component {
         );
 
         $this->reset(['reject_reason', 'other_reason']);
-
-        $this->redirectIntended(default: route('users.request', absolute: false), navigate: true);
     }
 };
 ?>
@@ -79,7 +75,7 @@ new class extends Component {
         @if ($userRequest?->role == 'student') border-green-500
         @elseif ($userRequest?->role == 'alumni') border-purple-500
         @endif
-        hover:bg-indigo-500/10 transition-all duration-200 shadow-sm mb-2">
+        hover:bg-indigo-500/10 transition-all duration-200 shadow-sm mb-2 cursor-pointer">
         <div class="flex items-center gap-4 p-3">
             <!-- Avatar -->
             <div class="relative flex-shrink-0">

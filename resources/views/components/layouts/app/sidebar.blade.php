@@ -69,7 +69,7 @@
                             icon="users" 
                             :href="route('users.all')" 
                             :current="request()->routeIs('users*')" 
-                            count="{{ $allRequests->count() }}"
+                            count="users"
                             wire:navigate>
                             {{ __('Users') }}
                         </flux:navlist.item>
@@ -77,7 +77,7 @@
                             icon="building-2" 
                             :href="route('offices.index')" 
                             :current="request()->routeIs('offices.index')" 
-                            count="{{ $allOffices->count() }}"
+                            count="offices"
                             wire:navigate>
                             {{ __('Offices') }}
                         </flux:navlist.item>

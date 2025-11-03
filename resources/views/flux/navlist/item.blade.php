@@ -108,21 +108,7 @@
 
     {{-- Count Badge with attention-grabbing red design --}}
     @if ($count)
-        <div wire:poll.3s class="relative flex-shrink-0">
-            <div class="flex h-6 min-w-6 items-center justify-center rounded-lg bg-red-600 px-2 duration-200 group-hover/navitem:scale-105">
-                <span class="text-[11px] font-bold text-white tabular-nums">
-                    {{ $count > 99 ? '99+' : $count }}
-                </span>
-            </div>
-            @if ($count > 0)
-                <div class="absolute -right-0.5 -top-0.5 hidden">
-                    <span class="relative flex h-2 w-2">
-                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-                        <span class="relative inline-flex h-2 w-2 rounded-full bg-red-400"></span>
-                    </span>
-                </div>
-            @endif
-        </div>
+        <livewire:navs.nav-count :type="$count" wire:key="nav-count-{{ $count }}" />
     @endif
 
     {{-- Trailing Icon --}}

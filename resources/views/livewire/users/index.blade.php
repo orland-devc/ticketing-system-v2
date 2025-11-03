@@ -55,7 +55,7 @@ new class extends Component {
             <button @click="activeTab = 'all'" 
                 class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4 transition-all"
                 :class="activeTab === 'all' ? 'text-blue-700 dark:text-blue-500 border-b-2 border-blue-700 dark:border-blue-500' : 'text-zinc-400 dark:text-zinc-500 hover:text-gray-700 dark:hover:text-gray-300'">
-                <i class="fa-solid fa-shield-halved text-lg"></i>
+                <i class="fa-solid fa-users text-lg"></i>
                 <span class="text-sm font-medium hidden lg:block">All ({{$allUsers->count()}})</span>
             </button>
 

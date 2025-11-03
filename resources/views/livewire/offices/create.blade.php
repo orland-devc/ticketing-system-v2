@@ -51,16 +51,10 @@ new class extends Component {
 
 
 <div class=" flex items-center" x-data="{ createModal: false }">
-    <button @click="createModal = true" class="hidden md:flex font-semibold dark:bg-white text-white dark:text-black dark:hover:bg-zinc-300 bg-zinc-700 hover:bg-zinc-600/75 transition-all px-2 py-3 rounded-lg">
-        <div class="items-center gap-2">
-            <i class="fas fa-plus ml-1"></i>
-            <span class="mr-2">New Office</span>
-        </div>
-        {{-- <div class="md:hidden flex items-center gap-2">
-            <ion-icon name="add" class="text-xl "></ion-icon>
-            <p class="mr-2">New</p>
-        </div> --}}
-    </button>
+    <flux:button variant="primary" @click="createModal = true" >
+        <i class="fas fa-plus ml-1"></i>
+        <span class="mr-2">New Office</span>
+    </flux:button>
 
     <button @click="createModal = true" class="md:hidden fixed bottom-5 right-5 flex items-center justify-center h-15 w-15 rounded-full bg-blue-500 z-50 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
         <i class="fas fa-plus text-white"></i>
