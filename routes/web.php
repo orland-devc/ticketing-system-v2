@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AIChatController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
@@ -28,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('users/all-users', [UserController::class, 'index'])->name('users.all');
     Route::get('users/requests', [UserController::class, 'request'])->name('users.request');
 
+    Route::get('/ai-chat', [AIChatController::class, 'index'])->name('ai.chat');
+    Route::post('/ai-chat/send', [AIChatController::class, 'send'])->name('ai.chat.send');
 });
 
 require __DIR__.'/auth.php';

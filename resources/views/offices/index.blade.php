@@ -1,7 +1,7 @@
 <x-layouts.app :title="__('Offices')" :breadcrumbs="['offices.index']">
     <div class="relative flex flex-col gap-3">
         <div class="relative md:mb-6 w-full">
-            <div class="flex justify-between">
+            <div class="flex justify-between m-4 md:m-0">
                 <div class="">
                     <flux:heading size="xl" level="1">{{ __('Manage Offices') }}</flux:heading>
                     <flux:subheading size="lg" class="mb-6 hidden md:block">{{ __('View and manage offices for heads and staff.') }}</flux:subheading>
@@ -13,7 +13,7 @@
             
         </div>
 
-        <div class="-mx-4 md:mx-0">
+        <div class="">
             <livewire:offices.index />
         </div>
     </div>
