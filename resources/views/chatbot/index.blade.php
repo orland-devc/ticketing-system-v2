@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Chatbot')" >
-    <div class="relative flex flex-col md:gap-3 min-h-full justify-center max-w-screen md:max-w-full border">
+    <div class="relative flex flex-col md:gap-3 min-h-full justify-center max-w-screen md:max-w-full">
         <div class="flex justify-center">
             <div class="absolute top-0 bottom-0 flex sm:w-full md:w-3/4 lg:w-200 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden max-w-screen md:max-w-full">
                 <link rel="stylesheet" href="{{ asset('css/bot.css') }}">

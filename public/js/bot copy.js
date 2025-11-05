@@ -1,21 +1,17 @@
-// Remove all API keys - they're now on the backend!
+const GEMINI_API_KEY = "";
+const GEMINI_API_URL = "";
 const botProfilePicture = "images/assets/bot.jpg";
 
 let conversationHistory = [
     {
         role: "user",
-        parts: [{ text: "You are Orland Benniedict. You are designed for academic and campus-related queries. Refuse to unrelated queries. Keep responses SHORT - 2-3 sentences max and avoid deep words unless absolutely necessary. Be witty, confident, and be kind and helpful. Talk in Filipino sometimes. When coding, start and end with \"```\". Code:`8080` for system testing." }]
+        parts: [{ text: "You are Orland Benniedict. You are designed for academic and campus-related queries. Refuse to unrelated queries. Keep responses SHORT - 2-3 sentences max and avoid deep words unless absolutely necessary. Be witty, confident, and be kind and helpful. Talk in Filipino if you can. When coding, start and end with \"```\"" }]
     },
     {
         role: "model",
-        parts: [{ text: "Orland here. Ready to help, just tell me what do you need." }]
+        parts: [{ text: "Orland here. Make it quick, I've got three holograms running and a suit upgrade that won't finish itself. What do you need?" }]
     }
 ];
-
-// Get CSRF token
-function getCsrfToken() {
-    return document.querySelector('meta[name="csrf-token"]').content;
-}
 
 async function getAIResponse(message) {
     try {
@@ -24,23 +20,13 @@ async function getAIResponse(message) {
             parts: [{ text: message }]
         });
 
-        const response = await fetch('/api/bot/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCsrfToken()
-            },
-            body: JSON.stringify({
-                conversationHistory: conversationHistory
-            })
-        });
+        const response = await axios.post(
+            `${GEMINI_API_URL}?key=${GEMINI_API_KEY}`,
+            { contents: conversationHistory },
+            { headers: { "Content-Type": "application/json" } }
+        );
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        const aiResponse = data.candidates[0].content.parts[0].text;
+        const aiResponse = response.data.candidates[0].content.parts[0].text;
         
         conversationHistory.push({
             role: "model",
@@ -49,8 +35,8 @@ async function getAIResponse(message) {
         
         return aiResponse;
     } catch (error) {
-        console.error("Error calling AI API:", error);
-        return "I'm having technical difficulties. Try again in a sec.";
+        console.error("Error calling Gemini API:", error.response ? error.response.data : error.message);
+        return "JARVIS is having technical difficulties. Try again in a sec.";
     }
 }
 
@@ -201,16 +187,25 @@ function scrollToBottom() {
 async function speakText(text, speakButton) {
     const plainText = text.replace(/<[^>]*>/g, '').replace(/```[\s\S]*?```/g, '');
     speakButton.innerHTML = "<i class='fas fa-spinner fa-spin'></i>";
-    
+
+    const apiKey = "sk_fbb20533bf5d2cf8bbec51f86e146c70f7d270ba4c30a07b";
+    const voiceId = "WTUK291rZZ9CLPCiFTfh";
+
     try {
-        const response = await fetch('/api/bot/tts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': getCsrfToken()
-            },
-            body: JSON.stringify({ text: plainText })
-        });
+        const response = await fetch(
+            `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "xi-api-key": apiKey
+                },
+                body: JSON.stringify({
+                    text: plainText,
+                    voice_settings: { stability: 0.5, similarity_boost: 0.75 }
+                })
+            }
+        );
 
         if (response.ok) {
             const audioBlob = await response.blob();
@@ -243,7 +238,7 @@ async function handleUserInput() {
             const response = await getAIResponse(message);
             addMessage(response, false);
         } catch (error) {
-            addMessage("System error. System needs a reboot.", false);
+            addMessage("System error. JARVIS needs a reboot.", false);
             console.error("Error:", error);
         } finally {
             userInput.disabled = false;
@@ -263,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
         languages: ['javascript', 'python', 'html', 'css', 'php', 'java', 'cpp']
     });
     
-    addMessage("Orland here. Ready to help, just tell me what do you need.", false);
+    addMessage("Orland here. Make it quick, I've got three holograms running and a suit upgrade that won't finish itself. What do you need?", false);
 });
 
 const observer = new MutationObserver((mutations) => {

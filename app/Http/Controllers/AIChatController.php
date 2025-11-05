@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class AIChatController extends Controller
 {
@@ -27,7 +28,7 @@ class AIChatController extends Controller
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'x-goog-api-key' => env('GEMINI_API_KEY'),
-        ])->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent', [
+        ])->post('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', [
             'contents' => $conversation,
         ]);
 
@@ -50,42 +51,115 @@ class AIChatController extends Controller
 
     public function chat(Request $request)
     {
-        $apiKey = config('services.gemini.key') ?: env('GEMINI_API_KEY');
-        $apiUrl = config('services.gemini.url') ?: env('GEMINI_API_URL');
+        try {
+            $conversationHistory = $request->input('conversationHistory', []);
+            
+            $apiKey = env('GEMINI_API_KEY');
+            $apiUrl = env('GEMINI_API_URL');
+            
+            // Debug: Check if env variables exist
+            if (!$apiKey || !$apiUrl) {
+                Log::error('Missing Gemini API configuration');
+                return response()->json([
+                    'error' => 'API configuration missing'
+                ], 500);
+            }
 
-        $payload = [
-            'contents' => $request->input('conversation') ?? [['role' => 'user', 'parts' => [['text' => $request->input('message')]]]],
-        ];
+            $response = Http::timeout(30)
+                ->withHeaders([
+                    'Content-Type' => 'application/json',
+                ])
+                ->post(
+                    $apiUrl . '?key=' . $apiKey,
+                    ['contents' => $conversationHistory]
+                );
 
-        $res = Http::withHeaders(['Content-Type' => 'application/json'])
-            ->post($apiUrl.'?key='.$apiKey, $payload);
+            if ($response->successful()) {
+                return response()->json($response->json());
+            }
 
-        if ($res->successful()) {
-            $candidate = $res->json('candidates.0.content.parts.0.text') ?? '';
+            // Log the actual error from Gemini
+            Log::error('Gemini API Error Response', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
 
-            return response()->json(['output' => $candidate]);
+            return response()->json([
+                'error' => 'Failed to get AI response',
+                'details' => $response->body()
+            ], $response->status());
+
+        } catch (\Exception $e) {
+            Log::error('Gemini API Exception', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'error' => 'JARVIS is having technical difficulties.',
+                'message' => $e->getMessage()
+            ], 500);
         }
-
-        return response()->json(['error' => 'AI error'], 500);
     }
 
-    public function tts(Request $request)
+    public function textToSpeech(Request $request)
     {
-        $elevenKey = env('ELEVENLABS_KEY');
-        $voiceId = env('ELEVEN_VOICE_ID');
+        try {
+            $text = $request->input('text');
+            
+            $voiceKey = env('VOICE_API_KEY');
+            $voiceId = env('VOICE_ID');
+            
+            // Debug: Check if env variables exist
+            if (!$voiceKey || !$voiceId) {
+                Log::error('Missing Voice API configuration');
+                return response()->json([
+                    'error' => 'Voice API configuration missing'
+                ], 500);
+            }
 
-        $res = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'xi-api-key' => $elevenKey,
-        ])->post("https://api.elevenlabs.io/v1/text-to-speech/{$voiceId}", [
-            'text' => $request->input('text'),
-            'voice_settings' => ['stability' => 0.5, 'similarity_boost' => 0.75],
-        ]);
+            $response = Http::timeout(30)
+                ->withHeaders([
+                    'Content-Type' => 'application/json',
+                    'xi-api-key' => $voiceKey,
+                ])
+                ->post(
+                    'https://api.elevenlabs.io/v1/text-to-speech/' . $voiceId,
+                    [
+                        'text' => $text,
+                        'voice_settings' => [
+                            'stability' => 0.5,
+                            'similarity_boost' => 0.75
+                        ]
+                    ]
+                );
 
-        if ($res->successful()) {
-            return response($res->body(), 200)->header('Content-Type', 'audio/mpeg');
+            if ($response->successful()) {
+                return response($response->body())
+                    ->header('Content-Type', 'audio/mpeg');
+            }
+
+            // Log the actual error from ElevenLabs
+            Log::error('ElevenLabs API Error Response', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
+
+            return response()->json([
+                'error' => 'Failed to synthesize speech',
+                'details' => $response->body()
+            ], $response->status());
+
+        } catch (\Exception $e) {
+            Log::error('TTS API Exception', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            return response()->json([
+                'error' => 'Speech synthesis failed',
+                'message' => $e->getMessage()
+            ], 500);
         }
-
-        return response()->json(['error' => 'TTS failed'], 500);
     }
 }

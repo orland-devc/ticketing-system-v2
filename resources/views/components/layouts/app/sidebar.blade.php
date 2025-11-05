@@ -89,8 +89,9 @@
                         </flux:navlist.item>
                         <flux:navlist.item 
                             icon="bot-message-square" 
-                            href="#"
-                            count="127">
+                            :href="route('ai.chat')"
+                            :current="request()->routeIs('ai.chat')"
+                            wire:navigate>
                             {{ __('Chatbot') }}
                         </flux:navlist.item>
                     </flux:navlist.group>

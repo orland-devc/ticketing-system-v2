@@ -22,3 +22,9 @@ export default defineConfig({
     },
 });
 // run with php artisan serve --host="192.168.43.228" --port="8000"
+// php artisan config:clear
+// php artisan cache:clear
+// php artisan route:clear
+// php artisan view:clear
+// composer dump-autoload
+// php artisan serve
