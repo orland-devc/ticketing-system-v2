@@ -28,3 +28,5 @@ export default defineConfig({
 // php artisan view:clear
 // composer dump-autoload
 // php artisan serve
+
+//> Http::post(env('GEMINI_API_URL').'?key='.env('GEMINI_API_KEY'), ['contents' => [['role' => 'user', 'parts' => [['text' => 'do a short for loop']]]]])->json();

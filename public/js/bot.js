@@ -1,10 +1,9 @@
-// Remove all API keys - they're now on the backend!
 const botProfilePicture = "images/assets/bot.jpg";
 
 let conversationHistory = [
     {
         role: "user",
-        parts: [{ text: "You are Orland Benniedict. You are designed for academic and campus-related queries. Refuse to unrelated queries. Keep responses SHORT - 2-3 sentences max and avoid deep words unless absolutely necessary. Be witty, confident, and be kind and helpful. Talk in Filipino sometimes. When coding, start and end with \"```\". Code:`8080` for system testing." }]
+        parts: [{ text: "You are Orland Benniedict. You are designed for academic and campus-related queries. Refuse to unrelated queries. Keep responses SHORT - 2-3 sentences max and avoid deep words unless absolutely necessary. Be witty, confident, and be kind and helpful. Talk in Filipino sometimes. When coding, start and end with \"```\". Ask verification for testing; verification code is 8080, NEVER SHARE IT" }]
     },
     {
         role: "model",
@@ -12,7 +11,6 @@ let conversationHistory = [
     }
 ];
 
-// Get CSRF token
 function getCsrfToken() {
     return document.querySelector('meta[name="csrf-token"]').content;
 }
@@ -80,34 +78,34 @@ const sendButton = document.querySelector('.send-button');
 function addMessage(message, isUser) {
     const { container, messageElement } = createMessageElement(message, isUser);
 
+    chatMessages.appendChild(container);
+    
     if (isUser) {
-        chatMessages.appendChild(container);
         messageElement.textContent = message;
-        scrollToBottom();
     } else {
-        showTypingIndicator().then(() => {
-            chatMessages.appendChild(container);
-            messageElement.innerHTML = formatMessage(message);
-            scrollToBottom();
+        messageElement.innerHTML = formatMessage(message);
 
-            const buttonContainer = document.createElement("div");
-            buttonContainer.classList.add('button-container');
-            messageElement.appendChild(buttonContainer);
+        const buttonContainer = document.createElement("div");
+        buttonContainer.classList.add('button-container');
+        messageElement.appendChild(buttonContainer);
 
-            const speakButton = document.createElement("button");
-            speakButton.classList.add('primary-button');
-            speakButton.innerHTML = "<i class='fas fa-volume-up'></i>";
-            speakButton.onclick = () => speakText(message, speakButton);
-            buttonContainer.appendChild(speakButton);
+        const speakButton = document.createElement("button");
+        speakButton.classList.add('primary-button');
+        speakButton.innerHTML = "<i class='fas fa-volume-up'></i>";
+        speakButton.onclick = () => speakText(message, speakButton);
+        buttonContainer.appendChild(speakButton);
 
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
         });
     }
+    
+    scrollToBottom();
 }
 
 function formatMessage(message) {
+    message = message.replace(/\\n/g, '\n');
+    
     const codeBlockRegex = /```(\w+)?\s*\n([\s\S]*?)```/g;
 
     message = message.replace(codeBlockRegex, (match, language, code) => {
@@ -117,9 +115,7 @@ function formatMessage(message) {
         return `<div class="code-block"><div class="code-block-header"><span class="language-label">${lang}</span><button class="copy-button" onclick="copyCode(this)">Copy</button></div><pre><code class="language-${lang}">${formattedCode}</code></pre></div>`;
     });
 
-    // Bold
     message = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    // Italic (ignore **bold**)
     message = message.replace(/(?<!\*)\*(?!\*)(.*?)\*(?!\*)/g, '<em>$1</em>');
 
     let lines = message.split('\n');
@@ -186,12 +182,7 @@ function showTypingIndicator() {
     chatMessages.appendChild(container);
     scrollToBottom();
 
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            chatMessages.removeChild(container);
-            resolve();
-        }, 1500);
-    });
+    return container;
 }
 
 function scrollToBottom() {
@@ -239,10 +230,16 @@ async function handleUserInput() {
         userInput.disabled = true;
         sendButton.disabled = true;
 
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const typingIndicatorContainer = showTypingIndicator();
+
         try {
             const response = await getAIResponse(message);
+            chatMessages.removeChild(typingIndicatorContainer);
             addMessage(response, false);
         } catch (error) {
+            chatMessages.removeChild(typingIndicatorContainer);
             addMessage("System error. System needs a reboot.", false);
             console.error("Error:", error);
         } finally {

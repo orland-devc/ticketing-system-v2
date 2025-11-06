@@ -90,8 +90,7 @@
                         <flux:navlist.item 
                             icon="bot-message-square" 
                             :href="route('ai.chat')"
-                            :current="request()->routeIs('ai.chat')"
-                            wire:navigate>
+                            :current="request()->routeIs('ai.chat')">
                             {{ __('Chatbot') }}
                         </flux:navlist.item>
                     </flux:navlist.group>
@@ -156,20 +155,26 @@
                             {{ __('Dashboard') }}
                         </flux:navlist.item>
                         <flux:navlist.item 
-                            icon="book-open" 
+                            icon="tickets" 
                             href="#"
-                            count="5">
-                            {{ __('Courses') }}
+                            count="127">
+                            {{ __('Tickets') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item 
+                            icon="bot-message-square" 
+                            :href="route('ai.chat')"
+                            :current="request()->routeIs('ai.chat')">
+                            {{ __('Chatbot') }}
                         </flux:navlist.item>
                     </flux:navlist.group>
 
                     <flux:navlist.group :heading="__('Activity')" class="grid">
-                        <flux:navlist.item 
+                        {{-- <flux:navlist.item 
                             icon="clipboard-check" 
                             href="#"
                             count="3">
                             {{ __('Assignments') }}
-                        </flux:navlist.item>
+                        </flux:navlist.item> --}}
                         <flux:navlist.item 
                             icon="message-circle" 
                             href="#"

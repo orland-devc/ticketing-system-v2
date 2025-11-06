@@ -31,18 +31,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ai-chat', [AIChatController::class, 'index'])->name('ai.chat');
     Route::post('/ai-chat/send', [AIChatController::class, 'send'])->name('ai.chat.send');
-
-    Route::post('/api/bot/chat', [AIChatController::class, 'chat'])->name('bot.chat');
-    Route::post('/api/bot/tts', [AIChatController::class, 'textToSpeech'])->name('bot.tts');
-
-    Route::get('/test-config', function() {
-        return response()->json([
-            'gemini_key_exists' => env('GEMINI_API_KEY') ? 'YES' : 'NO',
-            'gemini_key_length' => env('GEMINI_API_KEY') ? strlen(env('GEMINI_API_KEY')) : 0,
-            'voice_key_exists' => env('VOICE_API_KEY') ? 'YES' : 'NO',
-            'voice_id_exists' => env('VOICE_ID') ? 'YES' : 'NO',
-        ]);
-    });
 });
 
 require __DIR__.'/auth.php';

@@ -12,14 +12,13 @@
                 </div>
                 <div id="chat-messages" class="max-h-full h-full overflow-y-auto p-4 bg-zinc-100 text-sm"></div>
                 <div class="flex p-4 bg-white dark:bg-zinc-800">
-                    <input type="text" id="user-input" class="w-full px-4 py-2 rounded-full text-md bg-white dark:bg-zinc-700 focus:ring-0 outline-none border-2 focus:border-blue-500 transition-all" placeholder="Talk to Stark..." autofocus>
+                    <input type="text" id="user-input" class="w-full px-4 py-2 rounded-full text-md bg-white dark:bg-zinc-700 focus:ring-0 outline-none border-2 focus:border-blue-500 transition-all" placeholder="Write a message..." autofocus>
                     <button class="send-button bg-gradient-to-br from-[#667eea] to-[#764ba2] dark:from-blue-900/50 dark:to-purple-900/50 text-white ml-2 cursor-pointer flex items-center justify-center text-2xl h-12 w-12 object-cover overflow-hidden hover:scale-105 rounded-full min-h-max min-w-max">
                         <i class="fas fa-paper-plane rotate-45 -ml-2"></i>
                     </button>
                 </div>
             </div>
         </div>
-
-
-    <script src="{{asset('js/bot.js')}}"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="{{ asset('js/bot.js') }}"></script>
 </x-layouts.app>
