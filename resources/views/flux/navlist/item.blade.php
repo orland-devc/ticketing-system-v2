@@ -25,7 +25,7 @@
     $square ??= $slot->isEmpty();
 
     // Size-up icons in square/icon-only buttons...
-    $iconClasses = $square ? 'size-5' : 'size-[18px]';
+    $iconClasses = $square ? 'size-5' : 'size-[20px]';
 
     $classes = collect([
         'group/navitem relative flex items-center gap-2 rounded-xl transition-all duration-200',
@@ -101,7 +101,7 @@
 
     {{-- Text with better typography --}}
     @if ($slot->isNotEmpty())
-        <div class="flex-1 text-[13px] font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block transition-colors" data-content>
+        <div class="flex-1 text-[14px] font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block transition-colors" data-content>
             {{ $slot }}
         </div>
     @endif

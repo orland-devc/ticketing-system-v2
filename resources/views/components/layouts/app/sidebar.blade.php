@@ -13,8 +13,8 @@
                         <x-app-logo-icon class="h-6 w-6" />
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-md font-bold text-zinc-900 dark:text-white">{{ config('app.name') }}</span>
-                        <span class="text-xs font-medium text-zinc-400 dark:text-zinc-500">{{ ucfirst(Auth::user()->role) }}</span>
+                        <span class="text-lg font-bold text-zinc-900 dark:text-white">{{ config('app.name') }}</span>
+                        <span class="text-sm font-medium text-zinc-400 dark:text-zinc-500">{{ ucfirst(Auth::user()->role) }}</span>
                     </div>
                 </a>
                 <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
@@ -35,10 +35,10 @@
                         @endif
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-zinc-900 dark:text-white truncate">
+                        <p class="text-md font-semibold text-zinc-900 dark:text-white truncate">
                             {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                         </p>
-                        <p class="text-xs text-zinc-600 dark:text-zinc-400 truncate">
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400 truncate">
                             {{ auth()->user()->email }}
                         </p>
                     </div>
@@ -231,10 +231,10 @@
                         @endif
                     </div>
                     <div class="min-w-0 flex-1 text-left">
-                        <div class="truncate text-sm font-semibold text-zinc-900 dark:text-white">
+                        <div class="truncate text-md font-semibold text-zinc-900 dark:text-white">
                             {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                         </div>
-                        <div class="truncate text-xs text-zinc-500 dark:text-zinc-400">View Profile</div>
+                        <div class="truncate text-sm text-zinc-500 dark:text-zinc-400">View Profile</div>
                     </div>
                     <flux:icon.chevrons-up-down class="h-4 w-4 text-zinc-400" />
                 </button>

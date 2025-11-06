@@ -22,7 +22,7 @@
                 </a>
 
                 <div class="flex flex-col gap-6">
-                    <div class="rounded-xl border bg-white/95 dark:bg-stone-950/95 dark:border-stone-800 text-stone-800 shadow-xl backdrop-blur-sm">
+                    <div class="rounded-3xl border bg-white/95 dark:bg-stone-950/95 dark:border-stone-800 text-stone-800 shadow-xl backdrop-blur-sm">
                         <div class="p-8">{{ $slot }}</div>
                     </div>
                 </div>

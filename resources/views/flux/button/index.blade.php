@@ -53,9 +53,9 @@ $classes = Flux::classes()
     ->add('relative items-center font-medium justify-center gap-2 whitespace-nowrap')
     ->add('disabled:opacity-75 dark:disabled:opacity-75 disabled:cursor-default disabled:pointer-events-none')
     ->add(match ($size) { // Size...
-        'base' => 'h-10 text-sm rounded-lg' . ' ' . ($square ? 'w-10' : 'px-4'),
-        'sm' => 'h-8 text-sm rounded-md' . ' ' . ($square ? 'w-8' : 'px-3'),
-        'xs' => 'h-6 text-xs rounded-md' . ' ' . ($square ? 'w-6' : 'px-2'),
+        'base' => 'h-10 text-sm rounded-xl' . ' ' . ($square ? 'w-10' : 'px-4'),
+        'sm' => 'h-8 text-sm rounded-lg' . ' ' . ($square ? 'w-8' : 'px-3'),
+        'xs' => 'h-6 text-xs rounded-lg' . ' ' . ($square ? 'w-6' : 'px-2'),
     })
     ->add('transition-all')
     ->add('cursor-pointer')
