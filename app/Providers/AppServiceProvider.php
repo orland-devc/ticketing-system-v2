@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Office;
 use App\Models\User;
 use App\Models\UserRequest;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,7 +16,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // if(env('APP_ENV') !== 'local')
+        //     {
+        //         URL::forceScheme(scheme: 'https');
+        //     }
     }
 
     /**

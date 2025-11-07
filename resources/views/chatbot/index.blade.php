@@ -6,8 +6,8 @@
                 <div class="flex items-center gap-4 px-6 py-3 bg-gradient-to-br from-[#667eea] to-[#764ba2] dark:from-blue-900/50 dark:to-purple-900/50 text-white">
                     <img src="{{ asset('images/assets/bot.jpg') }}" alt="Tony Stark" class="h-15 w-15 rounded-full border-3 border-zinc-300/50">
                     <div class="flex flex-col">
-                        <h1 class="text-lg font-bold">HANDSOME GENIUS AI</h1>
-                        <p class="text-xs">Powered by Gemini • Personality by Orland Benniedict</p>
+                        <h1 class="text-lg font-bold capitalize">{{ $botSettings->name }}</h1>
+                        <p class="text-xs">A Smart Campus Assistant for your concerns. For PSUSCC only.</p>
                     </div>
                 </div>
                 <div id="chat-messages" class="max-h-full h-full overflow-y-auto p-4 bg-zinc-100 text-sm"></div>
@@ -20,5 +20,13 @@
             </div>
         </div>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        window.botSettings = {
+            profile_picture: "{{ asset($botSettings->profile_picture) }}",
+            system_prompt: "{{ $botSettings->system_prompt }}",
+            greeting: "{{ $botSettings->greeting_message }}",
+            error: "{{ $botSettings->error_message }}"
+        };
+    </script>
     <script src="{{ asset('js/bot.js') }}"></script>
 </x-layouts.app>

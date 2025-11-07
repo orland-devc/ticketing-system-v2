@@ -27,9 +27,9 @@
     $iconClasses = $square ? 'size-5' : 'size-4';
 
     $classes = collect([
-        'h-10 lg:h-8 relative flex items-center gap-3 rounded-lg',
+        'h-10 relative flex items-center gap-3 rounded-xl',
         $square ? 'px-2.5' : '',
-        'py-0 text-start w-full px-3 my-px',
+        'py-0 text-start w-full px-4 my-px mb-1',
         'text-zinc-500 dark:text-white/80',
     ]);
 
@@ -63,27 +63,10 @@
 @endphp
 
 <flux:button-or-link :attributes="$attributes->class($classes)" data-flux-navlist-item>
-    {{-- Leading Icon --}}
-    @if ($icon)
-        <div class="relative">
-            @if (is_string($icon) && $icon !== '')
-                {{-- Renders Lucide icon dynamically --}}
-                <x-dynamic-component :component="'lucide-' . Str::kebab($icon)" class="{{ $iconClasses }}" />
-            @else
-                {{ $icon }}
-            @endif
-
-            @if ($iconDot)
-                <div class="absolute top-[-2px] end-[-2px]">
-                    <div class="size-[6px] rounded-full bg-zinc-500 dark:bg-zinc-400"></div>
-                </div>
-            @endif
-        </div>
-    @endif
 
     {{-- Text --}}
     @if ($slot->isNotEmpty())
-        <div class="flex-1 text-sm font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>
+        <div class="flex-1 text-sm font-medium text-center md:text-left leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>
             {{ $slot }}
         </div>
     @endif

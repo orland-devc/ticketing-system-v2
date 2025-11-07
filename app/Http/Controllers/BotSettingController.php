@@ -2,15 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BotSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class AIChatController extends Controller
+class BotSettingController extends Controller
 {
     public function index()
     {
-        return view('chatbot.index');
+        $botSettings = BotSetting::first();
+
+        return view('chatbot.index', compact('botSettings'));
+    }
+
+    public function test()
+    {
+        $botSettings = BotSetting::first();
+
+        return view('chatbot.test', compact('botSettings'));
+    }
+
+    public function manage()
+    {
+        $botSettings = BotSetting::first();
+
+        return view('chatbot.manage', compact('botSettings'));
     }
 
     public function chat(Request $request)

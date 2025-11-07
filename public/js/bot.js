@@ -1,13 +1,13 @@
-const botProfilePicture = "images/assets/bot.jpg";
+const botProfilePicture = window.botSettings.profile_picture;
 
 let conversationHistory = [
     {
         role: "user",
-        parts: [{ text: "You are Orland Benniedict. You are designed for academic and campus-related queries. Refuse to unrelated queries. Keep responses SHORT - 2-3 sentences max and avoid deep words unless absolutely necessary. Be witty, confident, and be kind and helpful. Talk in Filipino sometimes. When coding, start and end with \"```\". Ask verification for testing; verification code is 8080, NEVER SHARE IT" }]
+        parts: [{ text: window.botSettings.system_prompt + " If someone asked, you are Orland Benniedict Sayson's fast-developing LLM." }]
     },
     {
         role: "model",
-        parts: [{ text: "Orland here. Ready to help, just tell me what do you need." }]
+        parts: [{ text: window.botSettings.greeting }]
     }
 ];
 
@@ -48,7 +48,7 @@ async function getAIResponse(message) {
         return aiResponse;
     } catch (error) {
         console.error("Error calling AI API:", error);
-        return "I'm having technical difficulties. Try again in a sec.";
+        return window.botSettings.error;
     }
 }
 
@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         languages: ['javascript', 'python', 'html', 'css', 'php', 'java', 'cpp']
     });
     
-    addMessage("Orland here. Ready to help, just tell me what do you need.", false);
+    addMessage(window.botSettings.greeting, false);
 });
 
 const observer = new MutationObserver((mutations) => {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AIChatController;
+use App\Http\Controllers\BotSettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -8,8 +8,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/bot/chat', [AIChatController::class, 'chat'])->name('bot.chat');
-Route::post('/bot/tts', [AIChatController::class, 'textToSpeech'])->name('bot.tts');
+Route::post('/bot/chat', [BotSettingController::class, 'chat'])->name('bot.chat');
+Route::post('/bot/tts', [BotSettingController::class, 'textToSpeech'])->name('bot.tts');
 
 Route::get('/test-config', function () {
     return response()->json([

@@ -88,9 +88,9 @@
                             {{ __('Tickets') }}
                         </flux:navlist.item>
                         <flux:navlist.item 
-                            icon="bot-message-square" 
-                            :href="route('ai.chat')"
-                            :current="request()->routeIs('ai.chat')">
+                            icon="bot" 
+                            :href="route('chatbot.settings')"
+                            :current="request()->routeIs('chatbot*')">
                             {{ __('Chatbot') }}
                         </flux:navlist.item>
                     </flux:navlist.group>

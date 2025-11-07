@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\BotSetting;
 use App\Models\Office;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -76,5 +77,14 @@ class DatabaseSeeder extends Seeder
 
         $office5 = Office::create(['name' => 'Cashier']);
         $this->command->info("{$office5->name} has been created");
+
+        $bot = BotSetting::create([
+            'name' => 'PSU SmartBot',
+            'profile_picture' => 'images/assets/bot.jpg',
+            'system_prompt' => 'You are PSU SmartBot. You are designed for academic and campus-related queries. Refuse to unrelated queries. Keep responses SHORT - 2-3 sentences max and avoid deep words unless absolutely necessary. Be witty, confident, and be kind and helpful. Talk in Filipino sometimes. When coding, start and end with \"```\".',
+            'greeting_message' => 'PSU SmartBot here. Ready to help, just tell me what do you need.',
+            'error_message' => "I'm having technical difficulties. Try again in a sec.",
+        ]);
+        $this->command->info("{$bot->name} has been created");
     }
 }
