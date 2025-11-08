@@ -90,7 +90,8 @@
                         <flux:navlist.item 
                             icon="bot" 
                             :href="route('chatbot.settings')"
-                            :current="request()->routeIs('chatbot*')">
+                            :current="request()->routeIs('chatbot*')"
+                            wire:navigate>
                             {{ __('Chatbot') }}
                         </flux:navlist.item>
                     </flux:navlist.group>

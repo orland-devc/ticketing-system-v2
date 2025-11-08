@@ -4,7 +4,7 @@
             <section class="w-full">
                 @include('partials.chatbot-heading')
                 <x-chatbot.layout>
-                    <livewire:chatbot.manage  />
+                    <livewire:chatbot.manage/>
                 </x-chatbot.layout>
             </section>
         </div>
