@@ -9,7 +9,10 @@ class BotSetting extends Model
     protected $fillable = [
         'name',
         'profile_picture',
-        'system_prompt',
+        'character',
+        'role',
+        'personality',
+        'behavior',
         'greeting_message',
         'error_message',
     ];

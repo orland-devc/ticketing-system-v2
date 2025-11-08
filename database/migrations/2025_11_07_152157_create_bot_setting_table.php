@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('profile_picture')->nullable();
-            $table->text('system_prompt')->nullable();
+            $table->text('character')->nullable();
+            $table->text('role')->nullable();
+            $table->text('personality')->nullable();
+            $table->text('behavior')->nullable();
             $table->text('greeting_message')->nullable();
             $table->string('error_message')->nullable();
             $table->timestamps();

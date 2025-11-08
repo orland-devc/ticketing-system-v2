@@ -39,6 +39,14 @@
     margin-left: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+.inline-code {
+    background-color: #c6d3ff; 
+    color: #1e40af; 
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
 .bot-message:hover {
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
@@ -123,7 +131,6 @@
     border: 1px solid #4a5568;
     margin-top: 10px;
     font-size: 12px;
-    white-space: pre;
 }
 .code-block-header {
     background-color: #21252b;
@@ -154,19 +161,18 @@
 .copy-button:hover {
     background-color: #667eea;
 }
-.code-block pre {
-    padding: 16px;
+pre {
     margin: 0;
     font-family: 'Fira Code', 'Courier New', monospace;
     line-height: 1.6;
-    overflow-x: auto;
-}
-.code-block pre code {
-    padding: 0;
-    word-break: normal;
-    word-wrap: normal;
+    white-space: pre-wrap !important;
     display: block;
 }
 .hljs {
     background-color: transparent !important;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.hljs::-webkit-scrollbar {
+    display: none;
 }

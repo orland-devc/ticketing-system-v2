@@ -3,11 +3,17 @@ const botProfilePicture = window.botSettings.profile_picture;
 let conversationHistory = [
     {
         role: "user",
-        parts: [{ text: window.botSettings.system_prompt + " If someone asked, you are Orland Benniedict Sayson's fast-developing LLM." }]
+        parts: [{ text: "You are" + window.botSettings.name + 
+            " You are talking to " + window.botSettings.username + ". " +
+            window.botSettings.character + 
+            window.botSettings.role + 
+            window.botSettings.personality + 
+            window.botSettings.behavior + 
+            " If someone asked, you are Orland Benniedict Sayson's fast-developing LLM." }]
     },
     {
         role: "model",
-        parts: [{ text: window.botSettings.greeting }]
+        parts: [{ text: "Hi " + window.botSettings.username + "! " + window.botSettings.greeting }]
     }
 ];
 
@@ -22,6 +28,20 @@ async function getAIResponse(message) {
             parts: [{ text: message }]
         });
 
+        // Keep system prompt (first 2 items) + last 10 messages
+        const maxMessages = 10; // 5 exchanges (user + bot pairs)
+        let historyToSend;
+        
+        if (conversationHistory.length > maxMessages + 2) {
+            historyToSend = [
+                conversationHistory[0], // System prompt
+                conversationHistory[1], // Initial greeting
+                ...conversationHistory.slice(-maxMessages) // Last 10 messages
+            ];
+        } else {
+            historyToSend = conversationHistory;
+        }
+
         const response = await fetch('/api/bot/chat', {
             method: 'POST',
             headers: {
@@ -29,7 +49,7 @@ async function getAIResponse(message) {
                 'X-CSRF-TOKEN': getCsrfToken()
             },
             body: JSON.stringify({
-                conversationHistory: conversationHistory
+                conversationHistory: historyToSend
             })
         });
 
@@ -63,7 +83,7 @@ function createMessageElement(message, isUser) {
         const imageElement = document.createElement('img');
         imageElement.src = botProfilePicture;
         imageElement.className = 'chatImage';
-        imageElement.alt = 'Tony Stark';
+        imageElement.alt = window.botSettings.name;
         messageContainer.appendChild(imageElement);
     }
 
@@ -114,6 +134,8 @@ function formatMessage(message) {
         
         return `<div class="code-block"><div class="code-block-header"><span class="language-label">${lang}</span><button class="copy-button" onclick="copyCode(this)">Copy</button></div><pre><code class="language-${lang}">${formattedCode}</code></pre></div>`;
     });
+
+    message = message.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
 
     message = message.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     message = message.replace(/(?<!\*)\*(?!\*)(.*?)\*(?!\*)/g, '<em>$1</em>');
@@ -260,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
         languages: ['javascript', 'python', 'html', 'css', 'php', 'java', 'cpp']
     });
     
-    addMessage(window.botSettings.greeting, false);
+    addMessage("Hi **" + window.botSettings.username + "**! " + window.botSettings.greeting, false);
 });
 
 const observer = new MutationObserver((mutations) => {

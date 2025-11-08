@@ -6,17 +6,7 @@ use Livewire\Volt\Component;
 new class extends Component {
     public $botSettings;
     
-    public function refreshBotSettings(): void
-    {
-        $this->loadBotSettings();
-    }
-
     public function mount(): void
-    {
-        $this->loadBotSettings();
-    }
-
-    private function loadBotSettings(): void
     {
         $this->botSettings = BotSetting::first();
     }
@@ -38,7 +28,7 @@ new class extends Component {
     
     <!-- Input area - Fixed height -->
     <div class="flex p-4 bg-white dark:bg-zinc-800 flex-shrink-0">
-        <input type="text" id="user-input" class="w-full px-4 py-2 rounded-full text-md bg-white dark:bg-zinc-700 focus:ring-0 outline-none border-2 focus:border-blue-500 transition-all" placeholder="Write a message..." autofocus>
+        <input type="text" id="user-input" class="w-full px-4 py-2 rounded-full text-sm bg-white dark:bg-zinc-700 focus:ring-0 outline-none border-2 focus:border-blue-500 transition-all" placeholder="Write a message..." autofocus>
         <button class="send-button bg-gradient-to-br from-[#667eea] to-[#764ba2] dark:from-blue-900/50 dark:to-purple-900/50 text-white ml-2 cursor-pointer flex items-center justify-center text-2xl h-12 w-12 object-cover overflow-hidden hover:scale-105 rounded-full min-h-max min-w-max">
             <i class="fas fa-paper-plane rotate-45 -ml-2"></i>
         </button>
