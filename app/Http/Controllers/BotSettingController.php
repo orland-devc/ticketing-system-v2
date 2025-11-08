@@ -30,6 +30,24 @@ class BotSettingController extends Controller
         return view('chatbot.manage', compact('botSettings'));
     }
 
+    public function profilePicture(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required|image|max:2048',
+        ]);
+
+        $file = $request->file('photo');
+        $originalName = $file->getClientOriginalName();
+
+        $file->move(public_path('images/assets'), $originalName);
+
+        BotSetting::first()->update([
+            'profile_picture' => 'images/assets/'.$originalName,
+        ]);
+
+        return back()->with('toast', 'Profile updated!');
+    }
+
     public function chat(Request $request)
     {
         $apiKey = env('GEMINI_API_KEY');

@@ -30,14 +30,14 @@
     $classes = collect([
         'group/navitem relative flex items-center gap-2 rounded-xl transition-all duration-200',
         $square ? 'h-9 w-9 justify-center' : 'h-9 pr-3 mb-2',
-        'text-zinc-600 dark:text-zinc-400',
+        'text-zinc-500 dark:text-zinc-400',
     ]);
 
     $variantClasses = match ($variant) {
         'outline' => $accent
             ? [
                 // Current/Active state - Blue accent with subtle background
-                'data-current:bg-zinc-100 dark:data-current:bg-zinc-800/50',
+                'data-current:bg-blue-500/10',
                 'data-current:text-black dark:data-current:text-white',
                 'data-current:shadow-sm dark:data-current:shadow-zinc-900/20',
                 // Hover states
@@ -76,11 +76,11 @@
     {{-- Leading Icon with enhanced styling --}}
     @if ($icon)
         <div class="relative flex-shrink-0">
-            <div class="relative flex h-9 w-9 items-center justify-center rounded-l-lg bg-zinc-100 transition-all duration-200 group-hover/navitem:bg-zinc-200 group-data-current/navitem:bg-gray-800 dark:bg-zinc-800 dark:group-hover/navitem:bg-zinc-700 dark:group-data-current/navitem:bg-zinc-200">
+            <div class="relative flex h-9 w-9 items-center justify-center rounded-l-lg bg-zinc-100 transition-all duration-200 group-hover/navitem:bg-zinc-200 group-data-current/navitem:bg-blue-600 dark:bg-zinc-800 dark:group-hover/navitem:bg-zinc-700 dark:group-data-current/navitem:bg-blue-800">
                 @if (is_string($icon) && $icon !== '')
                     <x-dynamic-component 
                         :component="'lucide-' . Str::kebab($icon)" 
-                        class="{{ $iconClasses }} text-zinc-600 transition-colors group-hover/navitem:text-zinc-900 group-data-current/navitem:text-white dark:group-data-current/navitem:text-black dark:text-zinc-300 dark:group-hover/navitem:text-zinc-200" 
+                        class="{{ $iconClasses }} text-zinc-400 dark:text-zinc-500 transition-colors group-hover/navitem:text-zinc-900 group-data-current/navitem:text-white dark:group-hover/navitem:text-zinc-200" 
                     />
                 @else
                     {{ $icon }}

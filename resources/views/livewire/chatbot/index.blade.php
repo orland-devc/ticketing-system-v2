@@ -16,7 +16,7 @@ new class extends Component {
 <div class="flex sm:w-full md:w-full lg:max-w-200 flex-1 flex-col m-auto md:rounded-lg overflow-hidden h-[85vh] md:h-[75vh] lg:h-[80vh]">
     <!-- Header - Fixed height -->
     <div class="flex items-center gap-4 px-6 py-3 bg-gradient-to-br from-[#667eea] to-[#764ba2] dark:from-blue-900/50 dark:to-purple-900/50 text-white flex-shrink-0">
-        <img src="{{ asset('images/assets/bot.jpg') }}" alt="Tony Stark" class="h-15 w-15 rounded-full border-3 border-zinc-300/50">
+        <img src="{{ asset($botSettings->profile_picture) }}" alt="Tony Stark" class="h-15 w-15 rounded-full border-3 border-zinc-300/50">
         <div class="flex flex-col">
             <h1 class="text-lg font-bold capitalize">{{ $botSettings->name }}</h1>
             <p class="text-xs">Exclusice in PSU San Carlos City Campus only.</p>

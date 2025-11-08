@@ -35,6 +35,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/chatbot/testing', [BotSettingController::class, 'test'])->name('chatbot.testing');
     Route::get('/chatbot/settings', [BotSettingController::class, 'manage'])->name('chatbot.settings');
 
+    Route::post('/bot/profile/update', [BotSettingController::class, 'profilePicture'])
+        ->name('bot.profile.update');
+
 });
 
 require __DIR__.'/auth.php';

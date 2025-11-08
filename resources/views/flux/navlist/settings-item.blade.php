@@ -49,7 +49,7 @@
         default => $accent
             ? [
                 'data-current:text-(--color-accent-content) hover:data-current:text-(--color-accent-content)',
-                'data-current:bg-zinc-800/[4%] dark:data-current:bg-white/[7%]',
+                'data-current:bg-blue-500/[15%] dark:data-current:bg-blue/[7%]',
                 'hover:text-zinc-800 dark:hover:text-white hover:bg-zinc-800/[4%] dark:hover:bg-white/[7%]',
             ]
             : [
@@ -83,7 +83,7 @@
 
     {{-- Text --}}
     @if ($slot->isNotEmpty())
-        <div class="flex-1 text-sm font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>
+        <div class="flex-1 text-sm font-medium text-center md:text-left leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block" data-content>
             {{ $slot }}
         </div>
     @endif

@@ -7,9 +7,9 @@
         </flux:navlist>
 
         <div class="flex items-center gap-4 md:hidden -mt-2 mx-2">
-            <flux:navlist.settings-item :href="route('chatbot.settings')" :current="request()->routeIs('chatbot.settings')" wire:navigate>{{ __('Settings') }}</flux:navlist.settings-item>
-            <flux:navlist.settings-item >{{ __('FAQs') }}</flux:navlist.settings-item>
-            <flux:navlist.settings-item :href="route('chatbot.testing')" :current="request()->routeIs('chatbot.testing')" >{{ __('Testing') }}</flux:navlist.settings-item>
+            <flux:navlist.settings-item icon="sliders-horizontal" :href="route('chatbot.settings')" :current="request()->routeIs('chatbot.settings')" wire:navigate>{{ __('Settings') }}</flux:navlist.settings-item>
+            <flux:navlist.settings-item icon="message-square-heart">{{ __('FAQs') }}</flux:navlist.settings-item>
+            <flux:navlist.settings-item icon="settings-2" :href="route('chatbot.testing')" :current="request()->routeIs('chatbot.testing')" >{{ __('Testing') }}</flux:navlist.settings-item>
         </div>
     </div>
 
