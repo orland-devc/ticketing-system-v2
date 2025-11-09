@@ -26,8 +26,9 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
         window.botSettings = {
+            time: "{{ now()->format('M d, Y H:i:s') }}",
             username: "{{ Auth::user()->first_name }}",
-            name: "{{ asset($botSettings->name) }}",
+            name: "{{ $botSettings->name }}",
             profile_picture: "{{ asset($botSettings->profile_picture) }}",
             character: "{{ $botSettings->character }}",
             role: "{{ $botSettings->role }}",

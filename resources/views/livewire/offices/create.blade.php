@@ -51,10 +51,12 @@ new class extends Component {
 
 
 <div class=" flex items-center" x-data="{ createModal: false }">
-    <flux:button variant="primary" @click="createModal = true" >
-        <i class="fas fa-plus ml-1"></i>
-        <span class="mr-2">New Office</span>
-    </flux:button>
+    <div class="hidden md:block">
+        <flux:button variant="primary" @click="createModal = true" >
+            <i class="fas fa-plus ml-1"></i>
+            <span class="mr-2">New Office</span>
+        </flux:button>
+    </div>
 
     <button @click="createModal = true" class="md:hidden fixed bottom-5 right-5 flex items-center justify-center h-15 w-15 rounded-full bg-blue-500 z-50 shadow-lg lg:hidden hover:bg-blue-600 active:scale-95 active:bg-blue-600 transition-all">
         <i class="fas fa-plus text-white"></i>

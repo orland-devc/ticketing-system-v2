@@ -3,7 +3,8 @@ const botProfilePicture = window.botSettings.profile_picture;
 let conversationHistory = [
     {
         role: "user",
-        parts: [{ text: "You are" + window.botSettings.name + 
+        parts: [{ text: "Today is " + window.botSettings.time + 
+            "You are" + window.botSettings.name + 
             " You are talking to " + window.botSettings.username + ". " +
             window.botSettings.character + 
             window.botSettings.role + 
@@ -13,7 +14,7 @@ let conversationHistory = [
     },
     {
         role: "model",
-        parts: [{ text: "Hi " + window.botSettings.username + "! " + window.botSettings.greeting }]
+        parts: [{ text: "Hi **" + window.botSettings.username + "**! " + window.botSettings.name + " here. " + window.botSettings.greeting }]
     }
 ];
 
@@ -244,16 +245,20 @@ async function speakText(text, speakButton) {
     }
 }
 
+let isAwaitingResponse = false;
+
 async function handleUserInput() {
+    if (isAwaitingResponse) return; // prevent sending another prompt
+
     const message = userInput.value.trim();
     if (message) {
         addMessage(message, true);
         userInput.value = '';
-        userInput.disabled = true;
         sendButton.disabled = true;
+        isAwaitingResponse = true;
 
         await new Promise(resolve => setTimeout(resolve, 500));
-        
+
         const typingIndicatorContainer = showTypingIndicator();
 
         try {
@@ -265,12 +270,21 @@ async function handleUserInput() {
             addMessage("System error. System needs a reboot.", false);
             console.error("Error:", error);
         } finally {
-            userInput.disabled = false;
             sendButton.disabled = false;
+            isAwaitingResponse = false;
             userInput.focus();
         }
     }
 }
+
+// Prevent sending with Enter if waiting for AI
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !isAwaitingResponse) handleUserInput();
+});
+
+sendButton.addEventListener('click', () => {
+    if (!isAwaitingResponse) handleUserInput();
+});
 
 sendButton.addEventListener('click', handleUserInput);
 userInput.addEventListener('keypress', (e) => {
@@ -282,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
         languages: ['javascript', 'python', 'html', 'css', 'php', 'java', 'cpp']
     });
     
-    addMessage("Hi **" + window.botSettings.username + "**! " + window.botSettings.greeting, false);
+    addMessage("Hi **" + window.botSettings.username + "**! " + window.botSettings.name + " here. " + window.botSettings.greeting, false);
 });
 
 const observer = new MutationObserver((mutations) => {

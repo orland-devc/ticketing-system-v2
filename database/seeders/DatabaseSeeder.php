@@ -15,9 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-        $this->command->info('Added 10 users.');
-
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
@@ -62,6 +59,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->command->info("Account {$user3->email} created successfully.");
+
+        User::factory(10)->create();
+        $this->command->info('Added 10 users.');
 
         $office1 = Office::create(['name' => 'Campus Executive Director']);
         $this->command->info("{$office1->name} has been created");

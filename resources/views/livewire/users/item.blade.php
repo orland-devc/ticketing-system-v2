@@ -47,8 +47,8 @@ new class extends Component {
                     @endif
                 </h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1.5 mt-0.5">
-                    <i class="fas fa-envelope text-xs"></i>
-                    <span class="truncate">{{ $user->email }}</span>
+                    <i class="fas fa-address-card text-xs text-blue-500"></i>
+                    <span class="truncate">{{ $user->user_code }}</span>
                 </p>
             </div>
 

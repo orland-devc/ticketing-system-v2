@@ -48,7 +48,7 @@ new class extends Component {
 };
 ?>
 
-<div wire:poll.3s="refreshUsers" class="flex sm:w-full md:w-full lg:w-200 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden" x-data="{ activeTab: $wire.entangle('activeTab') }">
+<div wire:poll.3s="refreshUsers" class="flex sm:w-full md:w-full lg:w-full md:max-w-250 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden" x-data="{ activeTab: $wire.entangle('activeTab') }">
     <!-- Tabs Navigation -->
     <div class="sticky top-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
         <div class="flex items-center">

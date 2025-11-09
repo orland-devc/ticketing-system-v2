@@ -25,15 +25,7 @@ new class extends Component {
 };
 ?>
 
-<div wire:poll.3s="refreshOffices" class="flex sm:w-full md:w-3/4 lg:w-200 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden" >
-    <!-- Tabs Navigation -->
-    <div class="sticky top-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
-        <div class="flex items-center overflow-x-auto scrollbar-hide">
-            <div class="px-4 py-2 text-md font-bold">
-                All offices ({{$offices->count()}})
-            </div>
-        </div>
-    </div>
+<div wire:poll.3s="refreshOffices" class="flex sm:w-full md:w-3/4 lg:w-full max-w-250 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden" >
 
     <!-- Tab Content -->
     <div class="pb-8 px-2 md:px-2 md:py-2">

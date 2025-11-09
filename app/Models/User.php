@@ -19,6 +19,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'user_code',
         'student_id',
         'office_id',
         'first_name',
@@ -40,6 +41,23 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($request) {
+            $date = now()->format('ymd');
+            $attempt = 0;
+
+            do {
+                $random = strtoupper(Str::random(3));
+                $suffix = $attempt > 0 ? '-'.str_pad($attempt, 2, '0', STR_PAD_LEFT) : '';
+                $code = "USR-{$date}-{$random}{$suffix}";
+                $attempt++;
+            } while (self::where('user_code', $code)->exists());
+
+            $request->user_code = $code;
+        });
+    }
 
     /**
      * Get the attributes that should be cast.
