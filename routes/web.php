@@ -25,7 +25,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('tickets', TicketController::class);
-    Route::resource('offices', OfficeController::class);
+    Route::get('offices/index', [OfficeController::class, 'index'])->name('offices.index');
+    Route::get('offices/staffs', [OfficeController::class, 'staff'])->name('offices.staffs');
     Route::get('users/all-users', [UserController::class, 'index'])->name('users.all');
     Route::get('users/requests', [UserController::class, 'request'])->name('users.request');
 
@@ -33,10 +34,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/ai-chat/send', [BotSettingController::class, 'send'])->name('ai.chat.send');
 
     Route::get('/chatbot/testing', [BotSettingController::class, 'test'])->name('chatbot.testing');
+    Route::get('/chatbot/faqs', [BotSettingController::class, 'faqs'])->name('chatbot.faqs');
     Route::get('/chatbot/settings', [BotSettingController::class, 'manage'])->name('chatbot.settings');
 
     Route::post('/bot/profile/update', [BotSettingController::class, 'profilePicture'])
         ->name('bot.profile.update');
+
+    Route::get('/users/placeholder', function () {
+        return view('components.users-placeholder');
+    })->name('users.placeholder');
 
 });
 

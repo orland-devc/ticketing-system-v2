@@ -1,10 +1,10 @@
-<x-layouts.app :title="__('All Offices')" :breadcrumbs="['users.index']">
+<x-layouts.app :title="__('Heads & Staff')" :breadcrumbs="['users.index']">
     <div class="relative flex flex-col gap-3">
         <div class="">
             <section class="w-full">
                 @include('partials.offices-heading')
-                <x-offices.layout :heading="__('All Offices')" :subheading="__('Keep updated on users, staff, and head')">
-                    <livewire:offices.index  />
+                <x-offices.layout :heading="__('Heads & Staff')" :subheading="__('Keep updated office staff, and head')">
+                    <livewire:offices.staff.index  />
                 </x-offices.layout>
             </section>
         </div>
