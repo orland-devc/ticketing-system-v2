@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\BotSetting;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -12,22 +13,27 @@ class BotSettingController extends Controller
     public function index()
     {
         $botSettings = BotSetting::first();
+        $faqs = Faq::all();
 
-        return view('chatbot.index', compact('botSettings'));
+        return view('chatbot.index', compact('botSettings', 'faqs'));
     }
 
     public function test()
     {
         $botSettings = BotSetting::first();
+        $faqs = Faq::all();
 
-        return view('chatbot.test', compact('botSettings'));
+        return view('chatbot.test', compact('botSettings', 'faqs'));
     }
 
     public function manage()
     {
-        $botSettings = BotSetting::first();
+        return view('chatbot.manage');
+    }
 
-        return view('chatbot.manage', compact('botSettings'));
+    public function faqs()
+    {
+        return view('chatbot.faqs');
     }
 
     public function profilePicture(Request $request)

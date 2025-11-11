@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Office;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OfficeController extends Controller
@@ -15,6 +16,16 @@ class OfficeController extends Controller
         $offices = Office::all()->sortBy('name');
 
         return view('offices.index', compact('offices'));
+    }
+
+    /**
+     * Display a listing of the staff resource.
+     */
+    public function staff()
+    {
+        $staff = User::whereIn('role', ['head', 'staff'])->get()->sortBy('name');
+
+        return view('offices.staff.index', compact('staff'));
     }
 
     /**
