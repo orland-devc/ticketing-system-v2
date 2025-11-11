@@ -159,7 +159,7 @@ new class extends Component {
 
 ?>
 
-<div class="flex flex-col items-center gap-6 p-6 rounded-xl bg-gradient-to-br from-blue-700/10 to-blue-900/10 border border-zinc-200 dark:border-zinc-700">
+<div class="flex flex-col items-center gap-6 p-6 rounded-xl bg-gradient-to-br from-blue-700/5 to-blue-900/5 border border-zinc-200 dark:border-zinc-700">
     <!-- Profile Picture Display with Hover Effect -->
     <div 
         @click="$dispatch('open-modal', { component: 'profile-modal' })"
