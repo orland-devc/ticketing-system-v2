@@ -1,3 +1,53 @@
+<?php
+
+use App\Models\User;
+use App\Models\Office;
+use Livewire\Volt\Component;
+use Illuminate\Support\Facades\Hash;
+
+new class extends Component {
+
+    public $allUsers;
+    public $admins;
+    public $heads;
+    public $staffs;
+    public $students;
+    public $alumni;
+    
+    public $activeTab = 'all'; // Add this property
+
+    public function refreshUsers(): void
+    {
+        $this->loadAllUsers();
+    }
+
+    public function mount(): void
+    {
+        $this->loadAllUsers();
+    }
+
+    private function loadAllUsers():void
+    {
+        $this->allUsers = User::orderBy('last_name')->get();
+        $this->admins = User::where('role', 'admin')
+            ->orderBy('last_name')
+            ->get();
+        $this->heads = User::where('role', 'head')
+            ->orderBy('last_name')
+            ->get();
+        $this->staffs = User::where('role', 'staff')
+            ->orderBy('last_name')
+            ->get();
+        $this->students = User::where('role', 'student')
+            ->orderBy('last_name')
+            ->get();
+        $this->alumni = User::where('role', 'alumni')
+            ->orderBy('last_name')
+            ->get();
+    }
+};
+?>
+
 <div wire:poll.3s="refreshUsers" class="flex sm:w-full md:w-full lg:w-full md:max-w-250 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden" x-data="{ activeTab: $wire.entangle('activeTab') }">
     <!-- Tabs Navigation -->
     <div class="sticky top-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Ticket extends Model
 {
@@ -26,18 +27,21 @@ class Ticket extends Model
         'guest_tracking_token',
     ];
 
-    public function generateTicketId(): string
+    protected static function booted()
     {
-        $encodedTime = base_convert(now()->format('dH'), 10, 36);
-        $randomCode = strtoupper(substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 4));
-        $ticketId = "TKT{$encodedTime}{$randomCode}";
+        static::creating(function ($request) {
+            $date = now()->format('ymd');
+            $attempt = 0;
 
-        return $this->ticketExists($ticketId) ? $this->generateTicketId() : $ticketId;
-    }
+            do {
+                $random = strtoupper(Str::random(3));
+                $suffix = $attempt > 0 ? '-'.str_pad($attempt, 2, '0', STR_PAD_LEFT) : '';
+                $code = "TCK-{$date}-{$random}{$suffix}";
+                $attempt++;
+            } while (self::where('ticket_code', $code)->exists());
 
-    private function ticketExists(string $ticketId): bool
-    {
-        return Ticket::where('ticket_code', $ticketId)->exists();
+            $request->ticket_code = $code;
+        });
     }
 
     public function user()

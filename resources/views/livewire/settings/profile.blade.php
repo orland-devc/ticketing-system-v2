@@ -91,10 +91,10 @@ new class extends Component {
         <div class="space-y-8">
             {{-- Personal Information Card --}}
             <div class="bg-white dark:bg-zinc-900 rounded-xl border border-zinc-200 dark:border-zinc-800 overflow-hidden">
-                <div class="px-6 py-5 border-b border-zinc-200 dark:border-zinc-800">
+                {{-- <div class="px-6 py-5 border-b border-zinc-200 dark:border-zinc-800">
                     <h3 class="text-base font-semibold text-zinc-900 dark:text-white">Personal Information</h3>
                     <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Update your personal details and name</p>
-                </div>
+                </div> --}}
                 
                 <form wire:submit="updateProfileInformation" class="p-6">
                     <div class="space-y-6">
