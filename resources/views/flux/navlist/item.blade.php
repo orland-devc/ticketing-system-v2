@@ -30,7 +30,7 @@
     $classes = collect([
         'group/navitem relative flex items-center gap-2 rounded-xl transition-all duration-200',
         $square ? 'h-9 w-9 justify-center' : 'h-9 pr-3 mb-2',
-        'text-zinc-500 dark:text-zinc-400',
+        'text-zinc-600 dark:text-zinc-400',
     ]);
 
     $variantClasses = match ($variant) {
@@ -80,7 +80,7 @@
                 @if (is_string($icon) && $icon !== '')
                     <x-dynamic-component 
                         :component="'lucide-' . Str::kebab($icon)" 
-                        class="{{ $iconClasses }} text-zinc-400 dark:text-zinc-500 transition-colors group-hover/navitem:text-zinc-900 group-data-current/navitem:text-white dark:group-hover/navitem:text-zinc-200" 
+                        class="{{ $iconClasses }} text-zinc-500 dark:text-zinc-500 transition-colors group-hover/navitem:text-zinc-900 group-data-current/navitem:text-white dark:group-hover/navitem:text-zinc-200" 
                     />
                 @else
                     {{ $icon }}
@@ -116,7 +116,7 @@
         <div class="flex-shrink-0">
             <x-dynamic-component 
                 :component="'lucide-' . Str::kebab($iconTrailing)" 
-                class="size-4 text-zinc-400 transition-colors group-hover/navitem:text-zinc-600 dark:text-zinc-500 dark:group-hover/navitem:text-zinc-400" 
+                class="size-4 text-zinc-500 transition-colors group-hover/navitem:text-zinc-600 dark:text-zinc-500 dark:group-hover/navitem:text-zinc-400" 
             />
         </div>
     @elseif ($iconTrailing)

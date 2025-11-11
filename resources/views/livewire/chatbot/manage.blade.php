@@ -134,7 +134,7 @@ new class extends Component {
 ?>
 
 
-<div class="flex sm:w-full md:w-full lg:w-200 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden">
+<div class="flex w-full lg:max-w-200 flex-col m-auto md:rounded-lg overflow-x-hidden">
     <!-- Tab Content -->
     <div class="pb-8 p-2">
         <!-- Settings Tab -->

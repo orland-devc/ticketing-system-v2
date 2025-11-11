@@ -41,8 +41,6 @@ new class extends Component {
             'office_id' => $this->office->id,
         ]);
 
-        $this->reset(['name', 'head']);
-
         $this->dispatch('toast', 
             message: 'Office updated successfully!',
             type: 'success',
