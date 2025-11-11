@@ -5,7 +5,7 @@
 
 @php
 $classes = Flux::classes('[grid-area:sidebar]')
-    ->add('z-1 flex flex-col gap-4 [:where(&)]:w-80 p-4')
+    ->add('z-1 flex flex-col gap-4 [:where(&)]:w-70 p-4')
     ;
 
 if ($sticky) {

@@ -49,7 +49,7 @@ new class extends Component {
     @if ($count > 0)
         <div class="relative flex-shrink-0">
             <div class="flex h-6 min-w-6 items-center justify-center rounded-lg bg-red-600 px-2 duration-200 group-hover/navitem:scale-105">
-                <span class="text-[11px] font-bold text-white tabular-nums">
+                <span class="text-[12px] font-bold text-white tabular-nums">
                     {{ $count > 99 ? '99+' : $count }}
                 </span>
             </div>

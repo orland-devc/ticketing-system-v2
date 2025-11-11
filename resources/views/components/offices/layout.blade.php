@@ -1,13 +1,13 @@
 <div class="flex items-start max-md:flex-col my-4 md:my-0">
     <div class="me-10 w-full pb-2 md:w-[220px]">
         <flux:navlist class="hidden md:block mb-6 ">
-            <flux:navlist.settings-item icon="users" :href="route('offices.index')" :current="request()->routeIs('offices.index')" wire:navigate>{{ __('Offices') }}</flux:navlist.settings-item>
-            <flux:navlist.settings-item count="requests" icon="user-plus" :href="route('offices.staffs')" :current="request()->routeIs('offices.staffs')" wire:navigate>{{ __('Heads & Staff') }}</flux:navlist.settings-item>
+            <flux:navlist.settings-item icon="building-2" :href="route('offices.index')" :current="request()->routeIs('offices.index')" wire:navigate>{{ __('Offices') }}</flux:navlist.settings-item>
+            <flux:navlist.settings-item icon="briefcase-business" :href="route('offices.staffs')" :current="request()->routeIs('offices.staffs')" wire:navigate>{{ __('Heads & Staff') }}</flux:navlist.settings-item>
         </flux:navlist>
 
         <div class="flex items-center gap-4 md:hidden -mt-2 mx-2">
-            <flux:navlist.settings-item icon="users" :href="route('offices.index')" :current="request()->routeIs('offices.index')" wire:navigate>{{ __('Offices') }}</flux:navlist.settings-item>
-            <flux:navlist.settings-item count="requests" icon="user-plus" :href="route('offices.staffs')" :current="request()->routeIs('offices.staffs')" wire:navigate>{{ __('Heads & Staff') }}</flux:navlist.settings-item>
+            <flux:navlist.settings-item icon="building-2" :href="route('offices.index')" :current="request()->routeIs('offices.index')" wire:navigate>{{ __('Offices') }}</flux:navlist.settings-item>
+            <flux:navlist.settings-item icon="briefcase-business" :href="route('offices.staffs')" :current="request()->routeIs('offices.staffs')" wire:navigate>{{ __('Heads & Staff') }}</flux:navlist.settings-item>
         </div>
     </div>
 

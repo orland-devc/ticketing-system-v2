@@ -13,7 +13,7 @@
                         <x-app-logo-icon class="h-6 w-6" />
                     </div>
                     <div class="flex flex-col">
-                        <span class="text-lg font-bold text-zinc-900 dark:text-white">{{ config('app.name') }}</span>
+                        <span class="text-lg font-bold text-zinc-900 dark:text-white truncate">{{ config('app.name') }}</span>
                         <span class="text-sm font-medium text-zinc-400 dark:text-zinc-500">{{ ucfirst(Auth::user()->role) }}</span>
                     </div>
                 </a>
@@ -21,7 +21,7 @@
             </div>
 
             {{-- Quick Stats Card --}}
-            <div class="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50 p-4 dark:from-blue-950/30 dark:to-blue-900/20 border border-blue-100 dark:border-blue-900/30">
+            {{-- <div class="rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50 p-4 dark:from-blue-950/30 dark:to-blue-900/20 border border-blue-100 dark:border-blue-900/30">
                 <div class="flex items-center gap-3">
                     <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-blue-500">
                         @if(auth()->user()->profile_photo_path)
@@ -43,7 +43,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Navigation based on role --}}
             @if (Auth::user()->role == 'admin')
@@ -255,10 +255,10 @@
                                 </div>
                             @endif
                             <div class="min-w-0 flex-1">
-                                <div class="truncate text-sm font-semibold text-zinc-900 dark:text-white">
+                                <div class="truncate text-md font-semibold text-zinc-900 dark:text-white">
                                     {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
                                 </div>
-                                <div class="truncate text-xs text-zinc-500 dark:text-zinc-400">
+                                <div class="truncate text-sm text-zinc-500 dark:text-zinc-400">
                                     {{ auth()->user()->email }}
                                 </div>
                             </div>
@@ -298,7 +298,7 @@
                     <div class="flex h-8 w-8 items-center">
                         <x-app-logo class="h-5 w-5" />
                     </div>
-                    <span class="text-sm font-bold text-zinc-900 dark:text-white">{{ config('app.name') }}</span>
+                    <span class="text-md font-bold text-zinc-900 dark:text-white">{{ config('app.name') }}</span>
                 </div>
             </div>
 
