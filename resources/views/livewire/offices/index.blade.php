@@ -25,10 +25,10 @@ new class extends Component {
 };
 ?>
 
-<div wire:poll.3s="refreshOffices" class="flex sm:w-full md:w-3/4 lg:w-full max-w-250 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden" >
+<div wire:poll.3s="refreshOffices" class="flex sm:w-full md:w-3/4 lg:w-full max-w-250 flex-1 flex-col md:rounded-lg overflow-x-hidden" >
 
     <!-- Tab Content -->
-    <div class="pb-8 px-2 md:px-2 md:py-2">
+    <div class="pb-8 px-2 md:px-0 md:py-2">
         <div class="gap-2">
             @foreach ($offices as $office)
                 <livewire:offices.edit :office="$office" :wire:key="'office-'.$office->id" />

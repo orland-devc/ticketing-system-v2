@@ -152,11 +152,17 @@ new class extends Component {
                         :label="__('Role')"
                     >
                         <option value="" disabled>{{ __('Select role') }}</option>
-                        <option value="admin">{{ __('Administrator') }}</option>
-                        <option value="head">{{ __('Office Head') }}</option>
-                        <option value="staff">{{ __('Staff') }}</option>
-                        <option value="student">{{ __('Student') }}</option>
-                        <option value="alumni">{{ __('Alumni') }}</option>
+                        @if (request()->routeIs('offices.staffs'))
+                            <option value="head">{{ __('Office Head') }}</option>
+                            <option value="staff">{{ __('Staff') }}</option>
+                        @else
+                            <option value="" disabled>{{ __('Select role') }}</option>
+                            <option value="admin">{{ __('Administrator') }}</option>
+                            <option value="head">{{ __('Office Head') }}</option>
+                            <option value="staff">{{ __('Staff') }}</option>
+                            <option value="student">{{ __('Student') }}</option>
+                            <option value="alumni">{{ __('Alumni') }}</option>
+                        @endif
                     </flux:select>
 
                     {{-- student ID: only visible for student/alumni --}}
