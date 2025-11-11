@@ -33,6 +33,7 @@
             greeting: "{{ $botSettings->greeting_message }}",
             error: "{{ $botSettings->error_message }}"
         };
+        window.faqs = @json($faqs);
     </script>
     <script src="{{ asset('js/bot.js') }}"></script>
 </x-layouts.app>

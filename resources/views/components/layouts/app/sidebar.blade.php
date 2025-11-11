@@ -76,7 +76,7 @@
                         <flux:navlist.item 
                             icon="building-2" 
                             :href="route('offices.index')" 
-                            :current="request()->routeIs('offices.index')" 
+                            :current="request()->routeIs('offices*')" 
                             count="offices"
                             wire:navigate>
                             {{ __('Offices') }}

@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Test Chatbot')">
+<x-layouts.app :title="__('Chatbot Testing')">
     <div class="relative flex flex-col gap-3">
         <div class="">
             <section class="w-full">
@@ -25,17 +25,18 @@
 <link rel="stylesheet" href="{{ asset('css/bot.css') }}">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
-        window.botSettings = {
-            time: "{{ now()->format('M d, Y H:i:s') }}",
-            username: "{{ Auth::user()->first_name }}",
-            name: "{{ $botSettings->name }}",
-            profile_picture: "{{ asset($botSettings->profile_picture) }}",
-            character: "{{ $botSettings->character }}",
-            role: "{{ $botSettings->role }}",
-            personality: "{{ $botSettings->personality }}",
-            behavior: "{{ $botSettings->behavior }}",
-            greeting: "{{ $botSettings->greeting_message }}",
-            error: "{{ $botSettings->error_message }}"
-        };
-    </script>
+    window.botSettings = {
+        time: "{{ now()->format('M d, Y H:i:s') }}",
+        username: "{{ Auth::user()->first_name }}",
+        name: "{{ $botSettings->name }}",
+        profile_picture: "{{ asset($botSettings->profile_picture) }}",
+        character: "{{ $botSettings->character }}",
+        role: "{{ $botSettings->role }}",
+        personality: "{{ $botSettings->personality }}",
+        behavior: "{{ $botSettings->behavior }}",
+        greeting: "{{ $botSettings->greeting_message }}",
+        error: "{{ $botSettings->error_message }}"
+    };
+    window.faqs = @json($faqs);
+</script>
 <script src="{{ asset('js/bot.js') }}"></script>
