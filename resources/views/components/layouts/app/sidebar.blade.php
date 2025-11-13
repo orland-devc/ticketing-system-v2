@@ -83,8 +83,9 @@
                         </flux:navlist.item>
                         <flux:navlist.item 
                             icon="tickets" 
-                            href="#"
-                            count="127">
+                            :href="route('tickets.index')" 
+                            :current="request()->routeIs('tickets*')" 
+                            count="tickets">
                             {{ __('Tickets') }}
                         </flux:navlist.item>
                         <flux:navlist.item 

@@ -102,6 +102,22 @@ class User extends Authenticatable
         return implode(' ', $parts);
     }
 
+    public function getFullNameAttribute()
+    {
+        $middleInitial = $this->middle_name
+            ? strtoupper(substr($this->middle_name, 0, 1)) . '.'
+            : null;
+
+        $parts = array_filter([
+            $this->first_name,
+            $middleInitial,
+            $this->last_name,
+            $this->name_suffix,
+        ]);
+
+        return implode(' ', $parts);
+    }
+
     /**
      * Relationship: User belongs to an Office.
      */

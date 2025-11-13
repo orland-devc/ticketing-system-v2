@@ -24,13 +24,13 @@
     $square ??= $slot->isEmpty();
 
     // Size-up icons in square/icon-only buttons...
-    $iconClasses = $square ? 'size-5' : 'size-4';
+    $iconClasses = $square ? 'size-5' : 'size-[20px]';
 
     $classes = collect([
         'h-10 relative flex items-center gap-3 rounded-xl',
         $square ? 'px-2.5' : '',
         'py-0 text-start px-4 my-px mb-1',
-        'text-zinc-500 dark:text-white/80',
+        'text-zinc-500 dark:text-white/80 truncate',
     ]);
 
     $variantClasses = match ($variant) {
