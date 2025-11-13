@@ -11,7 +11,7 @@ new class extends Component {
 ?>
 
 <div x-data="{ editModal: false, editBgModal: false, deleteModal: false, deleteBgModal: false }" class="max-w-screen">
-    <div @click="editModal = true; editBgModal = true;" class="group relative bg-white dark:bg-zinc-800/50 rounded-l-2xl border-l-8 border-t 
+    <div @click="editModal = true; editBgModal = true;" class="data-item relative bg-white dark:bg-zinc-800/50 rounded-l-2xl border-l-8 border-t 
         @if ($user->role == 'admin') border-blue-500
         @elseif ($user->role == 'head') border-red-400
         @elseif ($user->role == 'staff') border-amber-500

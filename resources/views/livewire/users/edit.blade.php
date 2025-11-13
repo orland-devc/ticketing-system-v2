@@ -25,7 +25,6 @@ new class extends Component {
     {
         $this->offices = Office::orderBy('name')->get();
 
-        // Prefill fields with existing user data
         $this->id = $this->user->id;
         $this->role = $this->user->role;
         $this->student_id = $this->user->student_id;
@@ -144,7 +143,7 @@ new class extends Component {
             </div>
 
             <div class="flex flex-col p-6 gap-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-4">
                     {{-- Bind Livewire role and Alpine role together --}}
                     <flux:select
                         wire:model="role"
@@ -152,17 +151,11 @@ new class extends Component {
                         :label="__('Role')"
                     >
                         <option value="" disabled>{{ __('Select role') }}</option>
-                        @if (request()->routeIs('offices.staffs'))
-                            <option value="head">{{ __('Office Head') }}</option>
-                            <option value="staff">{{ __('Staff') }}</option>
-                        @else
-                            <option value="" disabled>{{ __('Select role') }}</option>
-                            <option value="admin">{{ __('Administrator') }}</option>
-                            <option value="head">{{ __('Office Head') }}</option>
-                            <option value="staff">{{ __('Staff') }}</option>
-                            <option value="student">{{ __('Student') }}</option>
-                            <option value="alumni">{{ __('Alumni') }}</option>
-                        @endif
+                        <option value="admin">{{ __('Administrator') }}</option>
+                        <option value="head">{{ __('Office Head') }}</option>
+                        <option value="staff">{{ __('Staff') }}</option>
+                        <option value="student">{{ __('Student') }}</option>
+                        <option value="alumni">{{ __('Alumni') }}</option>
                     </flux:select>
 
                     {{-- student ID: only visible for student/alumni --}}

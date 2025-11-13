@@ -4,7 +4,7 @@
             <section class="w-full">
                 @include('partials.users-heading')
                 <x-users.layout :heading="__('All Users')" :subheading="__('Keep updated on users, staff, and head')">
-                    <livewire:users.index lazy/>
+                    <livewire:users.index />
                 </x-users.layout>
             </section>
         </div>

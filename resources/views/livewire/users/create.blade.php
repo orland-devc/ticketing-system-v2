@@ -90,7 +90,7 @@ new class extends Component {
 ?>
 
 <div class=" flex items-center" x-data="{ createModal: false, role: @entangle('role') }" x-cloak>
-    <div class="hidden md:block">
+    <div class="hidden lg:block">
         <flux:button variant="primary" @click="createModal = true">
             <div class="items-center gap-2 font-semibold text-md py-2">
                 <i class="fas fa-plus"></i>
