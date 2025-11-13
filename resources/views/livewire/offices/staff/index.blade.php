@@ -75,7 +75,7 @@ new class extends Component {
             </div>
             <div class="gap-2">
                 @foreach ($allUsers as $user)
-                    <livewire:users.item :user="$user" :wire:key="'all-'.$user->id"/>
+                    <livewire:offices.staff.item :user="$user" :wire:key="'all-'.$user->id"/>
                 @endforeach
                 @if ($allUsers->count() == 0)
                     <div class="px-6 py-16 text-center">
@@ -96,7 +96,7 @@ new class extends Component {
             </div>
             <div class="gap-2">
                 @foreach ($heads as $user)
-                    <livewire:users.item :user="$user" :wire:key="'heads-'.$user->id"/>
+                    <livewire:offices.staff.item :user="$user" :wire:key="'heads-'.$user->id"/>
                 @endforeach
                 @if ($heads->count() == 0)
                     <div class="px-6 py-16 text-center">
@@ -117,7 +117,7 @@ new class extends Component {
             </div>
             <div class="gap-2">
                 @foreach ($staffs as $user)
-                    <livewire:users.item :user="$user" :wire:key="'staff-'.$user->id"/>
+                    <livewire:offices.staff.item :user="$user" :wire:key="'staff-'.$user->id"/>
                 @endforeach
                 @if ($staffs->count() == 0)
                     <div class="px-6 py-16 text-center">

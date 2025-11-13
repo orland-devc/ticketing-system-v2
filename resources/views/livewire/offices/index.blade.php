@@ -25,7 +25,7 @@ new class extends Component {
 };
 ?>
 
-<div wire:poll.3s="refreshOffices" class="flex sm:w-full md:w-3/4 lg:w-full max-w-250 flex-1 flex-col md:rounded-lg overflow-x-hidden" >
+<div wire:poll.3s="refreshOffices" class="flex sm:w-full md:w-3/4 lg:w-full max-w-250 flex-1 flex-col md:rounded-lg" >
 
     <!-- Tab Content -->
     <div class="pb-8 px-2 md:px-0 md:py-2">

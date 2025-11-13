@@ -20,10 +20,18 @@
                 {{ $office->name }}
             </a>
         </h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400 truncate flex items-center gap-1.5 mt-0.5">
-            <i class="fas fa-user text-xs"></i>
-            {{ $office->head()?->name ?? 'No assigned head' }}
-        </p>
+        @if ( $office->head()?->name )
+            <p class="text-sm text-gray-600 dark:text-gray-400 truncate flex items-center gap-1.5 mt-0.5">
+                <i class="fas fa-user text-xs"></i>
+                {{ $office->head()->name }}
+            </p>
+        @else
+            <p class="text-sm text-red-600 dark:text-red-400 italic truncate flex items-center gap-1.5 mt-0.5">
+                <i class="fas fa-user text-xs"></i>
+                No assigned head
+            </p>
+        @endif
+        
     </div>
 
     <!-- Actions -->

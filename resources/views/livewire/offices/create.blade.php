@@ -227,7 +227,7 @@ new class extends Component {
             </div>
             <div class="flex flex-col p-6 gap-4">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-2 gap-4">
                     <flux:select
                         wire:model.defer="role"
                         :label="__('Role')"

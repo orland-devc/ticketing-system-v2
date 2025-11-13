@@ -68,7 +68,7 @@ new class extends Component {
 
 
 <div class="" x-data="{ createModal: false }">
-    <div @click="createModal = true" class="group relative bg-white dark:bg-zinc-800/50 rounded-l-2xl border-l-8 border-t border-blue-500 hover:bg-indigo-500/10 transition-all duration-200 cursor-pointer shadow-sm mb-2 max-w-screen">
+    <div @click="createModal = true" class="data-item relative bg-white dark:bg-zinc-800/50 rounded-l-2xl border-l-8 border-t border-blue-500 hover:bg-indigo-500/10 transition-all duration-200 cursor-pointer shadow-sm mb-2 max-w-screen">
         @include('livewire.offices.item')
     </div>
 

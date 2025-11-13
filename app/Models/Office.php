@@ -24,4 +24,9 @@ class Office extends Model
     {
         return $this->hasOne(User::class, 'office_id')->where('role', 'head')->first();
     }
+
+    public function officeHead()
+    {
+        return $this->hasOne(User::class, 'office_id')->where('role', 'head');
+    }
 }
