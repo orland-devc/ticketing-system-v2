@@ -24,12 +24,17 @@ new class extends Component {
 };
 ?>
 
-
-<div wire:poll.3s="refreshFaqs" class="flex max-w-full md:max-w-180 lg:max-w-200 flex-col m-auto md:rounded-lg overflow-x-hidden" >
+<div wire:poll.3s="refreshFaqs" class="flex max-w-full md:max-w-180 lg:max-w-200 flex-col m-auto md:rounded-lg" >
 
     <!-- Tab Content -->
-    <div class="pb-8 px-2 md:px-0 md:py-2">
-        <div class="gap-2">
+    <div class="p-2">
+        <div class="flex items-center justify-between pb-2 md:border-b md:mb-2">
+            <h1 class="font-bold text-lg">
+                All FAQS ({{ $faqs->count() }})
+            </h1>
+            <livewire:chatbot.faqs-create />
+        </div>
+        <div class="md:max-h-[70vh] lg:max-h-[74vh] overflow-y-auto overflow-x-hidden">
             @foreach ($faqs as $faq)
                 <livewire:chatbot.faqs-edit :faq="$faq" :wire:key="'faq-'.$faq->id" />
             @endforeach

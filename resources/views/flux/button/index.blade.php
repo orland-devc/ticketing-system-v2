@@ -72,12 +72,12 @@ $classes = Flux::classes()
             : Flux::applyInset($inset, top: '-mt-1', right: '-me-2', bottom: '-mb-1', left: '-ms-2'),
     } : '')
     ->add(match ($variant) { // Background color...
-        'primary' => 'bg-blue-500 dark:bg-blue-700 hover:bg-blue-400 hover:bg-blue-600',
-        'filled' => 'bg-zinc-800/5 hover:bg-zinc-800/10 dark:bg-white/10 dark:hover:bg-white/20',
-        'outline' => 'bg-white hover:bg-zinc-50 dark:bg-zinc-700 dark:hover:bg-zinc-600/75',
-        'danger' => 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500',
-        'ghost' => 'bg-transparent hover:bg-zinc-800/5 dark:hover:bg-white/15',
-        'subtle' => 'bg-transparent hover:bg-zinc-800/5 dark:hover:bg-white/15',
+        'primary' => 'bg-blue-500 dark:bg-blue-700 hover:bg-blue-400 hover:bg-blue-600 active:bg-blue-600',
+        'filled' => 'bg-zinc-800/5 hover:bg-zinc-800/10 active:bg-zinc-800/10 dark:bg-white/10 dark:hover:bg-white/20 dark:active:bg-white/20',
+        'outline' => 'bg-white hover:bg-zinc-50 active:bg-zinc-50 dark:bg-zinc-700 dark:hover:bg-zinc-600/75 dark:active:bg-zinc-600/75',
+        'danger' => 'bg-red-500 hover:bg-red-600 active:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 dark:active:bg-red-500',
+        'ghost' => 'bg-transparent hover:bg-zinc-800/5 dark:hover:bg-white/15 active:bg-zinc-800/5 dark:active:bg-white/15',
+        'subtle' => 'bg-transparent hover:bg-zinc-800/5 dark:hover:bg-white/15 active:bg-zinc-800/5 dark:active:bg-white/15',
     })
     ->add(match ($variant) { // Text color...
         'primary' => 'text-white',

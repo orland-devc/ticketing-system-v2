@@ -1,36 +1,82 @@
-<x-layouts.app :title="__('Users Placeholder')">
-    <div class="w-full flex items-center justify-center h-full">
-        <div class="h-full w-full flex flex-col gap-2">
-            <div class="flex items-center justify-between">
-                <div class="flex flex-col gap-4 mb-4">
-                    <div class="rounded-xl h-7 w-90 bg-zinc-100 dark:bg-zinc-800"></div>
-                    <div class="rounded-xl h-5 w-80 bg-zinc-100 dark:bg-zinc-800"></div>
-                </div>
-                <div class="rounded-xl bg-zinc-100 dark:bg-zinc-800 h-8 w-30"></div>
+<div class="flex sm:w-full md:w-full lg:w-full md:max-w-250 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden">
+    <!-- Tabs Navigation Skeleton -->
+    <div class="sticky top-0 bg-white dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-800">
+        <div class="flex items-center">
+            <div class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4">
+                <div class="w-5 h-5 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                <div class="w-20 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse hidden lg:block"></div>
             </div>
+            <div class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4">
+                <div class="w-5 h-5 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                <div class="w-20 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse hidden lg:block"></div>
+            </div>
+            <div class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4">
+                <div class="w-5 h-5 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                <div class="w-20 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse hidden lg:block"></div>
+            </div>
+            <div class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4">
+                <div class="w-5 h-5 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                <div class="w-20 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse hidden lg:block"></div>
+            </div>
+            <div class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4">
+                <div class="w-5 h-5 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                <div class="w-20 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse hidden lg:block"></div>
+            </div>
+            <div class="flex-1 min-w-fit flex items-center justify-center gap-2 py-3 px-4">
+                <div class="w-5 h-5 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                <div class="w-20 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse hidden lg:block"></div>
+            </div>
+        </div>
+    </div>
 
-            <flux:separator variant="subtle" class="hidden md:block" />
-
-            <div class="flex h-full gap-10 py-4">
-                <div class="flex flex-col min-w-55 h-full gap-2">
-                    <div class="w-full rounded-xl h-9.5 bg-zinc-100 dark:bg-zinc-800"></div>
-                    <div class="w-full rounded-xl h-9.5 bg-zinc-100 dark:bg-zinc-800"></div>
+    <!-- Content Skeleton -->
+    <div class="p-2 md:max-h-[70vh] lg:max-h-[76vh] overflow-auto">
+        <div class="grid auto-rows-min gap-3">
+            <div class="p-4 bg-white dark:bg-zinc-800 rounded-lg border border-gray-200 dark:border-zinc-700">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gray-200 dark:bg-zinc-700 rounded-full animate-pulse"></div>
+                    <div class="flex-1 space-y-2">
+                        <div class="w-32 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                        <div class="w-48 h-3 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                    </div>
                 </div>
-                <div class="flex flex-col gap-2 w-full h-full">
-                    @foreach ([1,1,1,1,1,1,1] as $nums)
-                        <div class="flex rounded-2xl w-full max-w-250 mx-auto items-center justify-between px-3 py-4 bg-zinc-50 dark:bg-zinc-500/10">
-                            <div class="flex w-70 items-center gap-4 ml-3">
-                                <div class="min-h-12 min-w-12 rounded-full bg-zinc-100 dark:bg-zinc-800"></div>
-                                <div class="flex flex-col w-full max-w-50 gap-3">
-                                    <div class="w-full rounded-xl h-5 bg-zinc-100 dark:bg-zinc-800"></div>
-                                    <div class="w-full rounded-xl h-5 bg-zinc-100 dark:bg-zinc-800"></div>
-                                </div>
-                            </div>
-                            <div class="w-35 rounded-lg h-6 bg-zinc-100 dark:bg-zinc-800"></div>
-                        </div>
-                    @endforeach
+            </div>
+            <div class="p-4 bg-white dark:bg-zinc-800 rounded-lg border border-gray-200 dark:border-zinc-700">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gray-200 dark:bg-zinc-700 rounded-full animate-pulse"></div>
+                    <div class="flex-1 space-y-2">
+                        <div class="w-32 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                        <div class="w-48 h-3 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-white dark:bg-zinc-800 rounded-lg border border-gray-200 dark:border-zinc-700">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gray-200 dark:bg-zinc-700 rounded-full animate-pulse"></div>
+                    <div class="flex-1 space-y-2">
+                        <div class="w-32 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                        <div class="w-48 h-3 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-white dark:bg-zinc-800 rounded-lg border border-gray-200 dark:border-zinc-700">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gray-200 dark:bg-zinc-700 rounded-full animate-pulse"></div>
+                    <div class="flex-1 space-y-2">
+                        <div class="w-32 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                        <div class="w-48 h-3 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 bg-white dark:bg-zinc-800 rounded-lg border border-gray-200 dark:border-zinc-700">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-gray-200 dark:bg-zinc-700 rounded-full animate-pulse"></div>
+                    <div class="flex-1 space-y-2">
+                        <div class="w-32 h-4 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                        <div class="w-48 h-3 bg-gray-200 dark:bg-zinc-700 rounded animate-pulse"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</x-layouts.app>
+</div>

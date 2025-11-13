@@ -1,4 +1,4 @@
-<div class="relative md:mb-6 w-full">
+<div class="relative md:mb-4 w-full">
     <div class="flex items-center justify-between">
         <div class="hidden md:block">
             <flux:heading size="xl" level="1">{{ __('Manage Chatbot Functionality') }}</flux:heading>

@@ -30,7 +30,13 @@ new class extends Component {
                 break;
 
             case 'offices':
-                $this->count = Office::count();
+                $this->count = Office::doesntHave('officeHead')->count();
+                break;
+            
+            case 'staff':
+                $this->count = User::whereIn('role', ['staff', 'head'])
+                    ->whereNull('office_id')
+                    ->count();
                 break;
 
             default:
