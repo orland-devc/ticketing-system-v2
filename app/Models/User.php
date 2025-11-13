@@ -105,7 +105,7 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         $middleInitial = $this->middle_name
-            ? strtoupper(substr($this->middle_name, 0, 1)) . '.'
+            ? strtoupper(substr($this->middle_name, 0, 1)).'.'
             : null;
 
         $parts = array_filter([
