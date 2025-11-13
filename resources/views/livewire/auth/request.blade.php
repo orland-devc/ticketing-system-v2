@@ -63,7 +63,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             required
             autofocus
             autocomplete="student_id"
-            :placeholder="__('xx-xx-xxxx')"
+            :placeholder="__('xx-SC-xxxx')"
         />
         <div class="grid grid-cols-2 gap-4">
             <flux:input

@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('user_requests', function (Blueprint $table) {
             $table->id();
             $table->string('request_code')->nullable()->unique();
-            $table->string('student_id');
+            $table->string('student_id')->nullable();
             $table->string('first_name');
-            $table->string('middle_name');
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
-            $table->string('name_suffix');
+            $table->string('name_suffix')->nullable();
             $table->string('course');
             $table->string('level');
             $table->string('role');

@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class UserRequest extends Model
 {
+    /** @use HasFactory<\Database\Factories\UserRequestFactory> */
+    use HasFactory;
+
     protected $fillable = [
         'request_code',
         'student_id',
