@@ -78,9 +78,9 @@
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="fade-in-up">
                     <div class="inline-block mb-4">
-                        <div class="flex items-center gap-2 bg-yellow-400/80 dark:bg-yellow-400/30 text-blue-800 dark:text-yellow-400 px-3 py-2 rounded-full text-sm font-semibold">
-                            <div class="w-6 h-6 rounded-full flex items-center justify-center">
-                                <img src="{{asset('images/assets/PSU logo.png')}}" alt="">
+                        <div class="flex items-center gap-2 bg-yellow-400/40 text-blue-800 dark:text-yellow-400 border-2 border-yellow-400 px-3 py-2 rounded-full text-sm font-semibold">
+                            <div class="w-6 h-6 rounded-full flex items-center justify-center bg-yellow-400">
+                                🎓
                             </div>
                             PSU San Carlos Campus
                         </div>
@@ -345,25 +345,40 @@
             </div>
             <div class="grid md:grid-cols-3 lg:mx-30">
                 <div class="text-center group">
-                    <div class="w-32 h-32 bg-gradient-to-br from-blue-800 to-blue-600 dark:from-yellow-400 dark:to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white dark:text-blue-800 text-3xl font-bold group-hover:scale-110 transition">
-                        <img src="{{ asset('images/assets/dev me.jpg') }}" alt="" class="w-31 h-31 rounded-full object-cover">
+                    <div class="w-40 h-40 bg-gradient-to-br from-blue-800 to-blue-600 dark:from-yellow-400 dark:to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white dark:text-blue-800 text-3xl font-bold group-hover:scale-105 transition-all ease-in-out duration-250">
+                        <img src="{{ asset('images/assets/dev me.jpg') }}" alt="" class="w-38 h-38 rounded-full object-cover">
                     </div>
-                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">Orland Benniedict D. Sayson</h4>
+                    <h4 class="font-bold text-lg text-gray-900 dark:text-white">Orland D. Sayson</h4>
                     <p class="text-gray-600 dark:text-gray-400 text-sm">Lead Developer</p>
+                    <div class="flex items-center justify-center gap-2 text-3xl mt-1">
+                        <i class="fa-brands fa-square-facebook text-blue-600"></i>
+                        <i class="fa-brands fa-square-linkedin text-blue-700"></i>
+                        <i class="fa-brands fa-square-instagram text-[#da365b]"></i>
+                    </div>
                 </div>
                 <div class="text-center group">
-                    <div class="w-32 h-32 bg-gradient-to-br from-blue-800 to-blue-600 dark:from-yellow-400 dark:to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white dark:text-blue-800 text-3xl font-bold group-hover:scale-110 transition">
-                        <img src="{{ asset('images/assets/dev vero.jpg') }}" alt="" class="w-31 h-31 rounded-full object-cover">
+                    <div class="w-40 h-40 bg-gradient-to-br from-blue-800 to-blue-600 dark:from-yellow-400 dark:to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white dark:text-blue-800 text-3xl font-bold group-hover:scale-105 transition-all ease-in-out duration-250">
+                        <img src="{{ asset('images/assets/dev vero.jpg') }}" alt="" class="w-38 h-38 rounded-full object-cover">
                     </div>
                     <h4 class="font-bold text-lg text-gray-900 dark:text-white">Angeline R. Dalisay</h4>
                     <p class="text-gray-600 dark:text-gray-400 text-sm">Researcher</p>
+                    <div class="flex items-center justify-center gap-2 text-3xl mt-1">
+                        <i class="fa-brands fa-square-facebook text-blue-600"></i>
+                        <i class="fa-brands fa-square-linkedin text-blue-700"></i>
+                        <i class="fa-brands fa-square-instagram text-[#da365b]"></i>
+                    </div>
                 </div>
                 <div class="text-center group">
-                    <div class="w-32 h-32 bg-gradient-to-br from-blue-800 to-blue-600 dark:from-yellow-400 dark:to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white dark:text-blue-800 text-3xl font-bold group-hover:scale-110 transition">
-                        <img src="{{ asset('images/assets/dev bur.jpg') }}" alt="" class="w-31 h-31 rounded-full object-cover">
+                    <div class="w-40 h-40 bg-gradient-to-br from-blue-800 to-blue-600 dark:from-yellow-400 dark:to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white dark:text-blue-800 text-3xl font-bold group-hover:scale-105 transition-all ease-in-out duration-250">
+                        <img src="{{ asset('images/assets/dev bur.jpg') }}" alt="" class="w-38 h-38 rounded-full object-cover">
                     </div>
                     <h4 class="font-bold text-lg text-gray-900 dark:text-white">Wilbur V. Grefaldo</h4>
                     <p class="text-gray-600 dark:text-gray-400 text-sm">Researcher</p>
+                    <div class="flex items-center justify-center gap-2 text-3xl mt-1">
+                        <i class="fa-brands fa-square-facebook text-blue-600"></i>
+                        <i class="fa-brands fa-square-linkedin text-blue-700"></i>
+                        <i class="fa-brands fa-square-instagram text-[#da365b]"></i>
+                    </div>
                 </div>
             </div>
         </div>
