@@ -8,8 +8,14 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
-    return redirect('/login');
+    return view('landing');
 })->name('home');
+
+// Route::get('/', function () {
+//     $rdc = request()->query('_rdc');
+//     $rdr = request()->query('_rdr');
+//     return view('landing');
+// });
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
@@ -24,7 +30,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::resource('tickets', TicketController::class);
+    // Route::resource('tickets', TicketController::class);
+    
+    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('tickets/subjects-&-categories', [TicketController::class, 'index'])->name('tickets.subjects');
     Route::get('offices/index', [OfficeController::class, 'index'])->name('offices.index');
     Route::get('offices/staffs', [OfficeController::class, 'staff'])->name('offices.staffs');
     Route::get('users/all-users', [UserController::class, 'index'])->name('users.all');
