@@ -218,9 +218,22 @@ async function speakText(text, speakButton) {
 }
 
 // =============================
-// ⌨️ Input Handling
+// ⌨️ Enhanced Input Handling
 // =============================
 let isAwaitingResponse = false;
+
+// Auto-resize textarea
+function adjustTextareaHeight() {
+    userInput.style.height = 'auto';
+    const newHeight = Math.min(userInput.scrollHeight, 150); // max 150px
+    userInput.style.height = newHeight + 'px';
+}
+
+// Reset textarea height
+function resetTextareaHeight() {
+    userInput.style.height = 'auto';
+    userInput.style.height = '40px'; // default height
+}
 
 async function handleUserInput() {
     if (isAwaitingResponse) return;
@@ -229,6 +242,7 @@ async function handleUserInput() {
 
     addMessage(message, true);
     userInput.value = '';
+    resetTextareaHeight();
     sendButton.disabled = true;
     isAwaitingResponse = true;
 
@@ -258,7 +272,35 @@ async function handleUserInput() {
     }
 }
 
-userInput.addEventListener('keypress', e => e.key === 'Enter' && !isAwaitingResponse && handleUserInput());
+// Handle keyboard events
+userInput.addEventListener('keydown', (e) => {
+    // Ctrl+Enter or Shift+Enter: add new line
+    if ((e.ctrlKey || e.shiftKey) && e.key === 'Enter') {
+        e.preventDefault();
+        const start = userInput.selectionStart;
+        const end = userInput.selectionEnd;
+        const value = userInput.value;
+        userInput.value = value.substring(0, start) + '\n' + value.substring(end);
+        userInput.selectionStart = userInput.selectionEnd = start + 1;
+        adjustTextareaHeight();
+        return;
+    }
+    
+    // Enter only (not on mobile virtual keyboard): send message
+    if (e.key === 'Enter' && !e.shiftKey && !e.ctrlKey) {
+        // Check if it's a real Enter key press (not from mobile keyboard composition)
+        if (!e.isComposing && e.keyCode !== 229) {
+            e.preventDefault();
+            if (!isAwaitingResponse) {
+                handleUserInput();
+            }
+        }
+    }
+});
+
+// Auto-resize as user types
+userInput.addEventListener('input', adjustTextareaHeight);
+
 sendButton.addEventListener('click', () => !isAwaitingResponse && handleUserInput());
 
 // =============================
