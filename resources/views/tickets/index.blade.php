@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Manage Users')" :breadcrumbs="['users.index']">
+<x-layouts.app :title="__('Manage Tickets')">
     <div class="relative flex flex-col gap-3">
         <div class="">
             <section class="w-full">
