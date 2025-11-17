@@ -30,6 +30,11 @@ class Ticket extends Model
         'guest_tracking_token',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'ticket_code';
+    }
+
     protected static function booted()
     {
         static::creating(function ($request) {

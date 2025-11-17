@@ -24,11 +24,11 @@ class TicketFactory extends Factory
         return [
             'sender_id' => fake()->randomElement($studentIds),
             'assigned_to' => fake()->randomElement($officeIds),
-            'level' => fake()->randomElement(['Normal', 'Important', 'Critical']),
+            'level' => fake()->randomElement(['normal', 'important', 'critical']),
             'subject' => fake()->sentence(),
             'category' => fake()->word(),
             'content' => fake()->paragraph(),
-            'status' => fake()->randomElement(['Sent', 'Opened', 'Closed']),
+            'status' => fake()->randomElement(['new', 'pending', 'resolved', 'closed']),
         ];
     }
 }
