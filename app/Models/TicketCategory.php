@@ -4,17 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TicketSubject extends Model
+class TicketCategory extends Model
 {
     protected $fillable = [
         'user_id',
-        'category_id',
         'name',
     ];
 
-    public function category()
+    public function subjects()
     {
-        return $this->belongsTo(TicketCategory::class, 'category_id');
+        return $this->hasMany(TicketSubject::class, 'category_id');
     }
 
     public function user()

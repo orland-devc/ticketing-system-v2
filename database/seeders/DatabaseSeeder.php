@@ -89,5 +89,17 @@ class DatabaseSeeder extends Seeder
             'error_message' => "I'm having technical difficulties. Try again in a sec.",
         ]);
         $this->command->info("{$bot->name} has been created");
+
+        $this->call([
+            CategorySeeder::class,
+        ]);
+
+        $this->call([
+            FaqSeeder::class,
+        ]);
+
+        $this->call([
+            TicketSeeder::class,
+        ]);
     }
 }

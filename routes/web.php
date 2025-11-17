@@ -30,11 +30,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    // Route::resource('tickets', TicketController::class);
-
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('/tickets/subjects-&-categories', [TicketController::class, 'subjects'])->name('tickets.subjects');
     Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
-    Route::get('tickets/subjects-&-categories', [TicketController::class, 'index'])->name('tickets.subjects');
 
     Route::get('offices/index', [OfficeController::class, 'index'])->name('offices.index');
     Route::get('offices/staffs', [OfficeController::class, 'staff'])->name('offices.staffs');

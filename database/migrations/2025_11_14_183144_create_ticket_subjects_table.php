@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('ticket_subjects', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('category_id')->nullable()->constrained('ticket_categories')->onDelete('cascade');
+            $table->string('name')->unique()->nullable();
             $table->timestamps();
         });
     }

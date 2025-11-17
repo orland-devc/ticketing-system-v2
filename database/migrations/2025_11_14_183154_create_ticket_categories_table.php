@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('ticket_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('user_id')->nullable()->constrained();
+            $table->string('name')->unique()->nullable();
             $table->timestamps();
         });
     }

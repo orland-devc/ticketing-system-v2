@@ -4,7 +4,7 @@
             <section class="w-full">
                 @include('partials.tickets-heading')
                 <x-tickets.layout>
-                    <livewire:tickets.index />
+                    <livewire:tickets.subjects.index />
                 </x-tickets.layout>
             </section>
         </div>

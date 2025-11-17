@@ -183,4 +183,14 @@ class User extends Authenticatable
             ->orderBy('last_name')
             ->get();
     }
+
+    public function ticketCategories()
+    {
+        return $this->hasMany(TicketCategory::class, 'user_id');
+    }
+
+    public function ticketSubjects()
+    {
+        return $this->hasMany(TicketSubject::class, 'user_id');
+    }
 }

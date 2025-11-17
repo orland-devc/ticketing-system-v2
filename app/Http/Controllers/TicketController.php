@@ -16,6 +16,14 @@ class TicketController extends Controller
     }
 
     /**
+     * Display a listing of the sub/categories.
+     */
+    public function subjects()
+    {
+        return view('tickets.subject-category');
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()

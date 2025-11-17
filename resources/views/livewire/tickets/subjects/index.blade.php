@@ -1,47 +1,52 @@
 <?php
 
-use App\Models\Ticket;
+use App\Models\TicketCategory;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Hash;
 
 new class extends Component {
 
-    public $tickets;
+    public $categories;
 
-    public function refreshTickets(): void
+    public function refreshCategories(): void
     {
-        $this->loadTickets();
+        $this->loadCategories();
     }
 
     public function mount(): void
     {
-        $this->loadTickets();
+        $this->loadCategories();
     }
 
-    private function loadTickets():void
+    private function loadCategories():void
     {
-        $this->tickets = Ticket::orderByDesc('created_at')->get();
+        $this->categories = TicketCategory::orderByDesc('name')->get();
     }
 };
 ?>
 
-<div wire:poll.3s="refreshTickets" class="flex w-full md:max-w-full lg:max-w-250 flex-1 flex-col md:rounded-lg" >
-
+<div wire:poll.3s="refreshCategories" class="flex sm:w-full md:w-full lg:w-full md:max-w-250 flex-1 flex-col m-auto md:rounded-lg overflow-x-hidden">
     <!-- Tab Content -->
-    <div class="pb-8 px-2 md:px-0 md:py-2">
-        <div class="gap-2">
-            @foreach ($tickets as $ticket)
-                <livewire:tickets.edit :ticket="$ticket" :wire:key="'ticket-'.$ticket->id" />
-            @endforeach
-            @if ($tickets->count() == 0)
-                <div class="px-6 py-16 text-center">
-                    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center">
-                        <i class="fas fa-users text-3xl text-gray-400 dark:text-gray-600"></i>
+    <div class="p-2 md:max-h-[70vh] lg:max-h-[76vh] overflow-y-auto max-w-full">
+        <!-- All Tab -->
+        <div class="grid auto-rows-min gap-3">
+            <div class="px-4 py-2 -mb-3 text-md font-medium lg:hidden">
+                All Categories ({{$categories->count()}})
+            </div>
+            <div class="gap-2">
+                @foreach ($categories as $category)
+                    <livewire:tickets.subjects.item :category="$category" :wire:key="'categories-'.$category->id"/>
+                @endforeach
+                @if ($categories->count() == 0)
+                    <div class="px-6 py-16 text-center">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center">
+                            <i class="fas fa-user-shield text-3xl text-gray-400 dark:text-gray-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">No users yet</h3>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Users will appear here once added.</p>
                     </div>
-                    <h3 class="font-semibold text-gray-900 dark:text-white mb-2">No tickets today</h3>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">All submitted tickets will appear here..</p>
-                </div>
-            @endif
+                @endif
+            </div>
         </div>
     </div>
 </div>
