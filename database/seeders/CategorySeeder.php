@@ -36,12 +36,6 @@ class CategorySeeder extends Seeder
                 'Correction Needed in Transcript of Records',
                 'Urgent Request for TOR for Job Application',
             ],
-            'Book Borrowing Extension' => [
-                'Request for Book Loan Extension for [Book Title]',
-                'Overdue Book Extension Request',
-                'Library Loan Extension Request for Academic Materials',
-                'Request for Extended Borrowing Period for Thesis Reference',
-            ],
             'Scholarship Inquiry' => [
                 'Application Status for [Scholarship Name]',
                 'Scholarship Requirements Clarification',
