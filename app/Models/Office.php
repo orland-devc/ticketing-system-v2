@@ -29,4 +29,9 @@ class Office extends Model
     {
         return $this->hasOne(User::class, 'office_id')->where('role', 'head');
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'assigned_to');
+    }
 }
