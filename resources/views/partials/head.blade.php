@@ -11,7 +11,7 @@
 
 <style>
     * {
-        font-family: Inter;
+        font-family: Poppins;
     }
 
     .data-item:hover {
