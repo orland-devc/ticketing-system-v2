@@ -343,7 +343,7 @@
                 </h2>
                 <p class="text-xl text-gray-600 dark:text-gray-400">The developers behind this innovative solution</p>
             </div>
-            <div class="grid md:grid-cols-3 lg:mx-30">
+            <div class="grid md:grid-cols-3 lg:mx-30 gap-y-8">
                 <div class="text-center group">
                     <div class="w-40 h-40 bg-gradient-to-br from-blue-800 to-blue-600 dark:from-yellow-400 dark:to-yellow-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white dark:text-blue-800 text-3xl font-bold group-hover:scale-105 transition-all ease-in-out duration-250">
                         <img src="{{ asset('images/assets/dev me.jpg') }}" alt="" class="w-38 h-38 rounded-full object-cover">

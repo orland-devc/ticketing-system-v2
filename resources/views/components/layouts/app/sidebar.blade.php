@@ -8,7 +8,7 @@
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 select-none">
             {{-- Logo Section --}}
             <div class="flex items-center justify-between">
-                <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 px-1 rtl:space-x-reverse group" wire:navigate>
+                <a href="{{ route('dashboard') }}" class="flex items-center space-x-3 px-1 rtl:space-x-reverse group">
                     <div class="flex h-10 w-10 items-center justify-center shadow-blue-500/30 transition-transform group-hover:scale-105">
                         <x-app-logo-icon class="h-6 w-6" />
                     </div>
@@ -52,8 +52,7 @@
                         <flux:navlist.item 
                             icon="layout-dashboard" 
                             :href="route('dashboard')" 
-                            :current="request()->routeIs('dashboard')" 
-                            wire:navigate>
+                            :current="request()->routeIs('dashboard')" >
                             {{ __('Dashboard') }}
                         </flux:navlist.item>
                         <flux:navlist.item 
@@ -152,7 +151,8 @@
                     <flux:navlist.group :heading="__('My Space')" class="grid">
                         <flux:navlist.item 
                             icon="layout-dashboard" 
-                            href="#"
+                            :href="route('dashboard')" 
+                            :current="request()->routeIs('dashboard')" 
                             wire:navigate>
                             {{ __('Dashboard') }}
                         </flux:navlist.item>

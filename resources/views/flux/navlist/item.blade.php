@@ -101,7 +101,7 @@
 
     {{-- Text with better typography --}}
     @if ($slot->isNotEmpty())
-        <div class="flex-1 text-[14px] font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block transition-colors" data-content>
+        <div class="flex-1 text-[16px] font-medium leading-none whitespace-nowrap [[data-nav-footer]_&]:hidden [[data-nav-sidebar]_[data-nav-footer]_&]:block transition-colors" data-content>
             {{ $slot }}
         </div>
     @endif

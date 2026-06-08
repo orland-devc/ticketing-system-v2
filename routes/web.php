@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BotSettingController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
@@ -17,9 +18,9 @@ Route::get('/', function () {
 //     return view('landing');
 // });
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -30,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
     Route::get('/tickets/subjects-&-categories', [TicketController::class, 'subjects'])->name('tickets.subjects');
     Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
