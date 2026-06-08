@@ -11,11 +11,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // top bar
         $users = User::all()->sortBy('name');
-        $newUsers = User::where('created_at', '>=', Carbon::now()->subDays(7))
-            ->latest()
-            ->get();
+        $newUsers = User::where('created_at', '>=', Carbon::now()->subDays(7))->latest()->get();
         $offices = Office::all();
         $tickets = Ticket::whereIn('status', ['pending', 'new'])->get();
         $newTickets = Ticket::whereIn('status', ['pending', 'new'])
@@ -30,24 +27,23 @@ class DashboardController extends Controller
             ->whereDate('created_at', today()->subDay())
             ->count();
 
-        // ticket status distribution
-        $openTickets = Ticket::where('status', 'new')->count() / Ticket::count() * 100;
-        $pendingTicketsCount = Ticket::where('status', 'pending')->count() / Ticket::count() * 100;
-        $resolvedTicketsCount = Ticket::where('status', 'resolved')->count() / Ticket::count() * 100;
+        // ticket status distribution — guard against division by zero
+        $totalTickets = Ticket::count() ?: 1;
+        $openTickets = round(Ticket::where('status', 'new')->count() / $totalTickets * 100, 1);
+        $pendingTicketsCount = round(Ticket::where('status', 'pending')->count() / $totalTickets * 100, 1);
+        $resolvedTicketsCount = round(Ticket::where('status', 'resolved')->count() / $totalTickets * 100, 1);
 
-        // user statistics
         $students = User::where('role', 'student')->count();
         $alumni = User::where('role', 'alumni')->count();
         $faculty = User::whereIn('role', ['staff', 'head'])->count();
         $admins = User::where('role', 'admin')->count();
 
-        $ticketToday = Ticket::where('created_at', '>=', Carbon::now())->latest()->count();
-        $ticketYesterday = Ticket::where('created_at', '>=', Carbon::now()->subDay())->latest()->count();
+        // fixed: use whereDate for accurate today/yesterday counts
+        $ticketToday = Ticket::whereDate('created_at', today())->count();
+        $ticketYesterday = Ticket::whereDate('created_at', today()->subDay())->count();
 
-        // urgent / critical tickets
         $critials = Ticket::where('level', 'critical')
-            ->where('status', '!=', 'resolved')
-            ->where('status', '!=', 'closed')
+            ->whereNotIn('status', ['resolved', 'closed'])
             ->latest()
             ->get();
 

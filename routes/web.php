@@ -32,7 +32,6 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
     Route::get('/tickets/subjects-&-categories', [TicketController::class, 'subjects'])->name('tickets.subjects');
     Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
