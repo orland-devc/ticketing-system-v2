@@ -27,6 +27,22 @@ class DashboardController extends Controller
             ->whereDate('created_at', today()->subDay())
             ->count();
 
+        // ticket trends
+        $days = collect(range(6, 0))->map(fn($i) => Carbon::today()->subDays($i));
+        $trendLabels = $days->map(fn($d) => $d->format('D'))->values();
+        $from = Carbon::today()->subDays(6)->startOfDay();
+        $created = Ticket::where('created_at', '>=', $from)
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->pluck('count', 'date');
+        $resolved = Ticket::where('status', 'resolved')
+            ->where('updated_at', '>=', $from)
+            ->selectRaw('DATE(updated_at) as date, COUNT(*) as count')
+            ->groupBy('date')
+            ->pluck('count', 'date');
+        $trendCreated = $days->map(fn($d) => $created->get($d->toDateString(), 0))->values();
+        $trendResolved = $days->map(fn($d) => $resolved->get($d->toDateString(), 0))->values();
+
         // ticket status distribution — guard against division by zero
         $totalTickets = Ticket::count() ?: 1;
         $openTickets = round(Ticket::where('status', 'new')->count() / $totalTickets * 100, 1);
@@ -47,6 +63,8 @@ class DashboardController extends Controller
             ->latest()
             ->get();
 
+
+
         return view('dashboard', compact(
             'users',
             'newUsers',
@@ -56,6 +74,10 @@ class DashboardController extends Controller
             'pendingTickets',
             'resolvedToday',
             'resolvedYesterday',
+
+            'trendLabels',
+            'trendCreated',
+            'trendResolved',
 
             'openTickets',
             'pendingTicketsCount',

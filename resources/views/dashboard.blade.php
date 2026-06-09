@@ -306,11 +306,11 @@
         new Chart(document.getElementById('trendChart'), {
             type: 'line',
             data: {
-                labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+                labels: @json($trendLabels),
                 datasets: [
                     {
                         label: 'Created',
-                        data: [22, 18, 31, 26, 19, 9, 6],
+                        data: @json($trendCreated),
                         borderColor: '#3b82f6',
                         backgroundColor: 'rgba(59,130,246,0.07)',
                         fill: true, tension: 0.4, pointRadius: 4,
@@ -318,7 +318,7 @@
                     },
                     {
                         label: 'Resolved',
-                        data: [15, 20, 25, 22, 18, 7, 4],
+                        data: @json($trendResolved),
                         borderColor: '#10b981',
                         backgroundColor: 'rgba(16,185,129,0.07)',
                         fill: true, tension: 0.4, pointRadius: 4,
